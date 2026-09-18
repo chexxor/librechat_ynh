@@ -87,45 +87,45 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SKEL-01 | | Pending |
-| SKEL-02 | | Pending |
-| SKEL-03 | | Pending |
-| SKEL-04 | | Pending |
-| SKEL-05 | | Pending |
-| INST-01 | | Pending |
-| INST-02 | | Pending |
-| INST-03 | | Pending |
-| INST-04 | | Pending |
-| INST-05 | | Pending |
-| INST-06 | | Pending |
-| INST-07 | | Pending |
-| INST-08 | | Pending |
-| INST-09 | | Pending |
-| INST-10 | | Pending |
-| UPGR-01 | | Pending |
-| UPGR-02 | | Pending |
-| UPGR-03 | | Pending |
-| UPGR-04 | | Pending |
-| UPGR-05 | | Pending |
-| RMV-01 | | Pending |
-| RMV-02 | | Pending |
-| RMV-03 | | Pending |
-| RMV-04 | | Pending |
-| RMV-05 | | Pending |
-| BACK-01 | | Pending |
-| BACK-02 | | Pending |
-| BACK-03 | | Pending |
-| BACK-04 | | Pending |
-| BACK-05 | | Pending |
-| CONF-01 | | Pending |
-| CONF-02 | | Pending |
-| CONF-03 | | Pending |
-| CONF-04 | | Pending |
+| SKEL-01 | Phase 1 | Pending |
+| SKEL-02 | Phase 1 | Pending |
+| SKEL-03 | Phase 1 | Pending |
+| SKEL-04 | Phase 1 | Pending |
+| SKEL-05 | Phase 1 | Pending |
+| INST-01 | Phase 1 | Pending |
+| INST-02 | Phase 1 | Pending |
+| INST-03 | Phase 1 | Pending |
+| INST-04 | Phase 1 | Pending |
+| INST-05 | Phase 1 | Pending |
+| INST-06 | Phase 1 | Pending |
+| INST-07 | Phase 1 | Pending |
+| INST-08 | Phase 1 | Pending |
+| INST-09 | Phase 1 | Pending |
+| INST-10 | Phase 1 | Pending |
+| UPGR-01 | Phase 3 | Pending |
+| UPGR-02 | Phase 3 | Pending |
+| UPGR-03 | Phase 3 | Pending |
+| UPGR-04 | Phase 3 | Pending |
+| UPGR-05 | Phase 3 | Pending |
+| RMV-01 | Phase 2 | Pending |
+| RMV-02 | Phase 2 | Pending |
+| RMV-03 | Phase 2 | Pending |
+| RMV-04 | Phase 2 | Pending |
+| RMV-05 | Phase 2 | Pending |
+| BACK-01 | Phase 2 | Pending |
+| BACK-02 | Phase 2 | Pending |
+| BACK-03 | Phase 2 | Pending |
+| BACK-04 | Phase 2 | Pending |
+| BACK-05 | Phase 2 | Pending |
+| CONF-01 | Phase 1 | Pending |
+| CONF-02 | Phase 1 | Pending |
+| CONF-03 | Phase 1 | Pending |
+| CONF-04 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 34 total
-- Mapped to phases: 0
-- Unmapped: 34 ⚠️
+- Mapped to phases: 34
+- Unmapped: 0 ✅
 
 ---
 *Requirements defined: 2026-09-18*
