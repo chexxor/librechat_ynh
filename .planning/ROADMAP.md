@@ -64,5 +64,5 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Install | 1/2 | In Progress|  |
-| 2. Remove + Backup/Restore | 0/2 | Planned | - |
+| 2. Remove + Backup/Restore | 1/2 | In Progress|  |
 | 3. Upgrade | 0/TBD | Not started | - |

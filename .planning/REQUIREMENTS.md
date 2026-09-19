@@ -38,11 +38,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Remove
 
-- [ ] **RMV-01**: Script stops and disables systemd services
-- [ ] **RMV-02**: Script removes namespaced MongoDB database only (never calls `ynh_remove_mongo` — safe for shared instances)
-- [ ] **RMV-03**: Script removes Meilisearch binary and data
-- [ ] **RMV-04**: Script removes app data directory and nginx config
-- [ ] **RMV-05**: `yunohost app remove librechat` cleans up without breaking other YunoHost apps
+- [x] **RMV-01**: Script stops and disables systemd services
+- [x] **RMV-02**: Script removes namespaced MongoDB database only (never calls `ynh_remove_mongo` — safe for shared instances)
+- [x] **RMV-03**: Script removes Meilisearch binary and data
+- [x] **RMV-04**: Script removes app data directory and nginx config
+- [x] **RMV-05**: `yunohost app remove librechat` cleans up without breaking other YunoHost apps
 
 ### Backup & Restore
 
@@ -107,11 +107,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | UPGR-03 | Phase 3 | Pending |
 | UPGR-04 | Phase 3 | Pending |
 | UPGR-05 | Phase 3 | Pending |
-| RMV-01 | Phase 2 | Pending |
-| RMV-02 | Phase 2 | Pending |
-| RMV-03 | Phase 2 | Pending |
-| RMV-04 | Phase 2 | Pending |
-| RMV-05 | Phase 2 | Pending |
+| RMV-01 | Phase 2 | Complete |
+| RMV-02 | Phase 2 | Complete |
+| RMV-03 | Phase 2 | Complete |
+| RMV-04 | Phase 2 | Complete |
+| RMV-05 | Phase 2 | Complete |
 | BACK-01 | Phase 2 | Pending |
 | BACK-02 | Phase 2 | Pending |
 | BACK-03 | Phase 2 | Pending |
