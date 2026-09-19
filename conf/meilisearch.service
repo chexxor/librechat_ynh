@@ -1,0 +1,19 @@
+[Unit]
+Description=Meilisearch search engine for __APP__
+After=network.target
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+ExecStart=/usr/bin/meilisearch --http-addr 127.0.0.1:7700 --master-key __MEILI_MASTER_KEY__ --db-path __DATA_DIR__/meilisearch --no-analytics=true
+Restart=on-failure
+
+# Basic hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

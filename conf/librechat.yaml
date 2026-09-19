@@ -1,0 +1,33 @@
+# LibreChat Provider Configuration
+# Add your API keys below. This file is preserved on upgrade.
+
+version: 1.1.1
+
+# === Provider Endpoints ===
+# Uncomment and configure the providers you want to use.
+
+# OpenAI
+# endpoints:
+#   openAI:
+#     apiKey: "your-openai-api-key"  # https://platform.openai.com/api-keys
+#     models:
+#       default: ["gpt-4o", "gpt-4o-mini"]
+
+# Anthropic
+#   anthropic:
+#     apiKey: "your-anthropic-api-key"  # https://console.anthropic.com/settings/keys
+#     models:
+#       default: ["claude-3-5-sonnet-20241022", "claude-3-5-haiku-20241022"]
+
+# Ollama (local)
+#   ollama:
+#     apiKey: ""  # Not needed for local Ollama
+
+# OpenRouter
+#   openRouter:
+#     apiKey: "your-openrouter-api-key"  # https://openrouter.ai/keys
+
+# Customization
+# registration:
+#   socialLogins: []
+#   allowedDomains: []
