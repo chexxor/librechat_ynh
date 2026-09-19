@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-09-19)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Planning next milestone (fresh requirements needed — REQUIREMENTS.md archived)
+**Current focus:** v1.1 CI Validation — package_check green
 
 ## Current Position
 
-Phase: 3 of 3 (Upgrade) — COMPLETE
-Plan: All plans complete (03-01 executed 2026-09-18: commits fe50d98, ba94ac6; 03-02 executed 2026-09-18: manifest bump 05e3d5b + user-approved live upgrade)
-Status: Phase 3 complete — all 3 phases done; ready for release/final wrap
-Last activity: 2026-09-18 — 03-02 completed (live upgrade user-verified)
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-09-19 — Milestone v1.1 started
 
-Progress: [██████████] 100% (7 of 7 plans: 3×01, 2×02, 2×03)
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 

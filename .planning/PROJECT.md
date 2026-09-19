@@ -43,6 +43,14 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 - **Database management UI** — User can install mongo-express separately
 - **Redis integration** — Not required for default single-server mode
 
+## Current Milestone: v1.1 CI Validation
+
+**Goal:** Package passes YunoHost `package_check` with zero failures and all identified findings fixed.
+
+**Target features:**
+- Run `package_check` against the package and fix all failures
+- Archive clean CI result as live verification of POLS-01
+
 ## Current State
 
 **Shipped: v1.0** (2026-09-19) — complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade, all live-verified on a real YunoHost server. 34/34 v1 requirements met; 47 files, ~5,700 lines added. LibreChat pinned to v0.8.8-rc3 (sha256), Node 24, MongoDB 7.0.
@@ -51,7 +59,7 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 
 ## Next Milestone Goals
 
-To be defined via `/gsd-new-milestone`. Deferred v2 candidates: CI validation (`package_check`), `change_url`, multi-instance, ARM64, admin-credential install question.
+To be defined via `/gsd-new-milestone`. Deferred: `change_url` (POLS-02), multi-instance (POLS-03), ARM64 (POLS-04), admin-credential install question.
 
 <details>
 <summary>v1.0 pre-release planning context (original project framing)</summary>
@@ -98,4 +106,4 @@ This package wraps a real application with multiple backing services:
 | Upgrade validated via `~ynhN` bump on same tag | No newer upstream stable at milestone time | — Pending real upstream bump |
 
 ---
-*Last updated: 2026-09-19 after v1.0 milestone*
+*Last updated: 2026-09-19 after starting v1.1 milestone*
