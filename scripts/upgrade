@@ -1,10 +1,107 @@
 #!/bin/bash
-# SOURCE COMMON
-source /usr/share/yunohost/helpers
 
-# AUTO-GENERATED STUB — implemented in Phase 2/3
+#=================================================
+# LibreChat YunoHost — upgrade script
+#
+# Preserves: user configs (via --keep), MongoDB data, Meilisearch data
+# Regenerates: source tree, build, managed env keys, service configs
+# Never: recreates admin user, regenerates secrets, mails passwords
+#=================================================
+
+# SOURCE COMMON
+source _common.sh
+source /usr/share/yunohost/helpers
 
 ynh_abort_if_errors
 
-ynh_script_progression "Upgrading LibreChat (stub)..."
-ynh_script_progression "done"
+#=================================================
+# Step 1 — Ensure dependencies (idempotent)
+#=================================================
+ynh_script_progression "Ensuring dependencies are up to date..."
+
+# Idempotent: uses the $mongo_version global (7.0) from _common.sh
+ynh_install_mongo
+
+# Re-download the Meilisearch binary (overwrites in place, index data
+# lives under $data_dir/meilisearch and is never touched here)
+ynh_setup_source --dest_dir="/usr/bin" --source_id="meilisearch"
+chmod +x /usr/bin/meilisearch
+
+#=================================================
+# Step 2 — Set up source files
+#=================================================
+ynh_script_progression "Replacing LibreChat source with the new version..."
+
+# CRITICAL: --keep protects the user's config files when ynh_setup_source
+# replaces the source tree. Forgetting it is the classic upgrade bug that
+# wipes librechat.env / librechat.yaml.
+ynh_setup_source --dest_dir="$install_dir" --keep="librechat.env librechat.yaml"
+
+# ProtectSystem=full blocks the app from creating its logs dir at runtime;
+# after source setup the dir may have been replaced.
+mkdir -p "$install_dir/logs"
+chown "$app:$app" "$install_dir/logs"
+
+#=================================================
+# Step 3 — Idempotent MongoDB re-provision
+#=================================================
+ynh_script_progression "Verifying MongoDB database..."
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+
+# Safe on an existing database: creates user/db if missing, never drops.
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
+
+# Read back the persisted MongoDB password for the .env template
+db_pwd=$(ynh_app_setting_get --key=mongopwd)
+
+#=================================================
+# Step 4 — Rebuild LibreChat
+#=================================================
+ynh_script_progression "Building LibreChat (this can take several minutes)..."
+
+# Reuse from _common.sh: npm ci + unrun workaround + turbo build +
+# .npm cache strip (leaving no 500MB+ cache behind)
+librechat_build
+
+#=================================================
+# Step 5 — Regenerate + merge config files
+#=================================================
+ynh_script_progression "Regenerating and merging configuration files..."
+
+# Managed keys take fresh values (port/URI/secrets); user-added env keys
+# preserved verbatim; librechat.yaml never overwritten.
+librechat_regen_and_merge_configs
+
+#=================================================
+# Step 6 — Regenerate service configs
+#=================================================
+ynh_script_progression "Reconfiguring nginx and systemd services..."
+
+ynh_config_add_nginx
+
+# LibreChat main service (default $app service name)
+ynh_config_add_systemd --template="librechat.service"
+
+# Meilisearch service (own service name)
+ynh_config_add_systemd --template="meilisearch.service" --service="meilisearch"
+
+# Idempotent service registrations (kept for YNH logging/monitoring)
+yunohost service add meilisearch --description="Meilisearch search engine" --log="/var/log/meilisearch/meilisearch.log"
+yunohost service add $app --description="LibreChat daemon" --log="/var/log/$app/$app.log"
+
+#=================================================
+# Step 7 — Restart services
+#=================================================
+ynh_script_progression "Restarting services..."
+
+# Meilisearch first: the app depends on it (Wants/After in systemd)
+ynh_systemctl --service="meilisearch" --action="restart"
+
+ynh_systemctl --service=$app --action="restart"
+
+#=================================================
+# Step 8 — Completion
+#=================================================
+ynh_script_progression "Upgrade of $app completed"
