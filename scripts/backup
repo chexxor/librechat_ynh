@@ -1,10 +1,78 @@
 #!/bin/bash
-# SOURCE COMMON
-source /usr/share/yunohost/helpers
 
-# AUTO-GENERATED STUB — implemented in Phase 2/3
+#=================================================
+# LibreChat YunoHost — backup script
+#
+# IMPORTANT cwd context: this script runs with cwd = the archive
+# staging directory, which is why _common.sh is sourced from a
+# different relative path than in install (../settings/scripts/).
+#=================================================
+
+source ../settings/scripts/_common.sh
+source /usr/share/yunohost/helpers
 
 ynh_abort_if_errors
 
-ynh_script_progression "Backing up LibreChat (stub)..."
-ynh_script_progression "done"
+ynh_script_progression "Backing up LibreChat..."
+
+#=================================================
+# Step 1 — Load settings
+#=================================================
+
+db_name=$(ynh_app_setting_get --key=db_name)
+if [ -z "$db_name" ]; then
+    ynh_die "db_name setting is empty — cannot back up."
+fi
+
+#=================================================
+# Step 2 — Declare files to backup (BEFORE stopping services)
+#
+# declares are registered now; the YNH core copies them later,
+# after this script returns.
+#=================================================
+
+# LibreChat install dir: build artifacts + librechat.env/yaml
+# (env is chmod 600; the core handles it)
+ynh_backup "$install_dir"
+
+# Meilisearch data dir (LMDB index)
+ynh_backup "$data_dir"
+
+# Nginx config for the app domain
+ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
+
+# NOTE: systemd units are NOT backed up — restore regenerates them
+# from conf/ templates (single source of truth, fresh secret injection).
+# NOTE: /usr/bin/meilisearch is NOT backed up — restore re-downloads it
+# via ynh_setup_source (per-arch URL + sha256).
+
+#=================================================
+# Step 3 — Stop services for a coherent snapshot
+#
+# (meili LMDB copied mid-write can corrupt; mongo writes quiesced)
+#=================================================
+
+ynh_script_progression "Stopping services..."
+ynh_systemctl --service=$app --action=stop
+ynh_systemctl --service=meilisearch --action=stop
+
+#=================================================
+# Step 4 — MongoDB dump
+#
+# Keep the exact NO-absolute-path form: the YNH core sets cwd to the
+# staging dir and sweeps ./dump.bson into the archive automatically.
+#=================================================
+
+ynh_mongo_dump_db --database=$db_name > ./dump.bson
+
+#=================================================
+# Step 5 — Restart both services (backup must be non-destructive)
+#
+# Meilisearch first, mirroring the install start order.
+#=================================================
+
+ynh_script_progression "Restarting services..."
+ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300
+ynh_systemctl --service=$app --action=start
+
+ynh_script_progression "Backup of $app completed"
