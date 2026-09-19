@@ -17,16 +17,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Install
 
-- [ ] **INST-01**: Script downloads LibreChat source from GitHub (pinned tag)
-- [ ] **INST-02**: Script builds LibreChat frontend + API (npm ci + npm run build)
-- [ ] **INST-03**: Build workarounds applied: `allow-remote=true` for xlsx, `npm install --no-save unrun`, npm `.cache` stripped post-build
-- [ ] **INST-04**: MongoDB installed via `ynh_install_mongo` (namespaced instance)
-- [ ] **INST-05**: Meilisearch installed as native per-arch binary with systemd unit
+- [x] **INST-01**: Script downloads LibreChat source from GitHub (pinned tag)
+- [x] **INST-02**: Script builds LibreChat frontend + API (npm ci + npm run build)
+- [x] **INST-03**: Build workarounds applied: `allow-remote=true` for xlsx, `npm install --no-save unrun`, npm `.cache` stripped post-build
+- [x] **INST-04**: MongoDB installed via `ynh_install_mongo` (namespaced instance)
+- [x] **INST-05**: Meilisearch installed as native per-arch binary with systemd unit
 - [x] **INST-06**: nginx reverse-proxy configured with WebSocket + SSE support (proxy_buffering off, upgrade headers)
 - [x] **INST-07**: LibreChat systemd service created and enabled (starts on boot)
-- [ ] **INST-08**: Initial admin user created via `npm run create-user` with `$admin` email + random password
+- [x] **INST-08**: Initial admin user created via `npm run create-user` with `$admin` email + random password
 - [x] **INST-09**: HTTPS provisioned transparently via YunoHost's Let's Encrypt
-- [ ] **INST-10**: `yunohost app install librechat` returns a working, reachable LibreChat web UI
+- [x] **INST-10**: `yunohost app install librechat` returns a working, reachable LibreChat web UI
 
 ### Upgrade
 
@@ -92,16 +92,16 @@ Deferred to future release. Tracked but not in current roadmap.
 | SKEL-03 | Phase 1 | Complete |
 | SKEL-04 | Phase 1 | Complete |
 | SKEL-05 | Phase 1 | Complete |
-| INST-01 | Phase 1 | Pending |
-| INST-02 | Phase 1 | Pending |
-| INST-03 | Phase 1 | Pending |
-| INST-04 | Phase 1 | Pending |
-| INST-05 | Phase 1 | Pending |
+| INST-01 | Phase 1 | Complete |
+| INST-02 | Phase 1 | Complete |
+| INST-03 | Phase 1 | Complete |
+| INST-04 | Phase 1 | Complete |
+| INST-05 | Phase 1 | Complete |
 | INST-06 | Phase 1 | Complete |
 | INST-07 | Phase 1 | Complete |
-| INST-08 | Phase 1 | Pending |
+| INST-08 | Phase 1 | Complete |
 | INST-09 | Phase 1 | Complete |
-| INST-10 | Phase 1 | Pending |
+| INST-10 | Phase 1 | Complete |
 | UPGR-01 | Phase 3 | Pending |
 | UPGR-02 | Phase 3 | Pending |
 | UPGR-03 | Phase 3 | Pending |
