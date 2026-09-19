@@ -14,7 +14,9 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ `yunohost app backup librechat` produces a consistent backup (MongoDB via `mongodump`) — Phase 2
+- ✓ `yunohost app restore librechat` restores app + data — Phase 2
+- ✓ `yunohost app remove librechat` cleanly removes services, instance, and integration (shared-Mongo safe) — Phase 2
 
 ### Active
 
@@ -26,9 +28,6 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 - [ ] YunoHost nginx reverse-proxies the app domain to LibreChat, with WebSocket + SSE (streaming) support
 - [ ] HTTPS provisioned transparently via YunoHost's Let's Encrypt integration
 - [ ] `yunohost app upgrade librechat` works and preserves user config (`librechat.env`, `librechat.yaml`)
-- [ ] `yunohost app backup librechat` produces a consistent backup (MongoDB via `mongodump`)
-- [ ] `yunohost app restore librechat` restores app + data
-- [ ] `yunohost app remove librechat` cleanly removes services, instance, and integration (shared-Mongo safe)
 - [ ] `manifest.toml` (packaging v2) validates and declares correct apt/binary sources with pinned versions
 - [ ] All major LLM providers configurable out of the box (OpenAI, Anthropic, Ollama, OpenRouter, etc.)
 - [ ] Package passes YunoHost app CI or has documented CI-blocking issue
@@ -79,4 +78,4 @@ This package wraps a real application with multiple backing services:
 | Run app as `$app` system user via env-sourcing wrapper | AUR pattern; avoids root, isolates Node process | — Pending |
 
 ---
-*Last updated: 2026-09-18 after project initialization*
+*Last updated: 2026-09-19 after Phase 2*
