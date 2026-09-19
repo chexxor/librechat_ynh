@@ -66,6 +66,8 @@ ram.runtime = "500M"
 
     [resources.install_dir]
 
+    [resources.data_dir]
+
     [resources.permissions]
     main.url = "/"
     admin.allowed = "admins"
