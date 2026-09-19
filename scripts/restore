@@ -1,10 +1,101 @@
 #!/bin/bash
-# SOURCE COMMON
-source /usr/share/yunohost/helpers
 
-# AUTO-GENERATED STUB — implemented in Phase 2/3
+#=================================================
+# LibreChat YunoHost — restore script
+#
+# IMPORTANT cwd context: runs with cwd = the extracted archive
+# staging dir (same special path as backup), hence
+# ../settings/scripts/_common.sh.
+#
+# Invariants:
+#   - Services start LAST (LibreChat starting before mongorestore
+#     completes could create conflicting documents).
+#   - All dependency re-provisioning helpers are idempotent and
+#     called unconditionally.
+#   - systemd units are regenerated from conf/ templates, never
+#     restored from the archive.
+#=================================================
+
+source ../settings/scripts/_common.sh
+source /usr/share/yunohost/helpers
 
 ynh_abort_if_errors
 
-ynh_script_progression "Restoring LibreChat (stub)..."
-ynh_script_progression "done"
+ynh_script_progression "Restoring LibreChat..."
+
+#=================================================
+# Step 1 — Load settings (YNH core restores settings.json automatically)
+#=================================================
+
+db_name=$(ynh_app_setting_get --key=db_name)
+if [ -z "$db_name" ]; then
+    ynh_die "db_name setting is empty — cannot restore."
+fi
+db_user=$db_name
+
+#=================================================
+# Step 2 — Re-provision MongoDB server if absent (idempotent)
+#  (uses $mongo_version="7.0" global from _common.sh)
+#=================================================
+
+ynh_script_progression "Ensuring MongoDB is installed..."
+ynh_install_mongo
+
+#=================================================
+# Step 3 — Restore all declared paths from the archive
+#  (install_dir, data_dir, nginx conf)
+#=================================================
+
+ynh_script_progression "Restoring files..."
+ynh_restore_everything
+
+#=================================================
+# Step 4 — Restore Mongo data (unconditional — mongorestore handles
+# both the fresh-machine and existing-db cases)
+#=================================================
+
+ynh_script_progression "Restoring MongoDB database..."
+ynh_mongo_restore_db --database=$db_name < ./dump.bson
+
+#=================================================
+# Step 5 — Re-provision Node (LOW-confidence on whether the v2 core
+# re-injects it — guard with a scripted fallback matching the
+# manifest [resources.nodejs] version)
+#=================================================
+
+ynh_script_progression "Ensuring Node.js is installed..."
+nodejs_version="${nodejs_version:-24}"
+ynh_nodejs_install
+
+#=================================================
+# Step 6 — Re-download meilisearch binary (NOT in the archive)
+#  (manifest per-arch URL + sha256; zero duplication with install)
+#=================================================
+
+ynh_script_progression "Setting up Meilisearch binary..."
+ynh_setup_source --dest_dir=/usr/bin --source_id=meilisearch
+chmod +x /usr/bin/meilisearch
+
+#=================================================
+# Step 7 — Regenerate BOTH systemd units from templates
+#  (fresh __DATA_DIR__ / __MEILI_MASTER_KEY__ injection from settings)
+#=================================================
+
+ynh_script_progression "Configuring services..."
+ynh_config_add_systemd --template=librechat.service
+
+yunohost service add meilisearch --description="Meilisearch search engine" --log="/var/log/meilisearch/meilisearch.log"
+ynh_config_add_systemd --template=meilisearch.service --service=meilisearch
+
+yunohost service add $app --description="LibreChat daemon" --log="/var/log/$app/$app.log"
+
+#=================================================
+# Step 8 — Start LAST, meili first (mirrors install order)
+#=================================================
+
+ynh_script_progression "Starting services..."
+ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300
+ynh_systemctl --service=$app --action=start
+ynh_systemctl --service=nginx --action=reload
+
+ynh_script_progression "Restoration of $app completed"
