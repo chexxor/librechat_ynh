@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Package Skeleton
 
-- [ ] **SKEL-01**: `manifest.toml` (packaging v2) validates with correct YunoHost schema
-- [ ] **SKEL-02**: App declares correct apt/binary sources with pinned versions (Node 22, libvips42, MongoDB 7.x, Meilisearch)
-- [ ] **SKEL-03**: App runs under dedicated `$app` system user
-- [ ] **SKEL-04**: `sso = false`, `ldap = false` declared in `[integration]`
-- [ ] **SKEL-05**: Source tarballs pinned with sha256 integrity checks
+- [x] **SKEL-01**: `manifest.toml` (packaging v2) validates with correct YunoHost schema
+- [x] **SKEL-02**: App declares correct apt/binary sources with pinned versions (Node 22, libvips42, MongoDB 7.x, Meilisearch)
+- [x] **SKEL-03**: App runs under dedicated `$app` system user
+- [x] **SKEL-04**: `sso = false`, `ldap = false` declared in `[integration]`
+- [x] **SKEL-05**: Source tarballs pinned with sha256 integrity checks
 
 ### Install
 
@@ -22,10 +22,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **INST-03**: Build workarounds applied: `allow-remote=true` for xlsx, `npm install --no-save unrun`, npm `.cache` stripped post-build
 - [ ] **INST-04**: MongoDB installed via `ynh_install_mongo` (namespaced instance)
 - [ ] **INST-05**: Meilisearch installed as native per-arch binary with systemd unit
-- [ ] **INST-06**: nginx reverse-proxy configured with WebSocket + SSE support (proxy_buffering off, upgrade headers)
-- [ ] **INST-07**: LibreChat systemd service created and enabled (starts on boot)
+- [x] **INST-06**: nginx reverse-proxy configured with WebSocket + SSE support (proxy_buffering off, upgrade headers)
+- [x] **INST-07**: LibreChat systemd service created and enabled (starts on boot)
 - [ ] **INST-08**: Initial admin user created via `npm run create-user` with `$admin` email + random password
-- [ ] **INST-09**: HTTPS provisioned transparently via YunoHost's Let's Encrypt
+- [x] **INST-09**: HTTPS provisioned transparently via YunoHost's Let's Encrypt
 - [ ] **INST-10**: `yunohost app install librechat` returns a working, reachable LibreChat web UI
 
 ### Upgrade
@@ -54,10 +54,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Configuration & Provider Support
 
-- [ ] **CONF-01**: All major LLM providers configurable out of the box (OpenAI, Anthropic, Ollama, OpenRouter)
-- [ ] **CONF-02**: `librechat.env` template with secrets placeholder (preserved on upgrade)
-- [ ] **CONF-03**: `librechat.yaml` template with provider config (preserved on upgrade)
-- [ ] **CONF-04**: Install questions for essential config values (admin email for notifications, etc.)
+- [x] **CONF-01**: All major LLM providers configurable out of the box (OpenAI, Anthropic, Ollama, OpenRouter)
+- [x] **CONF-02**: `librechat.env` template with secrets placeholder (preserved on upgrade)
+- [x] **CONF-03**: `librechat.yaml` template with provider config (preserved on upgrade)
+- [x] **CONF-04**: Install questions for essential config values (admin email for notifications, etc.)
 
 ## v2 Requirements
 
@@ -87,20 +87,20 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SKEL-01 | Phase 1 | Pending |
-| SKEL-02 | Phase 1 | Pending |
-| SKEL-03 | Phase 1 | Pending |
-| SKEL-04 | Phase 1 | Pending |
-| SKEL-05 | Phase 1 | Pending |
+| SKEL-01 | Phase 1 | Complete |
+| SKEL-02 | Phase 1 | Complete |
+| SKEL-03 | Phase 1 | Complete |
+| SKEL-04 | Phase 1 | Complete |
+| SKEL-05 | Phase 1 | Complete |
 | INST-01 | Phase 1 | Pending |
 | INST-02 | Phase 1 | Pending |
 | INST-03 | Phase 1 | Pending |
 | INST-04 | Phase 1 | Pending |
 | INST-05 | Phase 1 | Pending |
-| INST-06 | Phase 1 | Pending |
-| INST-07 | Phase 1 | Pending |
+| INST-06 | Phase 1 | Complete |
+| INST-07 | Phase 1 | Complete |
 | INST-08 | Phase 1 | Pending |
-| INST-09 | Phase 1 | Pending |
+| INST-09 | Phase 1 | Complete |
 | INST-10 | Phase 1 | Pending |
 | UPGR-01 | Phase 3 | Pending |
 | UPGR-02 | Phase 3 | Pending |
@@ -117,10 +117,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | BACK-03 | Phase 2 | Pending |
 | BACK-04 | Phase 2 | Pending |
 | BACK-05 | Phase 2 | Pending |
-| CONF-01 | Phase 1 | Pending |
-| CONF-02 | Phase 1 | Pending |
-| CONF-03 | Phase 1 | Pending |
-| CONF-04 | Phase 1 | Pending |
+| CONF-01 | Phase 1 | Complete |
+| CONF-02 | Phase 1 | Complete |
+| CONF-03 | Phase 1 | Complete |
+| CONF-04 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 34 total
