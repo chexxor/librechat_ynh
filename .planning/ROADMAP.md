@@ -22,10 +22,11 @@ A YunoHost native app package that installs LibreChat — a free, open-source, m
   3. Chat messages stream correctly (WebSocket + SSE work through nginx proxy)
   4. An initial admin user exists and can log in (created via install with admin email from install question)
   5. `librechat.env` and `librechat.yaml` template files exist with provider configuration placeholders for OpenAI, Anthropic, Ollama, and OpenRouter
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- *(to be refined during planning)*
+- [ ] 01-foundation-install-01-PLAN.md — Package skeleton + config templates (manifest.toml, nginx, systemd, env, yaml, doc stubs, script stubs)
+- [ ] 01-foundation-install-02-PLAN.md — Install script + _common.sh helpers (build with AUR workarounds, MongoDB, Meilisearch, admin user)
 
 ### Phase 2: Remove + Backup/Restore
 **Goal**: `yunohost app remove`, `yunohost app backup`, and `yunohost app restore` all work correctly — remove is safe for shared MongoDB, backup produces consistent snapshots, restore fully recovers the app.
@@ -61,6 +62,6 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Install | 0/TBD | Not started | - |
+| 1. Foundation + Install | 0/2 | Planned | - |
 | 2. Remove + Backup/Restore | 0/TBD | Not started | - |
 | 3. Upgrade | 0/TBD | Not started | - |
