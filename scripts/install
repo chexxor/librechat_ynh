@@ -79,6 +79,11 @@ ynh_config_add --template="librechat.yaml" --destination="$librechat_yaml"
 chown $app:$app "$librechat_env"
 chmod 600 "$librechat_env"
 
+# Pre-create the logs dir: ProtectSystem=full in librechat.service blocks
+# its creation at runtime; ReadWritePaths grants write access to it.
+mkdir -p "$install_dir/logs"
+chown "$app:$app" "$install_dir/logs"
+
 #=================================================
 # Step 7 — Configure nginx
 #=================================================

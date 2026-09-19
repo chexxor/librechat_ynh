@@ -14,6 +14,8 @@ NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=full
 ProtectHome=yes
+# Allow Meili to write its index under the read-only /var (ProtectSystem=full)
+ReadWritePaths=__DATA_DIR__/meilisearch
 
 [Install]
 WantedBy=multi-user.target

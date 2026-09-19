@@ -17,7 +17,7 @@ code = "https://github.com/danny-avila/LibreChat"
 yunohost = ">= 12.1.40"
 helpers_version = "2.1"
 architectures = ["amd64", "arm64"]
-multi_instance = true
+multi_instance = false # v1: Meilisearch wiring (port 7700, shared service name) is single-instance; revisit per-app wiring later
 
 ldap = false
 sso = false
@@ -39,7 +39,7 @@ ram.runtime = "500M"
 [resources]
     [resources.sources.main]
     url = "https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz"
-    sha256 = "FILL_ME"  # Compute at build time
+    sha256 = "691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4"
     in_subdir = true
     autoupdate.strategy = "latest_github_tag"
 
