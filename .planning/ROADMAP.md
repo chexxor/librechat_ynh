@@ -64,5 +64,5 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Install | 1/2 | In Progress|  |
-| 2. Remove + Backup/Restore | 1/2 | In Progress|  |
+| 2. Remove + Backup/Restore | 2/2 | Complete (code) — live round-trip verification pending | 2026-09-18 |
 | 3. Upgrade | 0/TBD | Not started | - |

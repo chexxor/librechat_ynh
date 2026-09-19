@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-09-18)
 ## Current Position
 
 Phase: 2 of 3 (Remove/Backup/Restore)
-Plan: 1 of 2 (COMPLETE)
-Status: Plan 02-01 (remove lifecycle) complete — ready for 02-02
-Last activity: 2026-09-18 — Plan 02-01 executed (data_dir resource declared, full remove script implemented)
+Plan: 2 of 2 (COMPLETE — code done; live round-trip verification pending)
+Status: Plan 02-02 complete (scripts/backup + scripts/restore implemented). Live backup→remove→restore checkpoint auto-advanced — verification deferred to manual run.
+Last activity: 2026-09-18 — Plan 02-02 executed (backup + restore scripts implemented; live round-trip pending)
 
 Progress: [██████████] 100%
 
@@ -37,6 +37,7 @@ Progress: [██████████] 100%
 | Phase 01 P02 | 8m | 2 tasks | 2 files |
 | Phase 01 P03 | 6m | 4 tasks | 4 files |
 | Phase 02 P01 | 4m | 2 tasks | 2 files |
+| Phase 02 P02 | 10m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -59,6 +60,10 @@ Progress: [██████████] 100%
 
 ### Pending Todos
 
+- **Live verification (PENDING):** backup → remove → restore round-trip on live YunoHost test server (plan 02-02 task 3 checkpoint auto-advanced without live execution; steps in 02-02-PLAN.md task 3 how-to-verify)
+
+### Pending Todos
+
 None yet.
 
 ### Blockers/Concerns
@@ -70,5 +75,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-09-18
-Stopped at: Completed 02-remove-backup-restore-01-PLAN.md. Ready for 02-02.
+Stopped at: Completed 02-remove-backup-restore-02-PLAN.md. Phase 2 code done — live round-trip verification pending.
 Resume file: None
