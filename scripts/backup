@@ -1,0 +1,10 @@
+#!/bin/bash
+# SOURCE COMMON
+source /usr/share/yunohost/helpers
+
+# AUTO-GENERATED STUB — implemented in Phase 2/3
+
+ynh_abort_if_errors
+
+ynh_script_progression "Backing up LibreChat (stub)..."
+ynh_script_progression "done"
