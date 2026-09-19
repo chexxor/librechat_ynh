@@ -1,166 +1,151 @@
 # Project Research Summary
 
-**Project:** LibreChat YunoHost Package (librechat_ynh)
-**Domain:** YunoHost native app package wrapping LibreChat (Node.js + MongoDB + Meilisearch)
-**Researched:** 2026-09-18
-**Confidence:** HIGH
+**Project:** librechat_ynh — Milestone v1.1: CI Validation
+**Domain:** YunoHost packaging-v2 package CI (package_check + GitHub Actions lint)
+**Researched:** 2026-09-18/19
+**Confidence:** HIGH (core package_check behavior verified against official docs; GH-Actions specifics MEDIUM)
 
 ## Executive Summary
 
-LibreChat is an open-source ChatGPT alternative that proxies to multiple LLM providers (OpenAI, Anthropic, etc.) with conversation history, search, and multi-user support. The YunoHost ecosystem needs this as a native (Docker-free) package, following the established pattern used by Wekan and MyDrive — both MongoDB-backed Node.js apps packaged for YNH. The research confirms this is a well-trodden path: YunoHost provides official helpers for Node.js deployment (`[resources.nodejs]`), MongoDB setup (`ynh_install_mongo`), and systemd/nginx management (`ynh_config_add_systemd`, `ynh_config_add_nginx`), all of which map cleanly to LibreChat's architecture.
+librechat_ynh is an existing YunoHost packaging-v2 app package (v1.0 shipped, live-verified) wrapping LibreChat — a Node.js app with MongoDB 7.0, Meilisearch, and a heavy frontend build. Milestone v1.1 is about CI validation, not features: get local package_check green and add a GitHub Actions lint workflow. The critical scoping insight, verified across three research files: **the official YunoHost CI (`ci-apps.yunohost.org` / `ci-apps-dev`) runs package_check server-side via yunorunner once the app is cataloged, and no official public package (example_ynh, nextcloud, hedgedoc) ships a package_check GitHub workflow.** Hosted GH runners are Docker-based and cannot run Incus/LXC with dnsmasq/btrfs requirements — attempting full package_check there is an explicit anti-feature for this milestone.
 
-The recommended approach is a manifest.toml v2 package that orchestrates a multi-step install: source download from GitHub, `npm ci` + turbo build, MongoDB database/user creation, Meilisearch binary installation, hardened systemd service setup, and nginx reverse proxy with WebSocket/SSE support. The Wekan YNH package serves as a proven reference — it handles the same MongoDB + Node.js stack with tested patterns for namespaced database cleanup, mongodump-based backups, and config preservation on upgrade.
+The recommended approach: (1) run `package_linter` locally first — it's pure Python ≥3.11, works anywhere including this Windows dev box, and is the cheapest source of findings; (2) add a minimal `tests.toml` (currently **absent**, the primary new file package_check needs — mainly to supply the non-default `admin_email` arg, plus curl smoke-tests and one `test_upgrade_from.<sha>` entry); (3) stand up a local Linux Incus environment (WSL2 is NOT viable for Incus — budget a Linux VM/box) and run the full package_check suite; (4) fix everything it finds iteratively (that IS the milestone work); (5) add a lightweight `.github/workflows` lint job (package_linter + TOML schema + shellcheck) so hosted CI covers the fast static layer while official YNH infra covers the full suite later via catalog submission.
 
-The **three key risks** are: (1) LibreChat's npm build has AUR-documented issues (`xlsx CDN tarball`, `unrun` missing resolution, npm cache bloat) that require workarounds; (2) MongoDB shared-instance conflicts — the remove script must never call `ynh_remove_mongo`, only app-scoped `ynh_mongo_remove_db`; (3) nginx misconfiguration will silently break WebSocket streaming and SSE responses. All three are preventable with known, tested solutions from the AUR LibreChat package and the Wekan YNH package.
+Key risks: package_check is stricter than the live install (exercises subpath, reinstall-after-remove, private install, upgrade-from-commit — paths v1.0 never touched); flaky multi-hundred-MB network fetches per test iteration (GitHub tarball, npm, Meilisearch binary, Mongo apt repo) produce intermittent reds that aren't regressions; and secrets-leak vectors in install-script prints (admin passwords, env contents) into public CI logs. All three have documented preventions: bisect with `-i`/interactive mode, add bounded retries, and audit `ynh_print`/`set -x` output.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The stack is a standard YunoHost native app pattern with three services: a Node.js runtime, a MongoDB database, and a Meilisearch search engine. YNH provides helpers for everything except Meilisearch, which requires manual binary installation. The Wekan YNH package is the nearest analog and directly confirms the MongoDB, systemd, and nginx patterns.
+STACK.md content (v1.0-era) remains valid and largely untouched by this milestone — v1.1 adds validation tooling, not runtime tech. Relevant elements for v1.1:
 
-**Core technologies:**
-- **YunoHost packaging format v2 (manifest.toml):** Standard since YNH 11.1. Handles resources (sources, nodejs, apt, ports, system_user) automatically. Required for new packages.
-- **Node.js 22/24 LTS (via `[resources.nodejs]`):** LibreChat `.nvmrc` currently specifies Node 24. YNH uses the `n` version manager. Start with `version = "22"` but be prepared to bump to `"24"` — verify against upstream `.nvmrc` on each upgrade.
-- **MongoDB 7.0 (via `ynh_install_mongo`):** Installed from upstream repo (Debian Bookworm doesn't ship MongoDB due to SSPL). Wekan uses `mongo_version="8.0"` successfully; start with 7.0 for LibreChat compatibility.
-- **Meilisearch latest v1.x:** No YNH helper exists. Install as native binary from GitHub releases via `[resources.sources]` + custom systemd unit. Must be re-downloaded during restore.
-- **nginx (YNH-managed):** Reverse proxy template must set `proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection "upgrade"; proxy_buffering off;` — without these, chat streaming silently fails.
-- **libvips42 / build-essential (apt):** Required for `sharp` native module compilation. Include both in `[resources.apt]`.
+- **package_check** (YunoHost/package_check) — official validator; requires LXD/Incus + btrfs + `lynx jq btrfs-progs`; local run via `./package_check.sh <app_path>` with `-e` interactive mode for bisecting failures. Auto-runs manifest/install/remove/reinstall/private/upgrade/backup tests; reads `tests.toml`.
+- **package_linter** (YunoHost/package_linter) — pure Python ≥3.11 static analyzer; runs locally AND on hosted runners; zero errors = quality level 5 floor, zero warnings also = level 7 eligibility.
+- **tests.toml** (`test_format = 1.0`, schema header `#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/tests.v1.schema.json`) — the test contract file; must supply `args.admin_email` (manifest's text arg isn't auto-guessable).
+- **Incus/LXD on a dedicated Linux host** — environment for local package_check runs; `incus admin init --minimal`, btrfs/zfs storage, `lxc remote add yunohost https://repo.yunohost.org/incus`. Hosted GH runners and WSL2 are **not** viable for this.
+- **GitHub Actions (hosted)** — lint-only scope: package_linter, TOML/tests.toml schema validation, shellcheck on `scripts/*`. Runs fine on `ubuntu-latest` in minutes.
+
+No changes to the runtime stack (Node 22/24 via `[resources.nodejs]`, MongoDB 7.0 via `ynh_install_mongo`, Meilisearch native binary, nginx, systemd) are anticipated unless package_check findings demand them.
 
 ### Expected Features
 
-**Must have (table stakes) — required for YNH catalog acceptance:**
-- End-to-end `yunohost app install`: source download, npm build, MongoDB + Meilisearch setup, nginx + systemd configuration
-- Working LibreChat web UI behind HTTPS with WebSocket/SSE streaming
-- `yunohost app upgrade` that preserves user `.env` and `librechat.yaml` config (never overwrite)
-- `yunohost app remove` that only removes app-scoped database (never `ynh_remove_mongo`)
-- `yunohost app backup` using `ynh_mongo_dump_db` for consistent MongoDB snapshots
-- `yunohost app restore` that re-installs Meilisearch binary and restores MongoDB
-- Valid manifest.toml (packaging v2), dedicated system user, proper permissions
+**Must have (table stakes for this milestone):**
+- `tests.toml` created (absent at repo state `e834aea`) — minimal, schema-valid, supplying `args.admin_email`; mostly-empty is correct since package_check auto-deduces tests from the manifest
+- Run real package_check locally to completion (single clean full suite archived as POLS-01 verification)
+- Fix all package_check findings to zero failures — install root, install subpath, private install, reinstall-after-remove, remove, backup/restore all pass
+- package_linter clean (no errors)
+- GitHub Actions lint workflow (linter + shellcheck + TOML check) — added AFTER local findings fixed so it starts green
 
-**Should have (competitive):**
-- One-command install of LibreChat + MongoDB + Meilisearch (the whole point of the package)
-- Native (Docker-free) install targeting low-RAM devices (Raspberry Pis, small VPSes)
-- Auto-updating source URLs via `autoupdate.strategy = "latest_github_tag"` (reduces maintainer burden)
-- Correct WebSocket + SSE nginx config out of the box (many self-hosters get this wrong)
+**Should have (differentiators, cheap wins):**
+- `[default.curl_tests]` smoke test (SPA serves 200; assert stable content, not upstream-rewordable strings)
+- One valid `test_upgrade_from.<sha>` entry pinned to a known-good v1.0-era commit
+- Low-cost linter-warning fixes (`doc/` assets, maintainer field) toward level 7
 
-**Defer (v2+):**
-- SSO/LDAP integration — LibreChat has its own auth; YNH LDAP integration requires upstream changes. Declare `sso = false`, `ldap = false`.
-- YNH config panel — LibreChat already has `librechat.yaml`. Wrapping adds maintenance burden.
-- Multi-domain install — single domain per install is sufficient for v1.
-- `change_url` script — most YNH apps ship this, but it's not critical for MVP.
+**Defer (v2+ / later milestones):**
+- `change_url` script (level 7 demands it, but it's scoped as a separate v2 item — still expected from package_check level-7 ambitions)
+- Self-hosted GH runner running full package_check
+- Catalog submission PR → official YNH CI automation
+- Multi-instance, ARM64, Redis
 
 ### Architecture Approach
 
-Three-service architecture: LibreChat (Node/Express API + React SPA) talks to MongoDB on port 27017 and Meilisearch on port 7700. All user traffic enters through YNH-managed nginx, which terminates TLS and proxies to LibreChat on a local port. Two systemd services run: `librechat.service` (hardened sandbox with NoNewPrivileges, PrivateTmp, ProtectSystem=full) and `meilisearch.service` (standalone binary). Data lives in three locations: `/var/www/librechat/` (application code), `/home/yunohost.app/librechat/` (user data), and `/var/log/librechat/` (logs).
+v1.1 touches the existing repo minimally: one new file (`tests.toml`) and one new directory (`.github/workflows/` with a lint workflow). Everything else is *modified* — manifest.toml and scripts/ edits driven by package_check findings. The repo state was verified file-by-file: all lifecycle scripts exist (install/remove/backup/restore/upgrade), `doc/DESCRIPTION.md` exists, `config_panel.toml` is absent (fine, out of scope), `tests.toml` and `.github/` are the two gaps.
 
 **Major components:**
-1. **nginx (YNH-managed)** — TLS termination, reverse proxy, WebSocket upgrade headers, SSE buffering disabled
-2. **LibreChat API (Node/Express)** — LLM proxy, conversation management, auth, serves React SPA; communicates with MongoDB, Meilisearch, external LLM providers
-3. **LibreChat UI (React SPA)** — Frontend served by API server on same origin
-4. **MongoDB** — Conversation storage, user data, agent config (via `ynh_install_mongo` + `ynh_mongo_setup_db`)
-5. **Meilisearch** — Message/conversation search index (native binary, custom systemd unit)
+1. `tests.toml` — declares args package_check can't deduce (`admin_email`), curl smoke-tests, upgrade-from commits; read by package_check locally and by YNH's official CI
+2. `.github/workflows/lint.yml` — hosted-runner-safe static checks only (linter, schema, shellcheck); NO package_check job
+3. Package edits (manifest.toml, scripts/*) — iterative fixes until the local suite is green; findings, not failures, map to these changes
 
 ### Critical Pitfalls
 
-1. **AUR Build Issues (xlsx CDN tarball, unrun missing, npm cache bloat):** LibreChat's turbo monorepo has three known build problems. Prevention: set `npm config set allow-remote=true`, run `npm install --no-save unrun` before frontend build, and clean `.npm/_cacache/` post-build to avoid 500MB+ cache bloat.
-
-2. **Config Overwrite on Upgrade:** `ynh_setup_source --full_replace` wipes user `.env` and `librechat.yaml`. Prevention: use `--keep="librechat.env librechat.yaml"` and implement a merge helper that adds new keys without removing user customizations.
-
-3. **WebSocket/SSE Silent Failure:** nginx default config breaks LibreChat streaming. Prevention: the nginx template MUST include `proxy_http_version 1.1`, upgrade headers, and `proxy_buffering off`. Without these, chat responses are blank with no error message.
-
-4. **MongoDB Shared Instance Conflict:** Calling `ynh_remove_mongo` in the remove script destroys the global MongoDB service, breaking all other MongoDB-using YNH apps. Prevention: use ONLY `ynh_mongo_remove_db --db_user --db_name` to remove app-scoped database/user.
-
-5. **Inconsistent MongoDB Backup:** Raw data directory copy produces corrupt snapshots. Prevention: always use `ynh_mongo_dump_db` during backup (Wekan pattern), never raw file backup.
+1. **Full package_check on hosted GH runners** — needs LXC/Incus + dnsmasq:53 + btrfs; runners thrash/OOM on LibreChat's frontend build and 6h-limit out. Avoid entirely: Actions = lint-only; PC = local Linux env now, official YNH CI after catalog submission. *(Confirmed anti-feature per project context.)*
+2. **package_check stricter than live install** — v1.0's live verification covers one happy path; CI hits subpath/reinstall/private/upgrade-from-commit. Treat every unexpected failure as a real finding; bisect with `-i`; dump the parsed test list (`parse_tests_toml.py`) before running.
+3. **tests.toml mistakes** — missing `test_format = 1.0`/schema header, redundant args the manifest already defaults, `exclude = [...]` to fake green CI (explicitly discouraged, caps quality, flags review). Start from example_ynh's tests.toml verbatim; write minimal, only after knowing which args fail.
+4. **Flaky network downloads per test iteration** — every test re-installs from scratch (~6+ installs of GitHub tarballs, npm, Meilisearch, Mongo apt). Add bounded retries; keep sha256-pinned sources; re-run the single failing test before suspecting code.
+5. **Secrets in public CI logs** — admin credentials/env contents echoed via `ynh_print` or `set -x` land in `Test_results.log` and public GH logs. Audit all prints; GH masks only `secrets.*` literals.
 
 ## Implications for Roadmap
 
-Based on research, the package can be built in 3 phases with clear dependency ordering:
+Based on research, suggested phase structure:
 
-### Phase 1: Package Skeleton + Install Script (Foundation)
-**Rationale:** Everything depends on a working install. This is the highest-risk, most complex phase. It validates the stack (build from source, MongoDB setup, Meilisearch binary install) and establishes the YNH structure.
-**Delivers:** `yunohost app install librechat` works end-to-end with MongoDB, nginx, hardened systemd service, and working LibreChat UI behind HTTPS.
-**Addresses:** Table stake features: install, nginx with WebSocket/SSE, systemd service.
-**Avoids:** Pitfalls 1 (AUR build — implement `librechat_build()` with xlsx/unrun workarounds), Pitfall 3 (WebSocket/SSE — include correct headers in nginx template), Pitfall 5 (sharp/libvips — include libvips42 in apt).
-**Key decisions needed in this phase:**
-- Node version: 22 vs 24 (check upstream `.nvmrc` at build time)
-- MongoDB version: 7.0 vs 8.0 (Wekan uses 8.0, but test with LibreChat)
-- Port assignment strategy (YNH auto-assignment vs fixed port)
+### Phase 1: Recon & Local Validation Baseline
+**Rationale:** Cheapest validation first; establishes the real finding list before any file is written. Also determines *where* each test runs (pitfall 1 scoping).
+**Delivers:** package_linter run results; parsed test-deduction dump (which test IDs will run); confirmed local Incus environment plan (Linux VM decision, since dev box is Windows and WSL2 is not viable for Incus).
+**Addresses:** "Run package_linter locally" + "env setup" from FEATURES.md MVP steps 1 & 3.
+**Avoids:** Writing a broken `tests.toml` blind (pitfall 3); assuming hosted runners can do more than lint (pitfalls 1, 5).
 
-### Phase 2: Remove + Backup/Restore Scripts
-**Rationale:** These scripts share MongoDB interaction patterns and must be consistent with each other. Remove must not destroy shared MongoDB; backup must use `mongodump`, not raw copy; restore must re-download Meilisearch binary.
-**Delivers:** `yunohost app remove` with safe MongoDB cleanup, `yunohost app backup` with consistent snapshots, `yunohost app restore` with full state recovery.
-**Addresses:** Table stakes for YNH catalog acceptance (remove, backup, restore).
-**Avoids:** Pitfall 2 (MongoDB shared instance — use only `ynh_mongo_remove_db`), Pitfall 4 (inconsistent backup — use `ynh_mongo_dump_db`), Meilisearch missing on restore (re-download binary).
-**Depends on:** Phase 1 (must have working install to know the service layout).
+### Phase 2: tests.toml + package_check Environment
+**Rationale:** `tests.toml` must exist (supplying `admin_email`) before any run is meaningful; the Incus environment is the long-lead item and can be set up in parallel.
+**Delivers:** Schema-valid minimal `tests.toml` (example_ynh-derived); a dedicated Linux host with Incus + btrfs capable of running the full suite; first real package_check run log.
+**Addresses:** tests.toml (table stakes), curl_tests (should-have, optional here).
+**Avoids:** Incus/Docker networking conflicts (pitfall 4) via dedicated VM, `--minimal` init, `lynx jq btrfs-progs` installed up front.
 
-### Phase 3: Upgrade Script + Config Merge
-**Rationale:** Upgrade is the most user-facing script (users will run it repeatedly). It must preserve config, merge new keys, and clean up npm cache. This is the last phase because it depends on understanding the full install layout.
-**Delivers:** `yunohost app upgrade` that rebuilds source, preserves `.env` and `librechat.yaml`, merges new config keys without overwriting, and cleans up npm cache post-build.
-**Addresses:** Table stake: upgrade preserves config.
-**Avoids:** Pitfall 2 (config overwrite — use `--keep` + merge helper), npm cache bloat (post-build cleanup).
-**Depends on:** Phase 1 (source build), Phase 2 (MongoDB interaction patterns).
+### Phase 3: Fix Findings to Zero Failures
+**Rationale:** This is the actual milestone work — iterative, unknown-scope, depends on Phases 1–2.
+**Delivers:** Local package_check suite fully green (subpath, private install, reinstall-after-remove, backup/restore all pass); hardened network-fetch retries; audited `ynh_print`/`set -x` (no secrets in logs).
+**Addresses:** "Fix all findings" + curl smoke-tests + optionally one `test_upgrade_from` entry.
+**Avoids:** Pitfalls 2, 6, 7; the `exclude = [...]` temptation; conflating network flakes with regressions.
+**Watch-out-fors:** manifest inline trailing comments may need reformatting for the linter; `maintainers` placeholder must become a real handle; mongo apt repo + npm build may push install near container timeouts.
 
-### Phase 4: Testing, Documentation, and Polish
-**Rationale:** Final validation before catalog submission. Package must pass `package_check`, have complete documentation, and declare proper resource requirements.
-**Delivers:** `tests.toml` with CI scenarios, `doc/DESCRIPTION.md`, `doc/ADMIN.md`, screenshots, proper `disk` and `ram.build` values in manifest.
-**Addresses:** YNH catalog quality requirements.
-**Depends on:** All prior phases for accurate documentation.
+### Phase 4: GitHub Actions Lint Workflow Green
+**Rationale:** Last, so it lands green instead of red; small, low-risk, durable.
+**Delivers:** `.github/workflows/lint.yml` (package_linter + tests.toml/manifest TOML-schema check + shellcheck on scripts), kept to hosted-runner-safe jobs (<~10 min, <4 GB), explicit job timeout, no `pull_request_target`.
+**Addresses:** The milestone's GH Actions deliverable — lint layer only.
+**Avoids:** Pitfalls 1 & 5 (no build jobs, no package_check on hosted runners); secrets/log-size gotchas.
 
 ### Phase Ordering Rationale
-
-- **Install must come first** because it's where all the complexity lives (build from source, three services, nginx config). Every other script derives from the install layout.
-- **Remove and Backup/Restore are grouped** because they share MongoDB interaction patterns and must be tested together for consistency.
-- **Upgrade is last** because it's the most mature script — it builds on install patterns, remove/backup knowledge, and requires understanding config merge.
-- **Meilisearch integration is bundled into install** (not deferred) because the architecture treats it as a core component from day one. If it proves problematic, it can be made optional — but the install path should exist.
+- Linter first because it needs zero infra and shapes everything after; tests.toml before a "meaningful" PC run because `admin_email` must be supplied; findings-fix before the GH workflow so it starts green; the workflow last because it's optional glue.
+- Phase 2's environment work is the bottleneck (Linux host acquisition, Incus setup) — flag it as long-lead.
+- Dependency chain from research: Local Incus env → package_check runs → findings fixed → Actions lint mirrors green. Full PC in Actions is structurally impossible on hosted runners — sequencing reflects that split.
 
 ### Research Flags
 
 Phases likely needing deeper research during planning:
-- **Phase 1 (Install):** Needs research into `--no-save unrun` workaround specifics, `allow-remote=true` behavior, and whether Wekan's `mongo_version="8.0"` is compatible with LibreChat. Also verify upstream `.nvmrc` at implementation time.
-- **Phase 3 (Upgrade):** Config merge strategy needs design — how to append new keys to `.env` and `librechat.yaml` without overwriting user values.
+- **Phase 2:** Exact package_check invocation flags, report file names, and Incus init details were MEDIUM-confidence (including a partially speculative `--container` workflow sketch in ARCHITECTURE.md that the anti-feature ruling overrides) — verify against the latest package_check/Incus docs while setting up the environment.
+- **Phase 3:** Unknown-scope findings; expect per-finding micro-research (e.g., NGINX subpath handling for the LibreChat SPA, backup restore edge cases under pristine volumes).
+- **Optional change_url work:** if pulled into v1.1 due to level-7 pressure, it needs its own research iteration (not covered in depth by these files).
 
 Phases with standard patterns (skip research-phase):
-- **Phase 2 (Remove/Backup/Restore):** These follow the Wekan patterns exactly. The MongoDB helpers (`ynh_mongo_remove_db`, `ynh_mongo_dump_db`) are well-documented with established YNH examples.
-- **Phase 4 (Testing/Documentation):** Standard YNH package workflow. `package_check` and `tests.toml` format are well documented.
+- **Phase 4:** GH Actions lint workflow is a well-trodden ~30-line pattern (checkout + clone linter + run + upload artifact).
+- **Phase 1:** package_linter and test-deduction dumps are documented single commands.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All stack choices verified against YunoHost official docs and Wekan reference implementation. Node version decision depends on upstream `.nvmrc` at build time. |
-| Features | HIGH | Table stakes clearly defined by YNH catalog requirements. Anti-features have explicit rationale. Feature dependencies map cleanly to the install flow. |
-| Architecture | HIGH | Component boundaries and data flow directly from LibreChat's architecture. YNH integration patterns verified against Wekan source. |
-| Pitfalls | HIGH | All critical pitfalls have documented prevention strategies from AUR packages or Wekan source. No speculative pitfalls — each is reproduced in existing deployments. |
+| Stack | HIGH | package_linter/package_check behavior verified against official repos; runtime stack unchanged from v1.0 |
+| Features | HIGH (core) / MEDIUM (GH specifics) | Table stakes verified from official docs & repo trees; community self-hosted-runner recipes flagged LOW/MEDIUM |
+| Architecture | HIGH on repo state (inspected locally) / LOW on workflow sketch | File existence claims verified at HEAD; the ARCHITECTURE.md package_check.yml example has unverifiable flag names and conflicts with the anti-feature ruling — discard that sketch |
+| Pitfalls | HIGH | PC behavior from official README; GH runner limits are stable official policy |
 
-**Overall confidence:** HIGH
+**Overall confidence:** HIGH — the milestone is well-bounded and the core chief uncertainty (what package_check will actually flag) resolves in Phase 2/3 by construction.
 
 ### Gaps to Address
 
-- **Node version ambiguity:** Upstream `.nvmrc` specifies Node 24, but YNH typically targets Node 22 for Bookworm compatibility. Must verify at implementation time. Resolution: test both, use `"24"` if LibreChat build requires it, fall back to `"22"` if stable.
-- **MongoDB 7.0 vs 8.0:** Wekan successfully uses `mongo_version="8.0"`. Need to test LibreChat against 8.0. Resolution: start with 7.0 per research, verify in Phase 1 testing.
-- **`unrun` workaround specifics:** AUR mentions `npm install --no-save unrun` is needed but exact version not specified. Resolution: implement and test in Phase 1.
-- **Meilisearch version pinning:** Using "latest v1.x" is vague. Need to pin a specific version or implement a version check. Resolution: pin to latest GitHub release at packaging time, update during upgrades.
+- **Exact package_check CLI flags / report filenames:** verify from the package_check README during Phase 2 implementation (docs are good; don't trust the workflow sketch's flags).
+- **Local Incus host availability:** the Windows dev box cannot run this workflow — resolve whether the user has a Linux VM/VPS before planning Phase 2; this is the milestone's biggest logistical dependency.
+- **change_url status:** absence will surface in package_check level-7 ambitions; decide explicitly whether it's v1.1 or v2 (research suggests deferring, but note PC will report it untestable).
+- **Upgrade-from commit validity:** confirm the v1.0-era commit SHA referenced in `test_upgrade_from` actually installs clean before adding the entry.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [YunoHost Packaging Documentation (manifest.toml)](https://yunohost.org/en/dev/packaging/manifest) — Core packaging format
-- [YunoHost App Resources Documentation](https://yunohost.org/en/dev/packaging/resources) — Node.js, MongoDB, apt resource declarations
-- [YunoHost Helpers v2.1 (MongoDB helpers)](https://yunohost.org/en/dev/packaging/scripts/helpers_v2.1) — `ynh_install_mongo`, `ynh_mongo_setup_db`, `ynh_mongo_remove_db`
-- [Wekan Install Script](https://raw.githubusercontent.com/YunoHost-Apps/wekan_ynh/master/scripts/install) — Verified MongoDB + Node.js pattern
-- [Wekan Remove Script](https://raw.githubusercontent.com/YunoHost-Apps/wekan_ynh/master/scripts/remove) — Namespaced MongoDB cleanup pattern
-- [Wekan Backup Script](https://raw.githubusercontent.com/YunoHost-Apps/wekan_ynh/master/scripts/backup) — mongodump backup pattern
-- [Wekan Restore Script](https://raw.githubusercontent.com/YunoHost-Apps/wekan_ynh/master/scripts/restore) — MongoDB restore pattern
-- [Wekan systemd Unit](https://raw.githubusercontent.com/YunoHost-Apps/wekan_ynh/master/conf/systemd.service) — Hardened sandboxing pattern
-- [LibreChat Repository](https://github.com/danny-avila/LibreChat) — Upstream source
-- [LibreChat .nvmrc](https://raw.githubusercontent.com/danny-avila/LibreChat/main/.nvmrc) — Node version requirement
-- [LibreChat package.json](https://raw.githubusercontent.com/danny-avila/LibreChat/main/package.json) — Build scripts and dependencies
+- YunoHost/package_check README — LXD/Incus requirements, tests.toml syntax, test IDs, docker conflicts (fetched 2026-09-18)
+- YunoHost/doc — "Testing your app" / "Publishing your app" (levels 0–8, yunorunner CIs, `!testme`, weekly bot level PR)
+- YunoHost/example_ynh — tests.toml sample, change_url script, absence of CI workflows
+- YunoHost/package_linter README — Python ≥3.11 analyzer scope
+- YunoHost/apps repo — official CI architecture; GH Actions only handles catalog consistency
+- Local repo inspection at HEAD `e834aea` — file-by-file existence verification
 
 ### Secondary (MEDIUM confidence)
-- [AUR LibreChat Package (PKGBUILD)](https://aur.archlinux.org/packages/librechat) — Documented build issues (xlsx, unrun, npm cache)
-- [MyDrive YunoHost manifest](https://raw.githubusercontent.com/YunoHost-Apps/mydrive_ynh/master/manifest.toml) — Another MongoDB-using YNH app (confirming patterns)
+- Wekan_ynh and YunoHost-Apps patterns (v1.0-era stack research; unchanged)
+- GitHub official docs on hosted runner specs / 6h job limit / log-size caps
+- linuxcontainers.org Incus/Docker networking conflict workarounds
+
+### Tertiary (LOW confidence)
+- Community self-hosted-GH-Actions package_check recipes — not directly verified; do not imitate
+- ARCHITECTURE.md's `package_check.yml --container` workflow sketch — superseded by anti-feature ruling; exact flags unverified
 
 ---
-*Research completed: 2026-09-18*
+*Research completed: 2026-09-19*
 *Ready for roadmap: yes*
