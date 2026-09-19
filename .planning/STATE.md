@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-09-18)
 ## Current Position
 
 Phase: 1 of 3 (Foundation + Install)
-Plan: 2 of 2 (COMPLETE)
-Status: Phase 1 Complete
-Last activity: 2026-09-18 — Plan 01-02 executed (install scripts)
+Plan: 3 of 3 (COMPLETE)
+Status: Phase 1 plans all complete — pending live-server human verification
+Last activity: 2026-09-19 — Plan 01-03 gap closure executed (sha256 pinned, ReadWritePaths, multi_instance=false)
 
 Progress: [██████████] 100%
 
@@ -35,6 +35,7 @@ Progress: [██████████] 100%
 | Phase 01 P01 | 10m | 3 tasks | 13 files |
 | Phase 01 P02 | 8m | 2 tasks | 2 files |
 | Phase 01 P02 | 8m | 2 tasks | 2 files |
+| Phase 01 P03 | 6m | 4 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -50,6 +51,7 @@ Progress: [██████████] 100%
 - Key decisions logged in PROJECT.md Key Decisions table
 - [Phase 01]: Node 24 in manifest per upstream .nvmrc; main source sha256 computed at build
 - [Phase 01]: mongo_version=7.0 global in _common.sh; admin password 24-char via ynh_string_random; db_pwd read back from mongopwd setting
+- [Phase 01]: multi_instance=false for v1 to match single-instance Meilisearch wiring (gap closure option-b); per-app wiring deferred
 
 ### Pending Todos
 
@@ -63,6 +65,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-09-18
-Stopped at: Completed 01-02-PLAN.md (install scripts). Phase 1 of 2 plans complete.
+Last session: 2026-09-19
+Stopped at: Completed 01-foundation-install-03-PLAN.md (gap closure). Phase 1 plans 1–3 all complete.
 Resume file: None
