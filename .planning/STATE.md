@@ -5,52 +5,52 @@
 See: .planning/PROJECT.md (updated 2026-09-19)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** v1.1 CI Validation — package_check green
+**Current focus:** Phase 4 — Lint Baseline (v1.1 CI Validation)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-09-19 — Milestone v1.1 started
+Milestone: v1.1 CI Validation (phases 4-7)
+Phase: 4 of 7 (Lint Baseline)
+Plan: 0 of ? in current phase (not yet planned)
+Status: Ready to plan
+Last activity: 2026-09-19 — Roadmap created for v1.1
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: ~8m
-- Total execution time: ~50m
+- Total plans completed: 7 (v1.0)
+- Average duration: n/a (not tracked)
+- Total execution time: n/a
 
-**Recent Trend:**
-- Last 5 plans: —
-- Trend: —
-| Phase 01 P01 | 10m | 3 tasks | 13 files |
-| Phase 01 P02 | 8m | 2 tasks | 2 files |
-| Phase 01 P02 | 8m | 2 tasks | 2 files |
-| Phase 01 P03 | 6m | 4 tasks | 4 files |
-| Phase 02 P01 | 4m | 2 tasks | 2 files |
-| Phase 02 P02 | 10m | 2 tasks | 2 files |
-| Phase 03 P01 | 6m | 2 tasks | 2 files |
-| Phase 03 P02 | verification window | 1 code task | 1 file |
+**By Phase:**
+
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| v1.0 (1-3) | 7 | 7 | - |
 
 ## Accumulated Context
 
-Phase 1-3 decisions archived: see .planning/PROJECT.md Key Decisions and .planning/milestones/v1.0-ROADMAP.md Milestone Summary.
+### Decisions
+
+Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
+
+- [Research]: GH Actions = lint-only; full package_check on hosted runners is an anti-feature (Incus/btrfs requirements + OOM). Official YNH CI covers the full suite after catalog submission.
+- [Research]: Phase order — linter first (zero infra), then tests.toml + local PC env, then fix-findings iteration, GH workflow last so it starts green.
+- [Research]: `tests.toml` must supply `args.admin_email`; never use `exclude` to fake green CI.
 
 ### Pending Todos
 
-- Future upstream release: re-run bump flow (tag → url/sha256 pin → ~ynhN bump) + live verification
-- Run YunoHost app CI (`package_check") — deferred to next milestone (POLS-01)
-- Per-app Meilisearch wiring before enabling multi-instance (POLS-03)
+None yet.
 
 ### Blockers/Concerns
 
-- None open.
+- [Phase 5]: Local Incus host availability — research flags WSL2 as NOT viable for Incus; confirm the user's Linux VM/VPS setup during Phase 5 planning (milestone's biggest logistical dependency).
+- [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) — expect unknown-scope findings.
 
 ## Session Continuity
 
 Last session: 2026-09-19
-Stopped at: v1.0 milestone complete and archived (tag v1.0)
-Resume file: None — start next milestone with /gsd-new-milestone
+Stopped at: v1.1 roadmap created (STATE.md initialized)
+Resume file: None

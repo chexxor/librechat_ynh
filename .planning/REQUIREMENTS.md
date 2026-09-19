@@ -50,16 +50,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CI-01 | — | Pending |
-| CI-02 | — | Pending |
-| POLS-01 | — | Pending |
-| LINT-01 | — | Pending |
-| GHCI-01 | — | Pending |
+| LINT-01 | Phase 4 | Pending |
+| CI-01 | Phase 5 | Pending |
+| CI-02 | Phase 5 | Pending |
+| POLS-01 | Phase 6 | Pending |
+| GHCI-01 | Phase 7 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 5 total
-- Mapped to phases: 0
-- Unmapped: 5 ⚠️
+- Mapped to phases: 5 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-09-19*

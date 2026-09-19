@@ -2,22 +2,84 @@
 
 ## Milestones
 
-- ✅ **v1.0 LibreChat YunoHost Package** — Phases 1-3 (shipped 2026-09-19) — details: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
-
-## Phases
+- ✅ **v1.0 Package** - Phases 1-3 (shipped 2026-09-19)
+- 🚧 **v1.1 CI Validation** - Phases 4-7 (in progress)
 
 <details>
-<summary>✅ v1.0 LibreChat YunoHost Package (Phases 1-3) — SHIPPED 2026-09-19 (see .planning/milestones/v1.0-ROADMAP.md)</summary>
+<summary>✅ v1.0 Package (Phases 1-3) - SHIPPED 2026-09-19</summary>
 
-- [x] Phase 1: Foundation + Install (3/3 plans) — install works end-to-end with MongoDB, Meilisearch, nginx, systemd
-- [x] Phase 2: Remove + Backup/Restore (2/2 plans) — completed 2026-09-19
-- [x] Phase 3: Upgrade (2/2 plans) — completed 2026-09-18
+Phases 1-3 delivered the complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade — 34/34 v1 requirements met, live-verified on a real YunoHost server. See MILESTONES.md for the summary.
 
 </details>
 
-## Next
+### 🚧 v1.1 CI Validation (In Progress)
 
-To be defined with the next milestone (`/gsd-new-milestone`). Likely candidates from v1 deferrals: YunoHost app CI (`package_check`), `change_url`, multi-instance/ARM64 support.
+**Milestone Goal:** Package passes YunoHost `package_check` with zero failures (POLS-01 archived as live verification), `package_linter` reports zero errors, and a lint-only GitHub Actions workflow is green.
 
----
-*v1.0 archived 2026-09-19 — full details in .planning/milestones/v1.0-ROADMAP.md*
+**Phase Numbering:**
+- Integer phases (4, 5, 6, 7): Planned milestone work
+- Decimal phases (4.1, 5.1...): Urgent insertions via `/gsd-insert-phase`
+
+- [ ] **Phase 4: Lint Baseline** - package_linter runs clean on the Windows dev box; establishes the cheapest source of findings before any infra work
+- [ ] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible WSL2/Incus Linux environment runs the full package_check suite
+- [ ] **Phase 6: Fix Findings to Zero Failures** - Iterative fixes until the full package_check suite completes with zero failures; clean run archived as POLS-01 verification
+- [ ] **Phase 7: GitHub Actions Lint Workflow** - Lint-only workflow on hosted runners, added last so it starts green
+
+## Phase Details
+
+### Phase 4: Lint Baseline
+**Goal**: The package passes YunoHost `package_linter` with zero errors, verified on the Windows-capable Python environment — establishing the real finding list before any environment or CI work.
+**Depends on**: Nothing (first phase of v1.1; v1.0 shipped)
+**Requirements**: LINT-01
+**Success Criteria** (what must be TRUE):
+  1. User can run `package_linter` locally from the Windows dev box (pure Python ≥3.11, no Linux host needed) and it reports zero errors on the package
+  2. Known warnings are either fixed (e.g., `doc/` assets, maintainer placeholder) or explicitly listed with a reason to defer
+  3. A lint baseline output is archived (log/artifact) showing the zero-error result
+**Plans**: TBD
+
+### Phase 5: tests.toml + Local package_check Environment
+**Goal**: The package has a schema-valid `tests.toml` (supplying install args like `admin_email`, optional curl smoke-tests and one `test_upgrade_from` entry) and a reproducible local Linux environment (WSL2 + Incus + btrfs, documented) that can run the full `package_check` suite end-to-end.
+**Depends on**: Phase 4 (lint clean so environmental findings aren't confused with static ones)
+**Requirements**: CI-01, CI-02
+**Success Criteria** (what must be TRUE):
+  1. `tests.toml` exists with `test_format = 1.0` and the documented schema header; package_check parses it without errors and installs proceed (argument `admin_email` supplied — no `exclude` misuse)
+  2. User can, following a documented setup doc, run `package_check` locally from the WSL2 environment against the package and see the full test suite start and complete (pass or fail — findings allowed, crashes not)
+  3. The environment setup (Incus init, btrfs, `lynx jq btrfs-progs`, yunohost remote) is documented and reproducible by re-running the doc from scratch
+**Plans**: TBD
+
+### Phase 6: Fix Findings to Zero Failures
+**Goal**: The full local `package_check` suite — install root/subpath, private install, reinstall-after-remove, backup/restore, upgrade — completes with zero failures, and the clean run is archived as live verification of POLS-01. This is the milestone's core deliverable.
+**Depends on**: Phase 5 (needs a runnable environment and a valid tests.toml)
+**Requirements**: POLS-01
+**Success Criteria** (what must be TRUE):
+  1. A complete `package_check` run on the local environment shows zero failures across all lifecycle tests (root install, subpath install, private install, reinstall after remove, backup/restore, upgrade)
+  2. The zero-failure run log (`Test_results.log` or equivalent) is archived in the repo/planning as POLS-01 v1.1 live verification
+  3. Network flakiness is contained: a re-run of a previously failing test passes (bounded retries / honest flake-vs-regression distinction documented)
+  4. No secrets (admin password, env contents) appear in package_check output logs — `ynh_print`/`set -x` output audited
+**Plans**: TBD
+
+### Phase 7: GitHub Actions Lint Workflow
+**Goal**: A lint-only GitHub Actions workflow runs on push/PR against `ubuntu-latest` and is green — package_linter + shellcheck + TOML/schema validation. Fast static layer only; NO package_check on hosted runners (anti-feature).
+**Depends on**: Phase 6 (lands after local findings are fixed so the workflow starts green)
+**Requirements**: GHCI-01
+**Success Criteria** (what must be TRUE):
+  1. A pull request or push to the repo shows the lint workflow running and passing (green check) on `ubuntu-latest`
+  2. The workflow completes in minutes (~10 min or less) with an explicit job timeout, running only lint-only jobs: package_linter, shellcheck on `scripts/*`, TOML/schema validation
+  3. Nothing in the workflow attempts a container build or package_check run (hosted-runner anti-feature respected); safe `pull_request`-style triggers only (no `pull_request_target` surprise surface)
+**Plans**: TBD
+
+## Progress
+
+**Execution Order:** 4 → 5 → 6 → 7 (decimal insertions between their surrounding integers)
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 3/3 | Complete | 2026-09-19 |
+| 2. App Delivery | v1.0 | 2/2 | Complete | 2026-09-19 |
+| 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
+| 4. Lint Baseline | v1.1 | 0/? | Not started | - |
+| 5. tests.toml + PC Environment | v1.1 | 0/? | Not started | - |
+| 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
+| 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
+
+*Note: v1.0 plan counts approximate the shipped milestone summary (3 phases, 7 plans).*
