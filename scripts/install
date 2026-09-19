@@ -1,0 +1,147 @@
+#!/bin/bash
+
+#=================================================
+# LibreChat YunoHost — install script
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+ynh_abort_if_errors
+
+#=================================================
+# Step 1 — Install dependencies (MongoDB)
+#=================================================
+ynh_script_progression "Installing dependencies..."
+
+# ynh_install_mongo pulls MongoDB from the upstream MongoDB apt repo and
+# sets up mongod.service (repo setup, GPG keys, service integration).
+# Uses $mongo_version from _common.sh. Do NOT hand-roll the apt repo setup.
+ynh_install_mongo
+
+#=================================================
+# Step 2 — Set up source files (LibreChat + Meilisearch binary)
+#=================================================
+ynh_script_progression "Setting up source files..."
+
+# LibreChat source from GitHub (pinned tag, per [resources.sources.main])
+ynh_setup_source --dest_dir="$install_dir"
+
+# Meilisearch native binary downloaded straight to /usr/bin
+ynh_setup_source --dest_dir="/usr/bin" --source_id="meilisearch"
+chmod +x /usr/bin/meilisearch
+
+#=================================================
+# Step 3 — Create MongoDB database
+#=================================================
+ynh_script_progression "Creating MongoDB database..."
+
+db_name=$(ynh_sanitize_dbid --db_name=$app)
+db_user=$db_name
+ynh_app_setting_set --key=db_name --value=$db_name
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
+
+# Read back the generated MongoDB password for the .env template
+db_pwd=$(ynh_app_setting_get --key=mongopwd)
+
+#=================================================
+# Step 4 — Generate secrets
+#=================================================
+ynh_script_progression "Generating secrets..."
+
+# Populates: jwt_secret, jwt_refresh_secret, admin_panel_secret,
+# meili_master_key, admin_password (and stores each in app settings)
+librechat_generate_secrets
+
+#=================================================
+# Step 5 — Build LibreChat
+#=================================================
+ynh_script_progression "Building LibreChat (this can take several minutes)..."
+
+librechat_build
+
+#=================================================
+# Step 6 — Add configuration files
+#=================================================
+ynh_script_progression "Adding configuration files..."
+
+# NOTE: all template variables must be in bash scope before ynh_config_add:
+#   $port, $domain (YNH-provided init vars)
+#   $jwt_secret, $jwt_refresh_secret, $admin_panel_secret, $meili_master_key
+#   $db_name, $db_user, $db_pwd
+librechat_env=$install_dir/librechat.env
+ynh_config_add --template="librechat.env" --destination="$librechat_env"
+
+librechat_yaml=$install_dir/librechat.yaml
+ynh_config_add --template="librechat.yaml" --destination="$librechat_yaml"
+
+# Restrict secrets file to the app user
+chown $app:$app "$librechat_env"
+chmod 600 "$librechat_env"
+
+#=================================================
+# Step 7 — Configure nginx
+#=================================================
+ynh_script_progression "Configuring nginx..."
+
+ynh_config_add_nginx
+
+#=================================================
+# Step 8 — Configure systemd services
+#=================================================
+ynh_script_progression "Configuring systemd services..."
+
+# LibreChat main service (uses default $app service name)
+ynh_config_add_systemd --template="librechat.service"
+
+# Meilisearch service (own service name, needs its own unit)
+yunohost service add meilisearch --description="Meilisearch search engine" --log="/var/log/meilisearch/meilisearch.log"
+ynh_config_add_systemd --template="meilisearch.service" --service="meilisearch"
+
+# Register the LibreChat service with Yunohost for logging/monitoring
+yunohost service add $app --description="LibreChat daemon" --log="/var/log/$app/$app.log"
+
+#=================================================
+# Step 9 — Start services
+#=================================================
+ynh_script_progression "Starting services..."
+
+# Meilisearch first (LibreChat's systemd unit Wants/After-meilisearch)
+ynh_systemctl --service="meilisearch" --action="start"
+
+ynh_systemctl --service=$app --action="start"
+
+#=================================================
+# Step 10 — Create admin user
+#=================================================
+ynh_script_progression "Creating admin user..."
+
+# Direct MongoDB access via create-user.js — does NOT depend on the
+# LibreChat service being up, and must run AFTER the database exists.
+librechat_create_admin_user "$admin_email" "$admin_password"
+
+#=================================================
+# Step 11 — Send admin password email + screen output
+#=================================================
+ynh_script_progression "Sending admin email..."
+
+# Redundant delivery (locked decision): email AND screen output
+mail -s "LibreChat installed — admin password" "$admin_email" <<EOF
+LibreChat has been installed on your YunoHost server.
+
+  Login URL:    https://$domain/
+  Admin email:  $admin_email
+  Admin password: $admin_password
+
+After logging in, configure your LLM provider API keys in
+$install_dir/librechat.yaml, then restart the LibreChat service.
+You can change this password in LibreChat account settings.
+EOF
+
+# Show the password at the end of install output as well
+ynh_print_info "Admin password: $admin_password"
+
+#=================================================
+# Step 12 — Completion
+#=================================================
+ynh_script_progression "Installation of $app completed"
