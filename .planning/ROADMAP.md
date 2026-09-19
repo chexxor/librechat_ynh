@@ -37,10 +37,11 @@ Plans:
   2. `yunohost app backup librechat` produces a consistent backup archive with MongoDB dump (`mongodump`), app config, and Meilisearch data
   3. `yunohost app restore librechat` from a backup archive fully restores the app — MongoDB data, config, Meilisearch, nginx config, and service state — resulting in a working LibreChat UI
   4. Back-to-back backup and restore round-trips without data loss (chat history and user accounts preserved)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- *(to be refined during planning)*
+- [ ] 02-remove-backup-restore-01-PLAN.md — Manifest data_dir fix + scripts/remove (namespaced MongoDB-safe removal)
+- [ ] 02-remove-backup-restore-02-PLAN.md — scripts/backup + scripts/restore + live round-trip verification
 
 ### Phase 3: Upgrade
 **Goal**: `yunohost app upgrade librechat` rebuilds LibreChat from updated source, preserves all user configuration and data, and leaves a working app.
@@ -63,5 +64,5 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Install | 1/2 | In Progress|  |
-| 2. Remove + Backup/Restore | 0/TBD | Not started | - |
+| 2. Remove + Backup/Restore | 0/2 | Planned | - |
 | 3. Upgrade | 0/TBD | Not started | - |
