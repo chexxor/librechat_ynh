@@ -14,31 +14,47 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 
 ### Validated
 
-- ✓ `yunohost app backup librechat` produces a consistent backup (MongoDB via `mongodump`) — Phase 2
-- ✓ `yunohost app restore librechat` restores app + data — Phase 2
-- ✓ `yunohost app remove librechat` cleanly removes services, instance, and integration (shared-Mongo safe) — Phase 2
+- ✓ `yunohost app install librechat` returns a working, reachable LibreChat web UI — v1.0
+- ✓ LibreChat backend (Node API) starts under systemd — v1.0 (units sandbox-safe via ReadWritePaths)
+- ✓ MongoDB integrated via `ynh_install_mongo` (namespaced instance, v7.0) — v1.0
+- ✓ Meilisearch installed as native per-arch binary under systemd — v1.0
+- ✓ nginx reverse-proxy with WebSocket + SSE support (proxy_buffering off) — v1.0
+- ✓ HTTPS via YunoHost Let's Encrypt — v1.0
+- ✓ `manifest.toml` (packaging v2) validates; sources pinned with sha256 — v1.0
+- ✓ All major LLM providers configurable out of the box (OpenAI, Anthropic, Ollama, OpenRouter) — v1.0
+- ✓ `yunohost app upgrade` works, preserves `librechat.env` and `librechat.yaml` — v1.0 (live-verified, ~ynh2)
+- ✓ Safe remove, shared-MongoDB safe — v1.0
+- ✓ Backup/restore round-trip consistent (`mongodump`) — v1.0 (live-verified)
+- ✓ Initial admin user created at install — v1.0
 
 ### Active
 
-- [ ] Package installs LibreChat natively (no Docker) on latest YunoHost (Debian Bookworm)
-- [ ] `yunohost app install librechat` returns a working, reachable LibreChat web UI
-- [ ] LibreChat backend (Node API) starts under systemd and survives reboot
-- [ ] MongoDB is installed and integrated via YunoHost's `ynh_install_mongo` (namespaced instance)
-- [ ] Meilisearch is installed (native binary) and started under systemd
-- [ ] YunoHost nginx reverse-proxies the app domain to LibreChat, with WebSocket + SSE (streaming) support
-- [ ] HTTPS provisioned transparently via YunoHost's Let's Encrypt integration
-- [ ] `yunohost app upgrade librechat` works and preserves user config (`librechat.env`, `librechat.yaml`)
-- [ ] `manifest.toml` (packaging v2) validates and declares correct apt/binary sources with pinned versions
-- [ ] All major LLM providers configurable out of the box (OpenAI, Anthropic, Ollama, OpenRouter, etc.)
-- [ ] Package passes YunoHost app CI or has documented CI-blocking issue
+- [ ] Package passes YunoHost app CI (`package_check`) — v2 (POLS-01)
+- [ ] `change_url` script — v2 (POLS-02)
+- [ ] Multi-instance support — v2 (POLS-03, requires per-app Meilisearch wiring)
+- [ ] ARM64 support — v2 (POLS-04)
 
 ### Out of Scope
 
-- **Docker-in-a-package install** — Native install is the explicit goal; user runs YunoHost to avoid Docker
-- **SSO / LDAP integration** — LibreChat ships its own account system; declare `sso = false` in `[integration]`
-- **Multi-domain / virtual-host fan-out** — Single domain per install is sufficient for v1
+- **Docker-in-a-package install** — Native install is the explicit goal; user runs YunoHost to avoid Docker (still valid)
+- **SSO / LDAP integration** — LibreChat does not support LDAP/SAML upstream (updated reasoning)
+- **Multi-domain / virtual-host fan-out** — Single domain per install is sufficient
+- **Config panel in YNH webadmin** — LibreChat has its own config system (`librechat.yaml`)
+- **Database management UI** — User can install mongo-express separately
+- **Redis integration** — Not required for default single-server mode
 
-## Context
+## Current State
+
+**Shipped: v1.0** (2026-09-19) — complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade, all live-verified on a real YunoHost server. 34/34 v1 requirements met; 47 files, ~5,700 lines added. LibreChat pinned to v0.8.8-rc3 (sha256), Node 24, MongoDB 7.0.
+
+**Known debt for next milestone:** `package_check` CI not yet run; multi-instance blocked by single-instance Meilisearch wiring; future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump).
+
+## Next Milestone Goals
+
+To be defined via `/gsd-new-milestone`. Deferred v2 candidates: CI validation (`package_check`), `change_url`, multi-instance, ARM64, admin-credential install question.
+
+<details>
+<summary>v1.0 pre-release planning context (original project framing)</summary>
 
 This package wraps a real application with multiple backing services:
 
@@ -46,36 +62,40 @@ This package wraps a real application with multiple backing services:
 - **MongoDB** — required by LibreChat. Debian does not ship MongoDB (SSPL licensing). YunoHost provides `ynh_install_mongo` helper (used by Wekan, MyDrive, etc.)
 - **Meilisearch** — optional for some LibreChat LLM capabilities; install as native per-arch binary
 
-**AUR (Arch Linux) package lessons to evaluate during planning:**
-- `xlsx` CDN tarball blocked by npm
-- `unrun` missing from `npm ci` resolution
-- `libvips` (sharp) native dependency
-- Config overwrite on upgrade
-- npm `.cache` bloat in the app tree
-- Sysuser + env wrapper launcher
+**AUR (Arch Linux) package lessons identified in early planning** (all evaluated/solved during v1.0):
 
-**Prior design work:** A prior design pass produced a concrete native package tree structure with `manifest.toml`, `scripts/`, `conf/`, and `doc/` directories that can inform the implementation.
+- `xlsx` CDN tarball blocked by npm → `allow-remote=true` in build
+- `unrun` missing from `npm ci` resolution → `npm install --no-save unrun`
+- `libvips` (sharp) native dependency → pinned libvips42 source
+- Config overwrite on upgrade → regen-and-merge strategy
+- npm `.cache` bloat in the app tree → stripped post-build
 
-## Constraints
+</details>
 
-- **Tech stack**: Debian Bookworm + YunoHost packaging v2; LibreChat via GitHub source (pinned tag), Node 22, native MongoDB (upstream repo), native Meilisearch binary. No Docker.
-- **Security**: Source tarballs pinned with sha256; app runs under dedicated `$app` system user; nginx is YunoHost-managed
-- **Data locality**: All app data in `/home/yunohost.app/librechat/`; backup via consistent logical dump (`mongodump`)
-- **Upgrade safety**: User config (`.env` secrets, `librechat.yaml`) must be merged, never clobbered
-- **Licensing**: MongoDB is SSPL — accepted because YunoHost core ships `ynh_install_mongo` helper for it (established precedent)
-- **Compatibility**: Must remain valid YunoHost app for catalog (single domain, own auth, native install)
+## Context
+
+- **Tech stack**: Debian Bookworm + YunoHost packaging v2; LibreChat via GitHub source (pinned tag v0.8.8-rc3), Node 24 (upstream `.nvmrc`), native MongoDB 7.0 (`ynh_install_mongo`), native Meilisearch binary. No Docker.
+- **Security**: Source tarballs pinned with sha256; app runs under dedicated `$app` system user; `librechat.env` chmod 600; systemd units survive `ProtectSystem=full`
+- **Data locality**: All app data in `/home/yunohost.app/librechat/` (`[resources.data_dir]`); backup via consistent logical dump (`mongodump`, cwd-relative)
+- **Upgrade safety**: `librechat.env` merge = fresh template + append-only user keys; `librechat.yaml` never overwritten (only missing active keys appended as commented sections)
+- **Licensing**: MongoDB SSPL — accepted via official `ynh_install_mongo` helper precedent
+- **Compatibility**: Valid YunoHost app for catalog (single domain, own auth, native install, `sso = false`)
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Native install, no Docker | User runs YunoHost to avoid Docker; Docker-in-a-package is contentious | — Pending |
-| Use YunoHost `ynh_install_mongo` for MongoDB | Debian ships no Mongo (SSPL); helper is official precedent | — Pending |
-| `sso = false`, `ldap = false` in `[integration]` | LibreChat ships its own account system | — Pending |
-| Config merge (never overwrite) on upgrade | AUR lesson — native rebuilds must not destroy user secrets | — Pending |
-| Backup via `mongodump` not raw volume copy | Raw copy is inconsistent while DB is live | — Pending |
-| nginx proxy with WebSocket + SSE (buffering off) | LibreChat streams LLM responses and uses WS | — Pending |
-| Run app as `$app` system user via env-sourcing wrapper | AUR pattern; avoids root, isolates Node process | — Pending |
+| Native install, no Docker | User runs YunoHost to avoid Docker; Docker-in-a-package is contentious | ✓ Good — v1.0 shipped native |
+| Use YunoHost `ynh_install_mongo` for MongoDB | Debian ships no Mongo (SSPL); helper is official precedent | ✓ Good — namespaced instance works; shared-safe remove |
+| `sso = false`, `ldap = false` in `[integration]` | LibreChat ships its own account system | ✓ Good |
+| Config merge (never overwrite) on upgrade | AUR lesson — native rebuilds must not destroy user secrets | ✓ Good — regen-and-merge verified live |
+| Backup via `mongodump` not raw volume copy | Raw copy is inconsistent while DB is live | ✓ Good — round-trip verified |
+| nginx proxy with WebSocket + SSE (buffering off) | LibreChat streams LLM responses and uses WS | ✓ Good |
+| Run app as `$app` system user via env-sourcing wrapper | AUR pattern; avoids root, isolates Node process | ✓ Good |
+| Node 24 (not 22) per upstream `.nvmrc` | Matches LibreChat v0.8.8-rc3 runtime | ✓ Good |
+| `multi_instance=false` for v1 | Single-instance Meilisearch wiring retained; per-app wiring deferred | ⚠️ Revisit — needed for POLS-03 |
+| Declare `[resources.data_dir]`, ynh_safe_rm guards meilisearch subdir | Core-managed data dir; tolerant cleanup | ✓ Good |
+| Upgrade validated via `~ynhN` bump on same tag | No newer upstream stable at milestone time | — Pending real upstream bump |
 
 ---
-*Last updated: 2026-09-19 after Phase 2*
+*Last updated: 2026-09-19 after v1.0 milestone*
