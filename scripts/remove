@@ -2,9 +2,96 @@
 # SOURCE COMMON
 source /usr/share/yunohost/helpers
 
-# AUTO-GENERATED STUB — implemented in Phase 2/3
+#=================================================
+# REMOVE — LibreChat YunoHost package
+#
+# Pattern: Wekan_ynh-verified removal order.
+# Safe for shared MongoDB: removes ONLY this app's
+# namespaced database (db_name), never the MongoDB
+# service itself, so other YunoHost apps are untouched.
+#=================================================
 
 ynh_abort_if_errors
 
-ynh_script_progression "Removing LibreChat (stub)..."
-ynh_script_progression "done"
+ynh_script_progression "Stopping services..."
+
+#----------------------------------------------
+# 1. Stop services first so nothing writes during removal.
+#    Guard with || true — they may already be down
+#    (e.g. remove-after-failed-install).
+#----------------------------------------------
+ynh_systemctl --service=$app --action=stop || true
+ynh_systemctl --service=meilisearch --action=stop || true
+
+#----------------------------------------------
+# 2. Deregister from YNH service monitoring
+#    (only if registered, per Wekan — tolerant of
+#    partially-installed state)
+#----------------------------------------------
+if ynh_hide_warnings yunohost service status $app >/dev/null; then
+    yunohost service remove $app
+fi
+if ynh_hide_warnings yunohost service status meilisearch >/dev/null; then
+    yunohost service remove meilisearch
+fi
+
+#----------------------------------------------
+# 3. Remove systemd units (also stops/disables them)
+#----------------------------------------------
+ynh_script_progression "Removing systemd services..."
+ynh_config_remove_systemd                          # defaults to $app
+ynh_config_remove_systemd --service=meilisearch
+
+#----------------------------------------------
+# 4. Remove nginx config
+#----------------------------------------------
+ynh_script_progression "Removing nginx configuration..."
+ynh_config_remove_nginx
+
+#----------------------------------------------
+# 5. Read settings explicitly.
+#    Pitfall: $db_user is NOT stored as an app setting —
+#    only db_name is. For YNH mongo naming, db_user == db_name.
+#----------------------------------------------
+db_name=$(ynh_app_setting_get --key=db_name)
+if [ -z "$db_name" ]; then
+    ynh_die "Cannot find db_name app setting"
+fi
+db_user=$db_name
+
+#----------------------------------------------
+# 6. Remove ONLY the namespaced MongoDB database + user.
+#    NEVER call ynh_remove_mongo here — it removes the global
+#    MongoDB service integration, breaking other YunoHost apps
+#    (RMV-02/RMV-05).
+#----------------------------------------------
+ynh_script_progression "Removing MongoDB database $db_name (namespaced only)..."
+ynh_mongo_remove_db --db_user=$db_user --db_name=$db_name
+
+#----------------------------------------------
+# 7. Remove Node.js (ref-counted): the helper only deletes
+#    Node 24 if no other YunoHost app still uses it.
+#    Never `rm -rf` the nodejs dir manually.
+#----------------------------------------------
+ynh_nodejs_remove
+
+#----------------------------------------------
+# 8. Remove the meilisearch binary (our package owns
+#    /usr/bin/meilisearch — single instance). Tolerant if missing.
+#----------------------------------------------
+if [ -x /usr/bin/meilisearch ]; then
+    rm -f /usr/bin/meilisearch
+fi
+
+#----------------------------------------------
+# 9. Remove package-owned content inside the core-managed data_dir.
+#    $install_dir and $data_dir are removed by the YNH core after
+#    this script returns (--purge covers data_dir) — this satisfies
+#    RMV-03/RMV-04 via core-guaranteed teardown; do not duplicate it here.
+#    Exception (RMV-03 wording): the meilisearch data subdir is
+#    package-owned content inside data_dir, so guard it explicitly.
+#    ynh_safe_rm refuses disastrous rm targets.
+#----------------------------------------------
+ynh_safe_rm "$data_dir/meilisearch"
+
+ynh_script_progression "Removal of $app completed"
