@@ -55,7 +55,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-upgrade-01-PLAN.md — Upgrade script + config merge helper (rebuild via librechat_build, ynh_setup_source --keep, env/yaml merge preserving user values)
+- [x] 03-upgrade-01-PLAN.md — Upgrade script + config merge helper (rebuild via librechat_build, ynh_setup_source --keep, env/yaml merge preserving user values) — DONE 2026-09-18 (fe50d98, ba94ac6)
 - [ ] 03-upgrade-02-PLAN.md — Manifest source-tag bump (~ynh2, sha256) + live `yunohost app upgrade` verification checkpoint
 
 ## Progress

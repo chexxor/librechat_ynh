@@ -102,10 +102,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | INST-08 | Phase 1 | Complete |
 | INST-09 | Phase 1 | Complete |
 | INST-10 | Phase 1 | Complete |
-| UPGR-01 | Phase 3 | Pending |
-| UPGR-02 | Phase 3 | Pending |
-| UPGR-03 | Phase 3 | Pending |
-| UPGR-04 | Phase 3 | Pending |
+| UPGR-01 | Phase 3 | Complete |
+| UPGR-02 | Phase 3 | Complete |
+| UPGR-03 | Phase 3 | Complete |
+| UPGR-04 | Phase 3 | Complete |
 | UPGR-05 | Phase 3 | Pending |
 | RMV-01 | Phase 2 | Complete |
 | RMV-02 | Phase 2 | Complete |

@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 ## Current Position
 
 Phase: 3 of 3 (Upgrade)
-Plan: 0 (not yet planned)
-Status: Phase 2 complete (2026-09-19) — code verified statically; live round-trip confirmed by user approval
-Last activity: 2026-09-19 — Phase 2 complete (02-01, 02-02 executed; VERIFICATION static pass; ROADMAP/REQUIREMENTS updated)
+Plan: 1 complete (03-01 executed 2026-09-18: upgrade script + config merge helper; commits fe50d98, ba94ac6)
+Status: In progress — 03-02 (live upgrade verification) remaining
+Last activity: 2026-09-18 — 03-01 executed and committed
 
-Progress: [██████████] 100%
+Progress: [█████████░] 86% (6 of 7 plans: 3×01, 2×02, 1×03)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: ~8m
-- Total execution time: ~44m
+- Total execution time: ~50m
 
 **Recent Trend:**
 - Last 5 plans: —
@@ -32,6 +32,7 @@ Progress: [██████████] 100%
 | Phase 01 P03 | 6m | 4 tasks | 4 files |
 | Phase 02 P01 | 4m | 2 tasks | 2 files |
 | Phase 02 P02 | 10m | 2 tasks | 2 files |
+| Phase 03 P01 | 6m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -51,6 +52,7 @@ Progress: [██████████] 100%
 - [Phase 02]: [resources.data_dir] declared with no subdir config — meilisearch creates its own db-path dir
 - [Phase 02]: remove uses ynh_mongo_remove_db (db_user=db_name from settings), never ynh_remove_mongo — protects shared MongoDB
 - [Phase 02]: install_dir/data_dir teardown left to YNH core; ynh_safe_rm guards package-owned data_dir/meilisearch subdir
+- [Phase 03]: env merge = regenerate fresh template, append only user-added keys absent from it (managed keys always fresh); yaml never overwritten — only commented template sections for missing active top-level keys appended
 
 ### Pending Todos
 
@@ -58,10 +60,10 @@ Progress: [██████████] 100%
 
 - **Phase 1:** AUR build issues need workarounds (xlsx `allow-remote=true`, `unrun` missing, npm cache bloat)
 - **Phase 1:** nginx config MUST include WebSocket upgrade headers and proxy_buffering off — silent failure otherwise
-- **Phase 3:** Config merge strategy needs design — how to append new keys without overwriting user values
+- **Phase 3:** live upgrade (03-02) not yet run — the config merge is only fixture-tested and statically verified so far
 
 ## Session Continuity
 
-Last session: 2026-09-19
-Stopped at: Phase 2 complete (both plans executed, verification passed with user approval). Ready to plan/execute Phase 3 — Upgrade.
+Last session: 2026-09-18
+Stopped at: Completed 03-01-PLAN.md (upgrade script + config merge helper committed fe50d98, ba94ac6). Next: execute 03-02 (live upgrade).
 Resume file: None
