@@ -4,7 +4,7 @@ id = "librechat"
 name = "LibreChat"
 description.en = "Multi-provider LLM chat UI (OpenAI, Anthropic, Ollama, OpenRouter, ...)"
 
-version = "0.8.8-rc3~ynh1"
+version = "0.8.8-rc3~ynh2"
 
 maintainers = ["your-username"]
 
