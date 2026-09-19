@@ -52,10 +52,11 @@ Plans:
   2. User-customized `librechat.env` (secrets) and `librechat.yaml` (provider config) are preserved verbatim after upgrade — new config keys are merged in, existing values are never overwritten
   3. MongoDB data (chat history, user accounts, agent config) and Meilisearch search indexes survive the upgrade intact
   4. The upgrade completes without npm `.cache` bloat remaining in the app tree
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- *(to be refined during planning)*
+- [ ] 03-upgrade-01-PLAN.md — Upgrade script + config merge helper (rebuild via librechat_build, ynh_setup_source --keep, env/yaml merge preserving user values)
+- [ ] 03-upgrade-02-PLAN.md — Manifest source-tag bump (~ynh2, sha256) + live `yunohost app upgrade` verification checkpoint
 
 ## Progress
 
