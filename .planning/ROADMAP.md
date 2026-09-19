@@ -8,7 +8,7 @@ A YunoHost native app package that installs LibreChat — a free, open-source, m
 
 - [x] **Phase 1: Foundation + Install** — `yunohost app install librechat` works end-to-end with all services (MongoDB, Meilisearch, nginx, systemd) and provider templates
 - [x] **Phase 2: Remove + Backup/Restore** — Safe lifecycle management: clean remove, consistent MongoDB-dump backups, full state restore (completed 2026-09-19)
-- [ ] **Phase 3: Upgrade** — Config-preserving upgrade that rebuilds source, merges user settings, and never clobbers data
+- [x] **Phase 3: Upgrade** — Config-preserving upgrade that rebuilds source, merges user settings, and never clobbers data (completed 2026-09-18)
 
 ## Phase Details
 
@@ -52,11 +52,11 @@ Plans:
   2. User-customized `librechat.env` (secrets) and `librechat.yaml` (provider config) are preserved verbatim after upgrade — new config keys are merged in, existing values are never overwritten
   3. MongoDB data (chat history, user accounts, agent config) and Meilisearch search indexes survive the upgrade intact
   4. The upgrade completes without npm `.cache` bloat remaining in the app tree
-**Plans**: 2 plans
+**Plans**: 2 plans | **Status**: Complete (2026-09-18; live upgrade verified by user approval)
 
 Plans:
 - [x] 03-upgrade-01-PLAN.md — Upgrade script + config merge helper (rebuild via librechat_build, ynh_setup_source --keep, env/yaml merge preserving user values) — DONE 2026-09-18 (fe50d98, ba94ac6)
-- [ ] 03-upgrade-02-PLAN.md — Manifest source-tag bump (~ynh2, sha256) + live `yunohost app upgrade` verification checkpoint
+- [x] 03-upgrade-02-PLAN.md — Manifest source-tag bump (~ynh2, sha256) + live `yunohost app upgrade` verification checkpoint
 
 ## Progress
 
@@ -66,4 +66,4 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation + Install | 1/2 | In Progress|  |
 | 2. Remove + Backup/Restore | 2/2 | Complete | 2026-09-19 |
-| 3. Upgrade | 0/TBD | Not started | - |
+| 3. Upgrade | 2/2 | Complete | 2026-09-18 |

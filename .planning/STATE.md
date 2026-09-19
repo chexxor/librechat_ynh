@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 ## Current Position
 
-Phase: 3 of 3 (Upgrade)
-Plan: 1 complete (03-01 executed 2026-09-18: upgrade script + config merge helper; commits fe50d98, ba94ac6)
-Status: In progress — 03-02 (live upgrade verification) remaining
-Last activity: 2026-09-18 — 03-01 executed and committed
+Phase: 3 of 3 (Upgrade) — COMPLETE
+Plan: All plans complete (03-01 executed 2026-09-18: commits fe50d98, ba94ac6; 03-02 executed 2026-09-18: manifest bump 05e3d5b + user-approved live upgrade)
+Status: Phase 3 complete — all 3 phases done; ready for release/final wrap
+Last activity: 2026-09-18 — 03-02 completed (live upgrade user-verified)
 
-Progress: [█████████░] 86% (6 of 7 plans: 3×01, 2×02, 1×03)
+Progress: [██████████] 100% (7 of 7 plans: 3×01, 2×02, 2×03)
 
 ## Performance Metrics
 
@@ -33,6 +33,7 @@ Progress: [█████████░] 86% (6 of 7 plans: 3×01, 2×02, 1×0
 | Phase 02 P01 | 4m | 2 tasks | 2 files |
 | Phase 02 P02 | 10m | 2 tasks | 2 files |
 | Phase 03 P01 | 6m | 2 tasks | 2 files |
+| Phase 03 P02 | verification window | 1 code task | 1 file |
 
 ## Accumulated Context
 
@@ -53,17 +54,21 @@ Progress: [█████████░] 86% (6 of 7 plans: 3×01, 2×02, 1×0
 - [Phase 02]: remove uses ynh_mongo_remove_db (db_user=db_name from settings), never ynh_remove_mongo — protects shared MongoDB
 - [Phase 02]: install_dir/data_dir teardown left to YNH core; ynh_safe_rm guards package-owned data_dir/meilisearch subdir
 - [Phase 03]: env merge = regenerate fresh template, append only user-added keys absent from it (managed keys always fresh); yaml never overwritten — only commented template sections for missing active top-level keys appended
+- [Phase 03]: upstream latest release still v0.8.8-rc3, so 03-02 re-pinned same tag/sha256 unchanged; package bumped ~ynh1 → ~ynh2 to validate upgrade flow
+- [Phase 03]: live upgrade user-confirmed — config/env/yaml/mongo/meili preserved, JWT not rotated, npm cache stripped, UI reachable
 
 ### Pending Todos
+
+- Future upstream release: re-run bump flow (tag → url/sha256 pin → ~ynhN bump) + live verification
 
 ### Blockers/Concerns
 
 - **Phase 1:** AUR build issues need workarounds (xlsx `allow-remote=true`, `unrun` missing, npm cache bloat)
 - **Phase 1:** nginx config MUST include WebSocket upgrade headers and proxy_buffering off — silent failure otherwise
-- **Phase 3:** live upgrade (03-02) not yet run — the config merge is only fixture-tested and statically verified so far
+- ~~**Phase 3:** live upgrade (03-02) not yet run~~ — RESOLVED 2026-09-18 (user-approved live upgrade)
 
 ## Session Continuity
 
 Last session: 2026-09-18
-Stopped at: Completed 03-01-PLAN.md (upgrade script + config merge helper committed fe50d98, ba94ac6). Next: execute 03-02 (live upgrade).
+Stopped at: Completed 03-02-PLAN.md (phase 3 complete; manifest bump 05e3d5b, live upgrade user-approved)
 Resume file: None

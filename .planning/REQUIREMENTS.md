@@ -34,7 +34,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **UPGR-02**: User config (`librechat.env`, `librechat.yaml`) preserved via config merge (never overwritten)
 - [ ] **UPGR-03**: MongoDB data preserved across upgrades
 - [ ] **UPGR-04**: Meilisearch data preserved across upgrades
-- [ ] **UPGR-05**: `yunohost app upgrade librechat` completes without data loss or config loss
+- [x] **UPGR-05**: `yunohost app upgrade librechat` completes without data loss or config loss
 
 ### Remove
 
@@ -106,7 +106,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | UPGR-02 | Phase 3 | Complete |
 | UPGR-03 | Phase 3 | Complete |
 | UPGR-04 | Phase 3 | Complete |
-| UPGR-05 | Phase 3 | Pending |
+| UPGR-05 | Phase 3 | Complete |
 | RMV-01 | Phase 2 | Complete |
 | RMV-02 | Phase 2 | Complete |
 | RMV-03 | Phase 2 | Complete |
