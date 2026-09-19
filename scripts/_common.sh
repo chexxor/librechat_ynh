@@ -94,3 +94,122 @@ librechat_create_admin_user() {
     ynh_exec_as_app node config/create-user.js "$admin_email" "Admin" "admin" "$admin_password" --email-verified=true
     popd
 }
+
+#----------------------------------------------
+# Personal helper: regenerate + merge config files (upgrade)
+#
+# Strategy (see phase 03 research):
+#   - librechat.env: regenerate the managed template, then append any
+#     user-added KEY=... lines from the old file whose key is absent
+#     from the fresh template. Managed keys always take the fresh value
+#     (fixes stale port/URI). Old file replaced atomically; chmod 600.
+#   - librechat.yaml: NEVER overwrite user content. If present, keep it
+#     verbatim and only append commented template sections for top-level
+#     keys the user hasn't defined actively. If missing, full template.
+#
+# IMPORTANT: must be called with all template variables in bash scope:
+#   $app, $install_dir, $port, $domain, $db_name, $db_user, $db_pwd
+#   and all secrets (jwt_secret, jwt_refresh_secret,
+#   admin_panel_secret, meili_master_key) — read back from settings
+#   inside this helper.
+#
+# Do NOT re-run librechat_generate_secrets here (would rotate secrets
+# and invalidate user sessions — upgrade never regenerates).
+#----------------------------------------------
+librechat_regen_and_merge_configs() {
+    local librechat_env="$install_dir/librechat.env"
+    local librechat_yaml="$install_dir/librechat.yaml"
+
+    # 1. Read back persisted values FIRST
+    db_pwd=$(ynh_app_setting_get --key=mongopwd)
+    jwt_secret=$(ynh_app_setting_get --key=jwt_secret)
+    jwt_refresh_secret=$(ynh_app_setting_get --key=jwt_refresh_secret)
+    admin_panel_secret=$(ynh_app_setting_get --key=admin_panel_secret)
+    meili_master_key=$(ynh_app_setting_get --key=meili_master_key)
+
+    # Missing settings indicate a corrupted install — abort loudly.
+    for setting_var in db_pwd jwt_secret jwt_refresh_secret admin_panel_secret meili_master_key; do
+        if [ -z "${!setting_var}" ]; then
+            ynh_die "App setting '$setting_var' is missing — cannot regenerate configs (corrupted install?)"
+        fi
+    done
+
+    # 2. librechat.env: regenerate fresh template, merge user-added keys
+    local env_new="$librechat_env.new"
+    ynh_config_add --template="librechat.env" --destination="$env_new"
+
+    if [ ! -s "$env_new" ]; then
+        ynh_die "Failed to generate $librechat_env template — refusing to overwrite config with nothing"
+    fi
+
+    if [ -s "$librechat_env" ]; then
+        # For every KEY in the old file absent from the fresh template,
+        # append the old line verbatim (user-added keys preserved).
+        while IFS= read -r line; do
+            local key="${line%%=*}"
+            [ -z "$key" ] && continue
+            if ! grep -q "^${key}=" "$env_new"; then
+                ynh_print_info "Preserving user-added env key: $key"
+                printf '%s\n' "$line" >> "$env_new"
+            fi
+        done < <(grep -v '^\s*#' "$librechat_env" | grep -v '^\s*$')
+    fi
+
+    mv -f "$env_new" "$librechat_env"
+    chown $app:$app "$librechat_env"
+    chmod 600 "$librechat_env"
+
+    # 3. librechat.yaml: preserve user file; append missing commented sections
+    if [ -s "$librechat_yaml" ]; then
+        ynh_print_info "librechat.yaml exists — preserving user configuration verbatim"
+
+        local yaml_new="$install_dir/librechat.yaml.new"
+        ynh_config_add --template="librechat.yaml" --destination="$yaml_new"
+
+        if [ ! -s "$yaml_new" ]; then
+            rm -f "$yaml_new"
+            ynh_die "Failed to generate $librechat_yaml template — refusing to proceed"
+        fi
+
+        # Active (non-comment, non-empty) top-level keys in each file
+        local user_keys template_keys
+        user_keys=$(grep -v '^\s*#' "$librechat_yaml" | grep -v '^\s*$' | sed 's/^\([^# ]\{1,\}\):.*/\1/' | sort -u)
+        template_keys=$(grep -v '^\s*#' "$yaml_new" | grep -v '^\s*$' | sed 's/^\([^# ]\{1,\}\):.*/\1/' | sort -u)
+
+        local append=false
+        local tkey
+        while IFS= read -r tline; do
+            # Top-level section start: non-indented, non-comment "key:" line
+            if [[ "$tline" =~ ^[A-Za-z0-9_-]+: ]] && [[ "$tline" != \#* ]]; then
+                tkey="${tline%%:*}"
+                tkey="${tkey%%[[:space:]]*}"
+                if printf '%s\n' $user_keys | grep -qx "$tkey"; then
+                    append=false
+                    continue
+                else
+                    append=true
+                    ynh_print_info "Appending commented template section: $tkey"
+                fi
+            elif [[ "$tline" == \#* ]]; then
+                # Comments only appended when inside an appended section
+                [ "$append" = true ] || continue
+            fi
+            if [ "$append" = true ]; then
+                printf '%s\n' "$tline" >> "$librechat_yaml"
+            fi
+        done < "$yaml_new"
+
+        rm -f "$yaml_new"
+        chown $app:$app "$librechat_yaml"
+        chmod 644 "$librechat_yaml"
+        ynh_print_info "librechat.yaml: appended commented template sections for missing keys only"
+    else
+        # Missing yaml (bizarre state) — regenerate full template
+        ynh_config_add --template="librechat.yaml" --destination="$librechat_yaml"
+        chown $app:$app "$librechat_yaml"
+        chmod 644 "$librechat_yaml"
+        ynh_print_info "librechat.yaml was missing — regenerated full template"
+    fi
+
+    ynh_print_info "Config regeneration/merge complete (managed env keys fresh; user keys preserved)"
+}
