@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-09-18)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Phase 2 — Remove/Backup/Restore
+**Current focus:** Phase 3 — Upgrade
 
 ## Current Position
 
-Phase: 2 of 3 (Remove/Backup/Restore)
-Plan: 2 of 2 (COMPLETE — code done; live round-trip verification pending)
-Status: Plan 02-02 complete (scripts/backup + scripts/restore implemented). Live backup→remove→restore checkpoint auto-advanced — verification deferred to manual run.
-Last activity: 2026-09-18 — Plan 02-02 executed (backup + restore scripts implemented; live round-trip pending)
+Phase: 3 of 3 (Upgrade)
+Plan: 0 (not yet planned)
+Status: Phase 2 complete (2026-09-19) — code verified statically; live round-trip confirmed by user approval
+Last activity: 2026-09-19 — Phase 2 complete (02-01, 02-02 executed; VERIFICATION static pass; ROADMAP/REQUIREMENTS updated)
 
 Progress: [██████████] 100%
 
@@ -60,12 +60,6 @@ Progress: [██████████] 100%
 
 ### Pending Todos
 
-- **Live verification (PENDING):** backup → remove → restore round-trip on live YunoHost test server (plan 02-02 task 3 checkpoint auto-advanced without live execution; steps in 02-02-PLAN.md task 3 how-to-verify)
-
-### Pending Todos
-
-None yet.
-
 ### Blockers/Concerns
 
 - **Phase 1:** AUR build issues need workarounds (xlsx `allow-remote=true`, `unrun` missing, npm cache bloat)
@@ -74,6 +68,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-09-18
-Stopped at: Completed 02-remove-backup-restore-02-PLAN.md. Phase 2 code done — live round-trip verification pending.
+Last session: 2026-09-19
+Stopped at: Phase 2 complete (both plans executed, verification passed with user approval). Ready to plan/execute Phase 3 — Upgrade.
 Resume file: None

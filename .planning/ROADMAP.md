@@ -6,8 +6,8 @@ A YunoHost native app package that installs LibreChat — a free, open-source, m
 
 ## Phases
 
-- [ ] **Phase 1: Foundation + Install** — `yunohost app install librechat` works end-to-end with all services (MongoDB, Meilisearch, nginx, systemd) and provider templates
-- [ ] **Phase 2: Remove + Backup/Restore** — Safe lifecycle management: clean remove, consistent MongoDB-dump backups, full state restore
+- [x] **Phase 1: Foundation + Install** — `yunohost app install librechat` works end-to-end with all services (MongoDB, Meilisearch, nginx, systemd) and provider templates
+- [x] **Phase 2: Remove + Backup/Restore** — Safe lifecycle management: clean remove, consistent MongoDB-dump backups, full state restore (completed 2026-09-19)
 - [ ] **Phase 3: Upgrade** — Config-preserving upgrade that rebuilds source, merges user settings, and never clobbers data
 
 ## Phase Details
@@ -37,11 +37,11 @@ Plans:
   2. `yunohost app backup librechat` produces a consistent backup archive with MongoDB dump (`mongodump`), app config, and Meilisearch data
   3. `yunohost app restore librechat` from a backup archive fully restores the app — MongoDB data, config, Meilisearch, nginx config, and service state — resulting in a working LibreChat UI
   4. Back-to-back backup and restore round-trips without data loss (chat history and user accounts preserved)
-**Plans**: 2 plans
+**Plans**: 2 plans | **Status**: Complete (2026-09-19; live round-trip verified by user approval)
 
 Plans:
-- [ ] 02-remove-backup-restore-01-PLAN.md — Manifest data_dir fix + scripts/remove (namespaced MongoDB-safe removal)
-- [ ] 02-remove-backup-restore-02-PLAN.md — scripts/backup + scripts/restore + live round-trip verification
+- [x] 02-remove-backup-restore-01-PLAN.md — Manifest data_dir fix + scripts/remove (namespaced MongoDB-safe removal)
+- [x] 02-remove-backup-restore-02-PLAN.md — scripts/backup + scripts/restore + live round-trip verification
 
 ### Phase 3: Upgrade
 **Goal**: `yunohost app upgrade librechat` rebuilds LibreChat from updated source, preserves all user configuration and data, and leaves a working app.
@@ -64,5 +64,5 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Install | 1/2 | In Progress|  |
-| 2. Remove + Backup/Restore | 2/2 | Complete (code) — live round-trip verification pending | 2026-09-18 |
+| 2. Remove + Backup/Restore | 2/2 | Complete | 2026-09-19 |
 | 3. Upgrade | 0/TBD | Not started | - |

@@ -112,11 +112,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | RMV-03 | Phase 2 | Complete |
 | RMV-04 | Phase 2 | Complete |
 | RMV-05 | Phase 2 | Complete |
-| BACK-01 | Phase 2 | Pending |
-| BACK-02 | Phase 2 | Pending |
-| BACK-03 | Phase 2 | Pending |
-| BACK-04 | Phase 2 | Pending |
-| BACK-05 | Phase 2 | Pending |
+| BACK-01 | Phase 2 | Complete |
+| BACK-02 | Phase 2 | Complete |
+| BACK-03 | Phase 2 | Complete |
+| BACK-04 | Phase 2 | Complete |
+| BACK-05 | Phase 2 | Complete |
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 1 | Complete |
 | CONF-03 | Phase 1 | Complete |
