@@ -76,7 +76,7 @@ Each task was committed atomically:
 1. **task 1: Fix manifest schema violations, permissions warning, and maintainer placeholder** - `48a3614` (fix)
 2. **task 2: Remove deprecated helpers and fix backup progression** - `571baa3` (fix)
 
-**Plan metadata:** TBD (docs: complete plan)
+**Plan metadata:** `435e607` (docs: complete plan)
 
 ## Files Created/Modified
 - `manifest.toml` - nested pattern object, `format = "whatever"`, `init_main_permission` question, maintainer handle
