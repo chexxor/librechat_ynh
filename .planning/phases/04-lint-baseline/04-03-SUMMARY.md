@@ -69,7 +69,7 @@ Each task was committed atomically:
 1. **task 1: Remove redundant nginx headers, document the WebSocket exception** - `0ad816e` (fix)
 2. **task 2: Regenerate README to YunoHost format** - `84c375b` (fix)
 
-**Plan metadata:** _pending_ (docs: complete plan)
+**Plan metadata:** `28e51ab` (docs: complete plan)
 
 ## Files Created/Modified
 - `conf/nginx.conf` - 4 plain headers removed; WS comment expanded to a documented exception; include/WS/SSE lines intact
