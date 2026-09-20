@@ -5,18 +5,18 @@
 See: .planning/PROJECT.md (updated 2026-09-19)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Phase 5 - tests.toml + Local package_check Environment (v1.1 CI Validation)
+**Current focus:** Phase 6 - Fix Findings to Zero Failures (v1.1 CI Validation)
 
 ## Current Position
 
 Milestone: v1.1 CI Validation (phases 4-7)
-Phase: 5 of 7 (tests.toml + Local package_check Environment)
-**Current Plan:** 05-03 complete (all 3 Phase 5 plans complete)
-**Total Plans in Phase:** 3
-**Status:** Phase 5 plans complete - execution done, phase verification pending (orchestrator handles phase completion)
-Last activity: 2026-09-20 - 05-03 finalized: Task 5 checkpoint:human-verify APPROVED by user; 05-03-SUMMARY.md written (CI-02), ROADMAP 3/3.
+Phase: 6 of 7 (Fix Findings to Zero Failures)
+**Current Plan:** Not started
+**Total Plans in Phase:** 0
+**Status:** Ready to plan
+Last activity: 2026-09-20 - Phase 5 complete (3/3 plans; verification passed 3/3). Full package_check suite ran end-to-end (Global 4m5s, exit 0, no crashes); findings handed to Phase 6.
 
-**Progress:** [##########] 100%
+**Progress:** [#######░░░] 71%
 
 ## Performance Metrics
 

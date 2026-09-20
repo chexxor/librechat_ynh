@@ -54,7 +54,7 @@ Plans:
 Plans:
 - [x] 05-01-PLAN.md — `tests.toml` (CI-01): schema-valid, supplies `admin_email`, one `test_upgrade_from.05e3d5b` entry, curl smoke-tests; parse + dry-run validated
 - [x] 05-02-PLAN.md — Host artifacts (CI-02): idempotent `scripts/setup_pc_env.sh`, `doc/PACKAGE_CHECK.md` walkthrough, and the ROADMAP/REQUIREMENTS host-wording amendment (Hyper-V)
-- [ ] 05-03-PLAN.md — Full-suite run (CI-02): user-provisioned Hyper-V VM checkpoint, SSH-driven in-VM setup, one full `package_check` run archived in the phase dir — **Tasks 3-4 complete (run completed 4m5s, exit 0, findings archived); Task 5 checkpoint:human-verify AWAITING USER**
+- [x] 05-03-PLAN.md — Full-suite run (CI-02): user-provisioned Hyper-V VM checkpoint, SSH-driven in-VM setup, one full `package_check` run archived in the phase dir (completed 4m5s, exit 0, findings archived; Task 5 verified)
 
 ### Phase 6: Fix Findings to Zero Failures
 **Goal**: The full local `package_check` suite — install root/subpath, private install, reinstall-after-remove, backup/restore, upgrade — completes with zero failures, and the clean run is archived as live verification of POLS-01. This is the milestone's core deliverable.
@@ -87,7 +87,7 @@ Plans:
 | 2. App Delivery | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 4. Lint Baseline | 2/4 | In Progress|  | - |
-| 5. tests.toml + PC Environment | 3/3 | Complete   | 2026-09-20 | - |
+| 5. tests.toml + PC Environment | 3/3 | Complete    | 2026-09-20 | - |
 | 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
 
