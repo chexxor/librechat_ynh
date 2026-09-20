@@ -57,6 +57,13 @@ librechat_build() {
 #   meili_master_key, admin_password
 #----------------------------------------------
 librechat_generate_secrets() {
+    # Suppress xtrace for the whole secret-handling body: package_check runs
+    # scripts under `set -x`, which would otherwise echo expanded secret values
+    # (admin_password=..., jwt_secret=..., etc.) into the debug log.
+    local xtrace_was_on=false
+    case $- in *x*) xtrace_was_on=true;; esac
+    set +o xtrace
+
     jwt_secret=$(ynh_string_random --length=64)
     ynh_app_setting_set --key=jwt_secret --value="$jwt_secret"
 
@@ -72,6 +79,9 @@ librechat_generate_secrets() {
     # 24 chars per locked decision (CONTEXT.md)
     admin_password=$(ynh_string_random --length=24)
     ynh_app_setting_set --key=admin_password --value="$admin_password"
+
+    [ "$xtrace_was_on" = true ] && set -o xtrace
+    return 0
 }
 
 #----------------------------------------------
@@ -119,6 +129,12 @@ librechat_create_admin_user() {
 librechat_regen_and_merge_configs() {
     local librechat_env="$install_dir/librechat.env"
     local librechat_yaml="$install_dir/librechat.yaml"
+
+    # Suppress xtrace while reading persisted secrets back: package_check runs
+    # scripts under `set -x`, which would otherwise echo the secret values.
+    local xtrace_was_on=false
+    case $- in *x*) xtrace_was_on=true;; esac
+    set +o xtrace
 
     # 1. Read back persisted values FIRST
     db_pwd=$(ynh_app_setting_get --key=mongopwd)
@@ -212,4 +228,7 @@ librechat_regen_and_merge_configs() {
     fi
 
     ynh_print_info "Config regeneration/merge complete (managed env keys fresh; user keys preserved)"
+
+    [ "$xtrace_was_on" = true ] && set -o xtrace
+    return 0
 }

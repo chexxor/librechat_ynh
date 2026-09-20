@@ -121,7 +121,13 @@ ynh_script_progression "Creating admin user..."
 
 # Direct MongoDB access via create-user.js — does NOT depend on the
 # LibreChat service being up, and must run AFTER the database exists.
+# Suppress xtrace around the call: it passes the admin password as argv, which
+# `set -x` would otherwise echo into the debug log. Restore xtrace after.
+_install_xtrace_was_on=false
+case $- in *x*) _install_xtrace_was_on=true;; esac
+set +o xtrace
 librechat_create_admin_user "$admin_email" "$admin_password"
+[ "$_install_xtrace_was_on" = true ] && set -o xtrace
 
 #=================================================
 # Step 11 — Send admin password email + screen output
