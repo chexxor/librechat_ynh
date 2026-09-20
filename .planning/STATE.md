@@ -5,18 +5,18 @@
 See: .planning/PROJECT.md (updated 2026-09-19)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Phase 4 — Lint Baseline (v1.1 CI Validation)
+**Current focus:** Phase 5 — tests.toml + Local package_check Environment (v1.1 CI Validation)
 
 ## Current Position
 
 Milestone: v1.1 CI Validation (phases 4-7)
-Phase: 4 of 7 (Lint Baseline)
+Phase: 5 of 7 (tests.toml + Local package_check Environment)
 **Current Plan:** Not started
-**Total Plans in Phase:** 4
-**Status:** Milestone complete
-Last activity: 2026-09-19 — Completed 04-03-PLAN.md (nginx modernization + README regeneration)
+**Total Plans in Phase:** 0
+**Status:** Ready to plan
+Last activity: 2026-09-20 — Completed 04-04-PLAN.md (Phase 4 lint baseline complete; LINT-01 closed)
 
-**Progress:** [██████████] 100%
+**Progress:** [███░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -30,9 +30,7 @@ Last activity: 2026-09-19 — Completed 04-03-PLAN.md (nginx modernization + REA
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0 (1-3) | 7 | 7 | - |
-| v1.1 Phase 04 | 2 | 4 | 2.5min |
-| Phase 04 P03 | 3min | 2 tasks | 4 files |
-| Phase 04 P04 | 1min | 2 tasks | 5 files |
+| v1.1 Phase 04 | 4 | 4 | ~2.3min |
 
 ## Accumulated Context
 
@@ -61,6 +59,6 @@ None yet.
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T02:25:05.507Z
-**Stopped at:** Completed 04-04-PLAN.md (phase 4 complete, LINT-01 closed)
+**Last session:** 2026-09-20T02:30:00.000Z
+**Stopped at:** Phase 4 complete (LINT-01 closed), ready to plan Phase 5
 **Resume file:** None

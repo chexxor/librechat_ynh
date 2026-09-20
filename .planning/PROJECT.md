@@ -55,6 +55,8 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 
 **Shipped: v1.0** (2026-09-19) — complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade, all live-verified on a real YunoHost server. 34/34 v1 requirements met; 47 files, ~5,700 lines added. LibreChat pinned to v0.8.8-rc3 (sha256), Node 24, MongoDB 7.0.
 
+**v1.1 progress:** Phase 4 (Lint Baseline) complete — `package_linter` runs deterministically from the Windows dev box via WSL2 (`scripts/run_lint.sh`), locally-fixable errors reduced to zero, 8 of 9 warnings fixed, before/after baseline archived with 5 documented scope exemptions. Next: Phase 5 (tests.toml + local `package_check` environment).
+
 **Known debt for next milestone:** `package_check` CI not yet run; multi-instance blocked by single-instance Meilisearch wiring; future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump).
 
 ## Next Milestone Goals
@@ -104,6 +106,9 @@ This package wraps a real application with multiple backing services:
 | `multi_instance=false` for v1 | Single-instance Meilisearch wiring retained; per-app wiring deferred | ⚠️ Revisit — needed for POLS-03 |
 | Declare `[resources.data_dir]`, ynh_safe_rm guards meilisearch subdir | Core-managed data dir; tolerant cleanup | ✓ Good |
 | Upgrade validated via `~ynhN` bump on same tag | No newer upstream stable at milestone time | — Pending real upstream bump |
+| Lint baseline via WSL2 + uv Python 3.12 (`scripts/run_lint.sh`) | Linter shells out to POSIX tools; must run under WSL, not bare Windows | ✓ Good — deterministic runner, baseline archived |
+| Zero-error invariant = `(critical ∪ error) \ documented-exemptions == ∅` | Catalog PR + `tests.toml` are out of Phase 4 scope; honest auditable claim over fake-green | ✓ Good — 5 exemptions documented in 04-SCOPE-EXEMPTIONS.md |
+| nginx WS headers retained over `proxy_params_no_auth` alone | LibreChat WebSockets/SSE require `proxy_http_version 1.1` + `Upgrade` + `Connection` | ✓ Good — permanent design exception |
 
 ---
-*Last updated: 2026-09-19 after starting v1.1 milestone*
+*Last updated: 2026-09-20 after Phase 4 (Lint Baseline) transition*
