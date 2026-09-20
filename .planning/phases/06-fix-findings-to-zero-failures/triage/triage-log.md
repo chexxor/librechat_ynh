@@ -156,4 +156,26 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 6 — 2026-09-20
+
+- **Run:** VM full suite, duration **5m43s**, exit 0, Global summary printed.
+- **Code state (git rev):** `4915d3a` (no package change since cycle 5; harness `bs4`/`lxml`/`imgkit` installed on the VM).
+- **Test verdicts:** `install.root=FAIL`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | Install succeeds; service running; `Server listening at http://localhost:3080`; but URL check gets **502 Bad Gateway** (expected 200) | install.root | Package bug | `cycles/cycle-6/package_check-full.log` (`Code: 502`, expected 200) | FIX — `HOST=localhost` binds `::1`; nginx proxies `127.0.0.1` → refused |
+  | `warn: [credentials] No configured value was found for CREDS_KEY, CREDS_IV … temp` | install.root | Info (non-fatal) | node log | Document; LibreChat generates temp credentials — not a failure |
+  | `Outdated Config version: 1.1.1 / Latest version: 1.3.16` | install.root | Info (non-fatal) | node log | Document; informational from `librechat.yaml` version |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "All installs failed…" | Re-triage after install.root passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+
+- **Progress vs Cycle 5:** the `bs4` harness error is GONE (curl_tests now execute). **Install fully succeeds** and the app is live; the only failure is the HTTP-level 502.
+- **Root cause (verified):** on the container/VM, `getent hosts localhost` resolves **`::1` first**, then `127.0.0.1`. Node's `listen(port, 'localhost')` binds the first result (`::1`, IPv6). nginx's `proxy_pass http://127.0.0.1:__PORT__` targets IPv4 → connection refused → 502.
+- **Flake-vs-regression:** deterministic — REGRESSION. Fixed in the same cycle turn.
+- **Fix applied:** `conf/librechat.env` `HOST=localhost` → `HOST=127.0.0.1`, so the bind matches the nginx proxy target.
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*

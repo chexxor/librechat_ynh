@@ -1,0 +1,281 @@
+Testing package /home/alex/librechat_ynh
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not a git repository (or any of the parent directories): .git
+Error: Remote yunohost already exists
+Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+
+[1m > YunoHost versions[0m
+
+[35m[1myunohost[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.41.2
+[35m[1myunohost-admin[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.15
+[35m[1myunohost-portal[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.2
+[35m[1mmoulinette[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.4
+[35m[1mssowat[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.1
+[1m
+ ============================================
+ Package linter
+ ============================================
+[0m
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.CZWMyx/app_folder...
+[96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
+
+ [1m[92m✔ [94mmanifest[0m
+ [1m[92m✔ [94mscripts/_common.sh[0m
+ [1m[92m✔ [94mscripts/install[0m
+ [1m[92m✔ [94mscripts/remove[0m
+ [1m[92m✔ [94mscripts/upgrade[0m
+ [1m[92m✔ [94mscripts/backup[0m
+ [1m[92m✔ [94mscripts/restore[0m
+ [1mⓘ [94mGeneral stuff, misc helper usage[0m
+
+    - Consider adding a change_url script to support changing where the app can be reached[0m
+
+ [1mⓘ [94mConfiguration files[0m
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+
+ [1m[93m! [94mCatalog infos[0m
+
+   [91m ✘✘✘ This app is not in YunoHost's application catalog[0m
+   [91m ✘ The application is not flagged as working in YunoHost's apps catalog[0m
+   [93m ! The application has no associated category in YunoHost's apps catalog [0m
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily[0m
+
+ [1m[92m✔ [94mIssues[0m
+ =======
+ There are some critical issues in this app :(
+[1m
+ ============================================
+ Basic bash syntax checks
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+[0m
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+[1m
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 0s (22:58:07 UTC)
+[1m
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+[0m
+(Creating snapshot snap-preinstalled-default ...)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+2119 [36m[1mINFO[m    Installing librechat…
+2138 [36m[1mINFO[m    Provisioning sources...
+16893 [36m[1mINFO[m    Provisioning apt...
+19921 [36m[1mINFO[m    Provisioning ports...
+19934 [36m[1mINFO[m    Provisioning system_user...
+20421 [36m[1mINFO[m    Provisioning install_dir...
+20425 [36m[1mINFO[m    Provisioning data_dir...
+20426 [36m[1mINFO[m    Provisioning permissions...
+20498 [36m[1mINFO[m    Provisioning nodejs...
+24059 [36m[1mINFO[m    [+...................] > Installing dependencies...
+24060 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+46063 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+46306 [36m[1mINFO[m    [#++.................] > Setting up source files...
+49929 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+51589 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+52031 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+52136 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+52137 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+52137 [33m[1mWARNING[m npm warn config omitting invalid config values
+60126 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+64882 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+77448 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+81391 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+83291 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+125172 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+125173 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+125173 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+125174 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+125174 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+125174 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+125174 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+125174 [33m[1mWARNING[m npm warn install-scripts
+125174 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129601 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+129601 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+129601 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+129602 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+129602 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+129602 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+129602 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+129602 [33m[1mWARNING[m npm warn install-scripts
+129602 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129951 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+129952 [33m[1mWARNING[m Attention:
+129952 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+129952 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+129952 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+129953 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+129953 [33m[1mWARNING[m • turbo 2.10.5
+129953 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+149713 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+150149 [36m[1mINFO[m    [##########+.........] > Configuring nginx...
+150677 [36m[1mINFO[m    [###########++.......] > Configuring systemd services...
+152294 [36m[1mINFO[m    [#############++.....] > Starting services...
+152580 [36m[1mINFO[m    [###############+....] > Creating admin user...
+156196 [36m[1mINFO[m    [################++..] > Sending admin email...
+156271 [36m[1mINFO[m    Admin password: cd5Tg4QLQfLypqMOtRq8XoeN
+156274 [36m[1mINFO[m    [####################] > Installation of librechat completed
+156869 [32m[1mSUCCESS[m Installation completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Code    : 502
+Title   : 502 Bad Gateway
+Content extract:
+502 Bad Gateway
+If you see this page, your connection with the server is working but the internal se
+Errors  :
+    - Got return code 502, but was expecting 200
+[1m[91mFAIL[0m
+========
+  librechat.service        loaded    active   running   LibreChat: multi-provid…
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: {
+Sep 20 23:01:28 node[6824]:   "version": "1.1.1"
+Sep 20 23:01:28 node[6824]: }
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 warn: [credentials] No configured value was found for CREDS_KEY, CREDS_IV. Temporary credentials from /var/www/librechat/.env.temp are being used.
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 warn: [credentials] Existing database has no credential fingerprint record. The active credentials may not match existing JWTs or encrypted records; provide the original values or use a controlled credential migration before rotating them.
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: 
+Sep 20 23:01:28 node[6824]: Outdated Config version: 1.1.1
+Sep 20 23:01:28 node[6824]: Latest version: 1.3.16
+Sep 20 23:01:28 node[6824]:       Check out the Config changelogs for the latest options and features added.
+Sep 20 23:01:28 node[6824]:       https://www.librechat.ai/changelog
+Sep 20 23:01:28 node[6824]: 
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 warn: RAG API is either not running or not reachable at undefined, you may experience errors with file uploads.
+Sep 20 23:01:28 node[6824]: Social logins are disabled. Set ALLOW_SOCIAL_LOGIN=true to enable them.
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: [StreamServices] Created in-memory stream services
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: [GenerationJobManager] Configured with in-memory stores
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: HTTP server timeout configuration
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: Server listening at http://localhost:3080
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: [MCPServersRegistry] Creating new instance
+Sep 20 23:01:28 node[6824]: 2026-09-20 23:01:28 info: OAuth reconnect manager initialized successfully.
+Sep 20 23:01:29 node[6824]: 2026-09-20 23:01:29 info: Created collection: projects
+Sep 20 23:01:30 node[6824]: 2026-09-20 23:01:30 error: Index build failed for "Message": Error in specification { name: "meili_excluded_legacy_cleanup_v3", partialFilterExpression: { subagentTask: { $exists: true }, _meiliIndex: { $eq: false }, _meiliCleanupVersion: { $exists: false } }, background: true, key: { _meiliIndex: 1, _meiliCleanupVersion: 1, messageId: 1 }, v: 2 } :: caused by :: Expression not supported in partial index: $not
+Sep 20 23:01:30 node[6824]:     _meiliCleanupVersion exists
+Sep 20 23:01:30 node[6824]: 
+Sep 20 23:01:31 node[6824]: 2026-09-20 23:01:31 info: [agent-triggers] durable delivery engine started
+Sep 20 23:01:31 node[6824]: 2026-09-20 23:01:31 error: [schedules] scheduler NOT started: this process cannot see other replicas' generations. The job store is process-local (Redis is off), but nothing here proves this is the only replica — and the standard server arms the scheduler in EVERY replica. A peer would reconcile runs whose jobs it cannot see, eventually marking a still-running generation interrupted and releasing its capacity, and deletions routed elsewhere could not abort the generation at all. Enable a shared stream store (USE_REDIS_STREAMS), or set SCHEDULES_SINGLE_PROCESS=true to assert this deployment runs exactly one replica. Schedule writes are refused (503) until then.
+Sep 20 23:01:31 node[6824]: 2026-09-20 23:01:31 error: [schedules] write routes are PERMANENTLY unavailable in this process: the engine did not arm. Resolve the cause logged above and restart.
+Sep 20 23:01:31 node[6824]: 2026-09-20 23:01:31 info: Server readiness checks passing.
+Sep 20 23:01:31 node[6824]: 2026-09-20 23:01:31 error: Index build failed for "Conversation": Error in specification { name: "meili_excluded_legacy_cleanup_v3", partialFilterExpression: { subagentThread: { $exists: true }, _meiliIndex: { $eq: false }, _meiliCleanupVersion: { $exists: false } }, background: true, key: { _meiliIndex: 1, _meiliCleanupVersion: 1, conversationId: 1 }, v: 2 } :: caused by :: Expression not supported in partial index: $not
+Sep 20 23:01:31 node[6824]:     _meiliCleanupVersion exists
+Sep 20 23:01:31 node[6824]: 
+Peak RAM usage during this test: 2412MB
+RAM usage diff after test: 594MB
+Disk usage diff after test: 4488.1MB
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/nubapefoda
+[1m[31mError: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+Working time for this test: 4 minutes, 49 seconds (23:02:58 UTC)
+[1m
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (23:03:00 UTC)
+[1m
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (23:03:00 UTC)
+[1m
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (23:03:01 UTC)
+[1m
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (23:03:01 UTC)
+[1m
+ ============================================
+ Tests summary
+ ============================================
+[0m
+
+Package linter:                [1m[92mOK[0m  ([93m1 warnings[0m, 3 possible improvements)
+Install (root):               [91mfail[0m
+Backup/restore:               [91mfail[0m
+Upgrade:                      [91mfail[0m
+Upgrade (05e3d5b):            [91mfail[0m
+Change url:                   [91mfail[0m
+
+Level results
+=============
+Level 1 (Installable in at least one scenario)   
+Level 2 (Installable in all scenarios)           
+Level 3 (Can be upgraded)                        
+Level 4 (Can be backup/restored)                 
+Level 5 (No linter errors)                       
+Level 6 (App is in a community-operated git org)  ok 
+Level 7 (Pass all tests + no linter warnings)    
+Level 8 (Maintained and long-term good quality)  
+
+[1mGlobal level for this application: 0 (Broken)[0m
+
+(Protip™ for CI admin: you should 'apt install wkhtmltopdf optipng --no-install-recommends' to enable result summary export to .png)
+Global working time for all tests: 5 minutes, 43 seconds (23:03:01 UTC)
+You can find the complete log of these tests in /home/alex/package_check/full_log_0.log
