@@ -11,12 +11,12 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 5 of 7 (tests.toml + Local package_check Environment)
-**Current Plan:** 05-03 (05-01, 05-02 complete)
+**Current Plan:** 05-03 (05-01, 05-02 complete; 05-03 Tasks 3-4 complete, Task 5 awaiting human verification)
 **Total Plans in Phase:** 3
-**Status:** In progress
-Last activity: 2026-09-20 — 05-03 Task 3 re-run attempted; VM went offline again mid-run (BLOCKER #2). Awaiting VM stabilization.
+**Status:** Awaiting human verification (05-03 Task 5 checkpoint)
+Last activity: 2026-09-20 — 05-03 Task 3 full suite COMPLETED (4m5s, exit 0, no crash/timeout, VM stable); Task 4 05-FINDINGS.md written; STOPPED at Task 5 checkpoint:human-verify.
 
-**Progress:** [█████████░] 93%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -52,6 +52,11 @@ Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
 - [Phase 05]: args.admin_email supplied in [default]; no exclude block and no only=[...] on [default] — change_url expected to fail and is a Phase 6 finding (POLS-02 deferred)
 - [Phase 05]: package_check host = dedicated Hyper-V Debian 12 VM; Incus from the Zabbly lts-7.0 repo (no native incus on bookworm); btrfs pool on a dedicated second disk (not a dir-backed minimal pool) for fast CoW snapshots
 - [Phase 05]: scripts/setup_pc_env.sh is idempotent and BTRFS_DISK-overridable; interactive `incus admin init` documented rather than automated, with the script repointing the default profile root device at btrfs_pool
+- [Phase 05]: Full suite completed cleanly (4m5s, exit 0, no Critical abort/crash/timeout) — Phase 5 "starts and completes" bar MET. 6/6 tests resolved: package_linter SUCCESS; install.root FAIL (root cause); backup_restore/upgrade/upgrade.05e3d5b/change_url cascaded FAILs from the install failure
+- [Phase 05]: Phase 6 headline fix = admin_panel_secret vs __ADMIN_PANEL_SESSION_SECRET__ name mismatch in scripts/_common.sh + conf/librechat.env — aborts every install inside _ynh_replace_vars
+- [Phase 05]: install.subdir/install.private/install.multi did NOT run (no [install.path] question, parser never auto-generates private, multi_instance=false) — Phase 6 may need them added explicitly if POLS-01 requires coverage
+- [Phase 05]: Test_results.log is a synthesized de-ANSI'd stdout capture (upstream package_check emits only full_log_0.log/results_0.json/summary_0.png); provenance documented in the artifact header
+- [Phase 05]: eth0-watchdog.service on the VM fixed the BLOCKER #1/#2 mid-run drops; IP is DHCP on the host External switch (.85 → .83) rather than the doc's static IP
 
 ### Pending Todos
 
@@ -61,11 +66,13 @@ None yet.
 
 - [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioning is a one-time USER step in 05-03 — OpenCode cannot create the VM; requires SSH reachability from Windows (setup script + walkthrough are ready).
 - [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) — expect unknown-scope findings.
-- [Phase 5 BLOCKER #1 - 2026-09-20]: 05-03 Task 3 first attempt: container ynh-appci-bookworm-amd64-stable-test-0 launched; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also installed tmux + python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` for the upstream image-alias mismatch. VM at 192.168.1.85 went OFFLINE mid-run after `./package_check.sh -s` (force-stop) hung.
-- [Phase 5 BLOCKER #2 - 2026-09-20T14:31Z, ACTIVE]: VM came back online, rebooted fresh. Task 3 RE-RUN from scratch: dry-run `-D` confirmed exact suite (package_linter, install.root, backup_restore, upgrade, upgrade.05e3d5b, change_url); full run launched detached via `setsid nohup ~/pc_launch.sh` (pid 1028/1030) and reached "Launching new LXC ynh-appci-bookworm-amd64-stable-test-0". ~90s later the VM at 192.168.1.85 went OFFLINE AGAIN — ping returns "Destination host unreachable" from the gateway, no ARP/neighbor entry for .85, no repointed DHCP IP found on the subnet, SSH port 22 connection times out. Same hard-offline failure pattern as BLOCKER #1. Likely Hyper-V host/NIC/switch or DHCP-lease instability during the heavy install phase. Needs user to power the VM back on and stabilize its (DHCP) network (static IP per doc/PACKAGE_CHECK.md would prevent recurrence). Full suite must be RE-RUN from scratch again once the VM is back. No logs were retrieved (run did not complete).
+- [Phase 5 BLOCKER #1 - 2026-09-20, RESOLVED]: 05-03 Task 3 first attempt: container ynh-appci-bookworm-amd64-stable-test-0 launched; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also installed tmux + python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` for the upstream image-alias mismatch. VM at 192.168.1.85 went OFFLINE mid-run after `./package_check.sh -s` (force-stop) hung. RESOLVED by the eth0-watchdog + wired External switch.
+- [Phase 5 BLOCKER #2 - 2026-09-20, RESOLVED]: VM went offline again mid-run (same hard-offline pattern). RESOLVED: eth0-watchdog.service (active+enabled) now auto-uplinks eth0 + re-runs dhclient every 20s; the 2026-09-20 full run completed with the VM stable throughout. IP is DHCP (.85 → .83) on the host External switch.
+- [Phase 5 - 2026-09-20, OPEN GATE]: 05-03 Task 5 checkpoint:human-verify AWAITING USER. Run completed + 05-FINDINGS.md written; the user must confirm the suite completed, the doc reproduces the environment with no undocumented steps, and Phase 5 evidence is distinct from Phase 6. NOT self-approved.
+- [Phase 6 - 2026-09-20, NEW]: install.root FAILS on a genuine package bug — `Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env`. scripts/_common.sh generates/persists `admin_panel_secret` while conf/librechat.env substitutes `__ADMIN_PANEL_SESSION_SECRET__`. Blocking prerequisite for POLS-01.
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T14:31:06Z
-**Stopped at:** 05-03 Task 3 blocked — VM offline again mid-run (BLOCKER #2)
+**Last session:** 2026-09-20T20:05:00Z
+**Stopped at:** 05-03 Task 5 checkpoint:human-verify — Tasks 3-4 complete (commits aa51ba0, 793f8ca); awaiting user approval
 **Resume file:** None
