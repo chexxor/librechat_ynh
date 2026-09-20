@@ -10,7 +10,6 @@
     "warning": [
         "App.badges_in_readme",
         "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
-        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
         "AppCatalog.has_category"
     ],
     "error": [
