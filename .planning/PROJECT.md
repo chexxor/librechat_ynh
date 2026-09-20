@@ -26,10 +26,12 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 - ✓ Safe remove, shared-MongoDB safe — v1.0
 - ✓ Backup/restore round-trip consistent (`mongodump`) — v1.0 (live-verified)
 - ✓ Initial admin user created at install — v1.0
+- ✓ Schema-valid `tests.toml` supplies install args and drives a full `package_check` suite — v1.1 (CI-01, Phase 5)
+- ✓ Reproducible local `package_check` environment (Hyper-V Debian 12 VM + Incus + btrfs) runs the full suite end-to-end — v1.1 (CI-02, Phase 5)
 
 ### Active
 
-- [ ] Package passes YunoHost app CI (`package_check`) — v2 (POLS-01)
+- [ ] Package passes YunoHost app CI (`package_check`) with zero failures — v2 (POLS-01)
 - [ ] `change_url` script — v2 (POLS-02)
 - [ ] Multi-instance support — v2 (POLS-03, requires per-app Meilisearch wiring)
 - [ ] ARM64 support — v2 (POLS-04)
@@ -55,9 +57,9 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 
 **Shipped: v1.0** (2026-09-19) — complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade, all live-verified on a real YunoHost server. 34/34 v1 requirements met; 47 files, ~5,700 lines added. LibreChat pinned to v0.8.8-rc3 (sha256), Node 24, MongoDB 7.0.
 
-**v1.1 progress:** Phase 4 (Lint Baseline) complete — `package_linter` runs deterministically from the Windows dev box via WSL2 (`scripts/run_lint.sh`), locally-fixable errors reduced to zero, 8 of 9 warnings fixed, before/after baseline archived with 5 documented scope exemptions. Next: Phase 5 (tests.toml + local `package_check` environment).
+**v1.1 progress:** Phase 4 (Lint Baseline) complete — `package_linter` runs deterministically from the Windows dev box via WSL2 (`scripts/run_lint.sh`), locally-fixable errors reduced to zero, 8 of 9 warnings fixed, before/after baseline archived with 5 documented scope exemptions. **Phase 5 (tests.toml + Local package_check Environment) complete** — schema-valid `tests.toml` authored and parser/dry-run validated; idempotent host setup script + Hyper-V/Incus/btrfs walkthrough delivered; full `package_check` suite ran end-to-end on the Hyper-V Debian 12 VM (Global 4m5s, exit 0, no crashes) with findings archived. Next: Phase 6 (Fix Findings to Zero Failures).
 
-**Known debt for next milestone:** `package_check` CI not yet run; multi-instance blocked by single-instance Meilisearch wiring; future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump).
+**Known debt for next milestone:** `package_check` suite completes but not yet at zero failures — Phase 6 fixes the findings (headline: `admin_panel_session_secret` bug). Multi-instance blocked by single-instance Meilisearch wiring; future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump). 8 reproducibility gaps recorded in `05-FINDINGS.md` §5 should be folded into `doc/PACKAGE_CHECK.md` / `scripts/setup_pc_env.sh`.
 
 ## Next Milestone Goals
 
@@ -109,6 +111,8 @@ This package wraps a real application with multiple backing services:
 | Lint baseline via WSL2 + uv Python 3.12 (`scripts/run_lint.sh`) | Linter shells out to POSIX tools; must run under WSL, not bare Windows | ✓ Good — deterministic runner, baseline archived |
 | Zero-error invariant = `(critical ∪ error) \ documented-exemptions == ∅` | Catalog PR + `tests.toml` are out of Phase 4 scope; honest auditable claim over fake-green | ✓ Good — 5 exemptions documented in 04-SCOPE-EXEMPTIONS.md |
 | nginx WS headers retained over `proxy_params_no_auth` alone | LibreChat WebSockets/SSE require `proxy_http_version 1.1` + `Upgrade` + `Connection` | ✓ Good — permanent design exception |
+| `tests.toml` upgrade-from pinned to commit `05e3d5b` (0.8.8-rc3~ynh2) not `116691c` | `116691c` is a manifest-only skeleton with no `scripts/` and is not installable | ✓ Good — suite parses and upgrade target is installable |
+| package_check host = dedicated Hyper-V Debian 12 VM + Incus (Zabbly lts-7.0) + btrfs pool on a second disk | WSL2 ruled out (no nested Incus/btrfs); Incus has no native bookworm package; btrfs enables fast CoW snapshots | ✓ Good — full suite ran end-to-end on this host |
 
 ---
-*Last updated: 2026-09-20 after Phase 4 (Lint Baseline) transition*
+*Last updated: 2026-09-20 after Phase 5 (tests.toml + Local package_check Environment) transition*

@@ -2,7 +2,7 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-09-19)
+See: .planning/PROJECT.md (updated 2026-09-20)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
 **Current focus:** Phase 6 - Fix Findings to Zero Failures (v1.1 CI Validation)
@@ -66,17 +66,14 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioning is a one-time USER step in 05-03 - OpenCode cannot create the VM; requires SSH reachability from Windows (setup script + walkthrough are ready).
+- [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioned in 05-03; setup script + walkthrough delivered. IP is DHCP on the host External switch (.85 -> .83); eth0-watchdog.service mitigates NIC link flaps.
 - [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) - expect unknown-scope findings.
-- [Phase 5 BLOCKER #1 - 2026-09-20, RESOLVED]: 05-03 Task 3 first attempt: container ynh-appci-bookworm-amd64-stable-test-0 launched; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also installed tmux + python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` for the upstream image-alias mismatch. VM at 192.168.1.85 went OFFLINE mid-run after `./package_check.sh -s` (force-stop) hung. RESOLVED by the eth0-watchdog + wired External switch.
-- [Phase 5 BLOCKER #2 - 2026-09-20, RESOLVED]: VM went offline again mid-run (same hard-offline pattern). RESOLVED: eth0-watchdog.service (active+enabled) auto-uplinks eth0 + re-runs dhclient every 20s; the 2026-09-20 full run completed with the VM stable throughout. IP is DHCP (.85 -> .83) on the host External switch.
-- [Phase 5 - 2026-09-20, RESOLVED]: 05-03 Task 5 checkpoint:human-verify APPROVED by the user - suite completed (findings allowed), doc reproduces the environment with no undocumented steps, and Phase 5 evidence is distinct from Phase 6.
 - [Phase 6 - 2026-09-20, NEW]: install.root FAILS on a genuine package bug - `Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env`. scripts/_common.sh generates/persists `admin_panel_secret` while conf/librechat.env substitutes `__ADMIN_PANEL_SESSION_SECRET__`. Blocking prerequisite for POLS-01.
 - [Phase 6 - 2026-09-20, NEW]: install.subdir/install.private/install.multi did not run (no [install.path] question, parser never auto-generates private, multi_instance=false) - add explicitly if POLS-01 requires that coverage.
 - [Phase 5/6 - 2026-09-20, NEW]: 8 reproducibility gaps recorded in 05-FINDINGS.md section 5 (python3-toml, linter Python deps, tmux, ethtool, image-alias workaround, eth0 watchdog, DHCP instability, imgkit) - fold into doc/PACKAGE_CHECK.md and scripts/setup_pc_env.sh.
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T21:00:00Z
-**Stopped at:** 05-03 complete and approved - full-suite findings run plan finalized (SUMMARY written, ROADMAP 3/3); Phase 5 execution done, phase verification pending per orchestrator
+**Last session:** 2026-09-20
+**Stopped at:** Phase 5 complete, ready to plan Phase 6
 **Resume file:** None
