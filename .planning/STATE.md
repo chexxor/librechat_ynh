@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 4 of 7 (Lint Baseline)
-**Current Plan:** 4
+**Current Plan:** Not started
 **Total Plans in Phase:** 4
-**Status:** Phase complete — ready for verification
+**Status:** Milestone complete
 Last activity: 2026-09-19 — Completed 04-03-PLAN.md (nginx modernization + README regeneration)
 
 **Progress:** [██████████] 100%
