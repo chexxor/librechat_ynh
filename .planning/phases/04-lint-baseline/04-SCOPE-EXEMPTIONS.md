@@ -96,3 +96,21 @@ and `AppCatalog.state_is_working` remain as documented (`error` bucket), and
 
 The locally-fixable invariant `(critical ∪ error) \ exempted == ∅` holds — see
 the `LOCALLY-FIXABLE-ERRORS-ZERO` assertion in the Plan 04-04 automated verify.
+
+## Artifact Correction (post-verification)
+
+During phase verification, `lint-before-fix.{json,txt}` was found to contain the
+**post-fix** run: Plan 04-04's archive step ran the linter (overwriting the
+runner's scratch `lint-baseline.*`) and then copied the *fresh* output into both
+the before- and after-fix files, so all three JSON artifacts were byte-identical.
+The genuine before-fix baseline was never lost — it was committed in Plan 04-01
+(commit `790c2b2`) — and `lint-before-fix.{json,txt}` was restored byte-for-byte
+from that commit. The delta is now auditable:
+
+| Artifact | critical | error | warning | info |
+|---|---|---|---|---|
+| `lint-before-fix.json` (restored from `790c2b2`) | 1 | 2 | 9 | 7 |
+| `lint-after-fix.json` | 1 | 2 | 2 | 5 |
+
+Lesson: the archive step must copy the scratch artifacts to `lint-before-fix.*`
+**before** invoking the runner, not after.

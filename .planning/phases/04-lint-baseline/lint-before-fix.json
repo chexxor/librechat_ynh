@@ -1,6 +1,8 @@
 {
     "success": [],
     "info": [
+        "Manifest.resource_consistency.<locals>.manifest_schema",
+        "Manifest.resource_consistency.<locals>.manifest_schema",
         "App.change_url_script",
         "Configurations.systemd_config_harden_security",
         "Configurations.systemd_config_harden_security",
@@ -8,6 +10,13 @@
         "AppCatalog.is_in_github_org"
     ],
     "warning": [
+        "Manifest.resource_consistency",
+        "Script.progression_in_backup",
+        "App.badges_in_readme",
+        "App.helpers_deprecated_in_v2",
+        "App.helpers_deprecated_in_v2",
+        "App.helpers_deprecated_in_v2",
+        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
         "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
         "AppCatalog.has_category"
     ],
