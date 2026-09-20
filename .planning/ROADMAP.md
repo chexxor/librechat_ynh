@@ -67,8 +67,8 @@ Plans:
   4. No secrets (admin password, env contents) appear in package_check output logs — `ynh_print`/`set -x` output audited
 **Plans**: 5 plans
 Plans:
-- [ ] 06-01-PLAN.md — Wave 1 static groundwork: headline `admin_panel_secret` token fix + full conf-token sweep, Phase 6 scope-exemption record, triage log template
-- [ ] 06-02-PLAN.md — Wave 1 secret hygiene: xtrace guards around secret handling (keep one admin-password display) + redaction tool
+- [x] 06-01-PLAN.md — Wave 1 static groundwork: headline `admin_panel_secret` token fix + full conf-token sweep, Phase 6 scope-exemption record, triage log template
+- [x] 06-02-PLAN.md — Wave 1 secret hygiene: xtrace guards around secret handling (keep one admin-password display) + redaction tool
 - [ ] 06-03-PLAN.md — Wave 2: first full-suite cycle on the VM + triage all findings (checkpoint)
 - [ ] 06-04-PLAN.md — Wave 3: fix loop — fix in-scope bugs, full-suite re-run + re-triage until zero in-scope failures (checkpoint)
 - [ ] 06-05-PLAN.md — Wave 4: final single clean run, redact + archive POLS-01 evidence, update records (checkpoint)
@@ -94,7 +94,7 @@ Plans:
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 4. Lint Baseline | 2/4 | In Progress|  | - |
 | 5. tests.toml + PC Environment | 3/3 | Complete    | 2026-09-20 | - |
-| 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
+| 6. Fix Findings to Zero | v1.1 | 2/5 | In Progress | - |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
 
 *Note: v1.0 plan counts approximate the shipped milestone summary (3 phases, 7 plans).*
