@@ -65,7 +65,13 @@ Plans:
   2. The zero-failure run log (`Test_results.log` or equivalent) is archived in the repo/planning as POLS-01 v1.1 live verification
   3. Network flakiness is contained: a re-run of a previously failing test passes (bounded retries / honest flake-vs-regression distinction documented)
   4. No secrets (admin password, env contents) appear in package_check output logs — `ynh_print`/`set -x` output audited
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 06-01-PLAN.md — Wave 1 static groundwork: headline `admin_panel_secret` token fix + full conf-token sweep, Phase 6 scope-exemption record, triage log template
+- [ ] 06-02-PLAN.md — Wave 1 secret hygiene: xtrace guards around secret handling (keep one admin-password display) + redaction tool
+- [ ] 06-03-PLAN.md — Wave 2: first full-suite cycle on the VM + triage all findings (checkpoint)
+- [ ] 06-04-PLAN.md — Wave 3: fix loop — fix in-scope bugs, full-suite re-run + re-triage until zero in-scope failures (checkpoint)
+- [ ] 06-05-PLAN.md — Wave 4: final single clean run, redact + archive POLS-01 evidence, update records (checkpoint)
 
 ### Phase 7: GitHub Actions Lint Workflow
 **Goal**: A lint-only GitHub Actions workflow runs on push/PR against `ubuntu-latest` and is green — package_linter + shellcheck + TOML/schema validation. Fast static layer only; NO package_check on hosted runners (anti-feature).
