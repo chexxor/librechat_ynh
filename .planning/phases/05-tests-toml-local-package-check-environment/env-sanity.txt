@@ -1,0 +1,106 @@
+# package_check host environment sanity
+# Captured: 2026-09-20T07:32:53Z
+
+## OS / kernel
+Linux debian 6.1.0-53-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.187-1 (2026-09-07) x86_64 GNU/Linux
+PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
+
+## Sizing
+RAM: 7.8Gi
+vCPU: 4
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0   40G  0 disk 
+└─sda1   8:1    0   40G  0 part /var/lib/incus/storage-pools/btrfs_pool
+sdb      8:16   0   30G  0 disk 
+├─sdb1   8:17   0  512M  0 part /boot/efi
+├─sdb2   8:18   0 28.5G  0 part /
+└─sdb3   8:19   0  976M  0 part [SWAP]
+
+## incus storage list
++------------+--------+-------------+---------+---------+
+|    NAME    | DRIVER | DESCRIPTION | USED BY |  STATE  |
++------------+--------+-------------+---------+---------+
+| btrfs_pool | btrfs  |             | 1       | CREATED |
++------------+--------+-------------+---------+---------+
+
+## incus storage show btrfs_pool
+config:
+  source: ff62303d-98e1-4cb7-a5f7-e275be89f526
+  volatile.initial_source: /dev/sda1
+description: ""
+name: btrfs_pool
+driver: btrfs
+used_by:
+  - /1.0/profiles/default
+status: Created
+locations:
+  - none
+
+## incus profile show default
+config: {}
+description: Default Incus profile
+devices:
+  eth0:
+    name: eth0
+    network: incusbr0
+    type: nic
+  root:
+    path: /
+    pool: btrfs_pool
+    type: disk
+name: default
+used_by: []
+project: default
+
+## incusbr0 bridge
+incusbr0         DOWN           10.244.67.1/24 fd42:f1ce:fd:652f::1/64 
+
+## port 53 owner (managed dnsmasq)
+UNCONN 0      0                 10.244.67.1:53        0.0.0.0:*    users:(("dnsmasq",pid=34169,fd=8)) 
+UNCONN 0      0      [fd42:f1ce:fd:652f::1]:53           [::]:*    users:(("dnsmasq",pid=34169,fd=10))
+
+## incus remote list
++-----------------+------------------------------------+---------------+-------------+--------+--------+--------+
+|      NAME       |                URL                 |   PROTOCOL    |  AUTH TYPE  | PUBLIC | STATIC | GLOBAL |
++-----------------+------------------------------------+---------------+-------------+--------+--------+--------+
+| images          | https://images.linuxcontainers.org | simplestreams | none        | YES    | NO     | NO     |
++-----------------+------------------------------------+---------------+-------------+--------+--------+--------+
+| local (current) | unix://                            | incus         | file access | NO     | YES    | NO     |
++-----------------+------------------------------------+---------------+-------------+--------+--------+--------+
+| yunohost        | https://repo.yunohost.org/incus    | simplestreams | none        | YES    | NO     | NO     |
++-----------------+------------------------------------+---------------+-------------+--------+--------+--------+
+
+## tool versions
+lynx: /usr/bin/lynx Lynx Version 2.9.0dev.12 (02 Jan 2023)
+jq: /usr/bin/jq jq-1.6
+btrfs: /usr/bin/btrfs btrfs-progs v6.2
+python3: /usr/bin/python3 Python 3.11.2
+git: /usr/bin/git git version 2.39.5
+incus: /usr/bin/incus 7.0.1
+
+## package_check clone
+-rwxr-xr-x 1 alex alex 7208 Sep 20 02:31 /home/alex/package_check/package_check.sh
+f7d32cadac3cfced282decede024707fba9e6ec6 :art: Format Python code with Black
+
+## package tree on VM (with .git)
+total 48
+drwxr-xr-x 7 alex alex 4096 Sep 19 23:37 .
+drwx------ 7 alex alex 4096 Sep 20 02:32 ..
+drwxr-xr-x 2 alex alex 4096 Sep 20 02:16 conf
+drwxr-xr-x 3 alex alex 4096 Sep 20 02:16 doc
+drwxr-xr-x 7 alex alex 4096 Sep 20 02:16 .git
+-rw-r--r-- 1 alex alex  533 Sep 19 21:11 .gitattributes
+-rw-r--r-- 1 alex alex 1322 Sep 17 23:03 LICENSE
+-rw-r--r-- 1 alex alex 2549 Sep 19 21:13 manifest.toml
+drwxr-xr-x 5 alex alex 4096 Sep 20 02:16 .planning
+-rw-r--r-- 1 alex alex 3098 Sep 19 21:20 README.md
+drwxr-xr-x 2 alex alex 4096 Sep 20 02:16 scripts
+-rw-r--r-- 1 alex alex 1259 Sep 19 23:37 tests.toml
+cfd1740f7e216ad595f981adc212eeaf65282d7a docs(05-02): complete host artifacts and host-wording amendment plan
+
+## tests.toml on VM
+4cdd83e3b8e13b08c3aac8e5e79ab07d  /home/alex/librechat_ynh/tests.toml
+1
+
+## groups
+uid=1000(alex) gid=1000(alex) groups=1000(alex),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),106(netdev),110(bluetooth),995(incus-admin)
