@@ -14,7 +14,7 @@ Phase: 5 of 7 (tests.toml + Local package_check Environment)
 **Current Plan:** 05-03 (05-01, 05-02 complete)
 **Total Plans in Phase:** 3
 **Status:** In progress
-Last activity: 2026-09-19 — Completed 05-02-PLAN.md (setup script + walkthrough + host-wording amendment; CI-02 buildable half)
+Last activity: 2026-09-20 — 05-03 Task 3 re-run attempted; VM went offline again mid-run (BLOCKER #2). Awaiting VM stabilization.
 
 **Progress:** [█████████░] 93%
 
@@ -61,10 +61,11 @@ None yet.
 
 - [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioning is a one-time USER step in 05-03 — OpenCode cannot create the VM; requires SSH reachability from Windows (setup script + walkthrough are ready).
 - [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) — expect unknown-scope findings.
-- [Phase 5 BLOCKER - 2026-09-20]: 05-03 Task 2 COMPLETE (VM provisioned: btrfs_pool on /dev/sda1, incusbr0, yunohost remote, deps, package_check clone, package tree + tests.toml MD5-matched; env-sanity.txt committed c963811). 05-03 Task 3 was IN PROGRESS: container ynh-appci-bookworm-amd64-stable-test-0 launched and running; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also had to install tmux and python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` to fix the upstream image-alias mismatch. Then VM at 192.168.1.85 went OFFLINE mid-run (no ARP entry, SSH times out, no SSH on any subnet IP) — right after `./package_check.sh -s` (force-stop) hung. Needs the user to power the VM back on / re-confirm its (DHCP) IP. Full suite must be re-run from scratch once the VM is back.
+- [Phase 5 BLOCKER #1 - 2026-09-20]: 05-03 Task 3 first attempt: container ynh-appci-bookworm-amd64-stable-test-0 launched; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also installed tmux + python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` for the upstream image-alias mismatch. VM at 192.168.1.85 went OFFLINE mid-run after `./package_check.sh -s` (force-stop) hung.
+- [Phase 5 BLOCKER #2 - 2026-09-20T14:31Z, ACTIVE]: VM came back online, rebooted fresh. Task 3 RE-RUN from scratch: dry-run `-D` confirmed exact suite (package_linter, install.root, backup_restore, upgrade, upgrade.05e3d5b, change_url); full run launched detached via `setsid nohup ~/pc_launch.sh` (pid 1028/1030) and reached "Launching new LXC ynh-appci-bookworm-amd64-stable-test-0". ~90s later the VM at 192.168.1.85 went OFFLINE AGAIN — ping returns "Destination host unreachable" from the gateway, no ARP/neighbor entry for .85, no repointed DHCP IP found on the subnet, SSH port 22 connection times out. Same hard-offline failure pattern as BLOCKER #1. Likely Hyper-V host/NIC/switch or DHCP-lease instability during the heavy install phase. Needs user to power the VM back on and stabilize its (DHCP) network (static IP per doc/PACKAGE_CHECK.md would prevent recurrence). Full suite must be RE-RUN from scratch again once the VM is back. No logs were retrieved (run did not complete).
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T04:55:04.187Z
-**Stopped at:** Completed 05-02-PLAN.md
+**Last session:** 2026-09-20T14:31:06Z
+**Stopped at:** 05-03 Task 3 blocked — VM offline again mid-run (BLOCKER #2)
 **Resume file:** None
