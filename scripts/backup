@@ -11,9 +11,7 @@
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
-ynh_abort_if_errors
-
-ynh_script_progression "Backing up LibreChat..."
+ynh_print_info "Backing up LibreChat..."
 
 #=================================================
 # Step 1 — Load settings
@@ -52,7 +50,7 @@ ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 # (meili LMDB copied mid-write can corrupt; mongo writes quiesced)
 #=================================================
 
-ynh_script_progression "Stopping services..."
+ynh_print_info "Stopping services..."
 ynh_systemctl --service=$app --action=stop
 ynh_systemctl --service=meilisearch --action=stop
 
@@ -71,8 +69,8 @@ ynh_mongo_dump_db --database=$db_name > ./dump.bson
 # Meilisearch first, mirroring the install start order.
 #=================================================
 
-ynh_script_progression "Restarting services..."
+ynh_print_info "Restarting services..."
 ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300
 ynh_systemctl --service=$app --action=start
 
-ynh_script_progression "Backup of $app completed"
+ynh_print_info "Backup of $app completed"

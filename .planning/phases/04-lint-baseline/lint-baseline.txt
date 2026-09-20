@@ -15,18 +15,12 @@ please report them on https://github.com/YunoHost/package_linter/issues
  [1m[92m✔ [94mscripts/install[0m
  [1m[92m✔ [94mscripts/remove[0m
  [1m[92m✔ [94mscripts/upgrade[0m
- [1m[93m! [94mscripts/backup[0m
-
-   [93m ! We recommend to *not* use 'ynh_script_progression' in backup scripts because no actual work happens when running the script : YunoHost only fetches the list of things to backup (apart from the DB dumps which effectively happens during the script...). Consider using a simple message like this instead: 'ynh_print_info "Declaring files to be backed up..."' [0m
-
+ [1m[92m✔ [94mscripts/backup[0m
  [1m[92m✔ [94mscripts/restore[0m
  [1m[93m! [94mGeneral stuff, misc helper usage[0m
 
     - Consider adding a change_url script to support changing where the app can be reached[0m
    [93m ! It looks like the README was not generated automatically by https://github.com/YunoHost/apps_tools/tree/main/readme_generator. Note that nowadays you are not suppose to edit README.md, the yunohost bot will usually automatically update it if your app is hosted in the YunoHost-Apps org... or you can also generate it by running the README-generator yourself. [0m
-   [93m ! Using helper ynh_abort_if_errors is deprecated when using packaging v2... It is replaced by: nothing, handled by the core, just get rid of it [0m
-   [93m ! Using helper ynh_nodejs_install is now deprecated (assuming you're using packaging v2.1)... It is replaced by: the nodejs resource. Note that a PR should have been automatically created via yunohost-bot to help with the transition [0m
-   [93m ! Using helper ynh_nodejs_remove is now deprecated (assuming you're using packaging v2.1)... It is replaced by: the nodejs resource. Note that a PR should have been automatically created via yunohost-bot to help with the transition [0m
 
  [1m[93m! [94mConfiguration files[0m
 

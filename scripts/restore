@@ -19,8 +19,6 @@
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
-ynh_abort_if_errors
-
 ynh_script_progression "Restoring LibreChat..."
 
 #=================================================
@@ -58,14 +56,14 @@ ynh_script_progression "Restoring MongoDB database..."
 ynh_mongo_restore_db --database=$db_name < ./dump.bson
 
 #=================================================
-# Step 5 — Re-provision Node (LOW-confidence on whether the v2 core
-# re-injects it — guard with a scripted fallback matching the
-# manifest [resources.nodejs] version)
+# Step 5 — Node.js is a manifest [resources.nodejs] resource (helpers v2.1);
+# the v2 core re-injects it on restore. No manual provisioning call needed.
 #=================================================
 
 ynh_script_progression "Ensuring Node.js is installed..."
-nodejs_version="${nodejs_version:-24}"
-ynh_nodejs_install
+# Node.js is provided by the [resources.nodejs] manifest resource (helpers v2.1).
+# The v2 core re-injects the resource on restore; no manual helper call needed.
+ynh_print_info "Node.js provided by the nodejs resource (v24)"
 
 #=================================================
 # Step 6 — Re-download meilisearch binary (NOT in the archive)
