@@ -11,11 +11,12 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 4 of 7 (Lint Baseline)
-Plan: 1 of 4 in current phase
-Status: Executing
-Last activity: 2026-09-19 — Completed 04-01-PLAN.md (linter scaffolding + baseline)
+**Current Plan:** 3
+**Total Plans in Phase:** 4
+**Status:** Ready to execute
+Last activity: 2026-09-19 — Completed 04-02-PLAN.md (manifest + deprecated-helper fixes)
 
-Progress: [█░░░░░░░░░] 10%
+**Progress:** [████████░░] 82%
 
 ## Performance Metrics
 
@@ -29,7 +30,7 @@ Progress: [█░░░░░░░░░] 10%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0 (1-3) | 7 | 7 | - |
-| v1.1 Phase 04 | 1 | 4 | 2min (P01) |
+| v1.1 Phase 04 | 2 | 4 | 2.5min |
 
 ## Accumulated Context
 
@@ -41,6 +42,7 @@ Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
 - [Research]: Phase order — linter first (zero infra), then tests.toml + local PC env, then fix-findings iteration, GH workflow last so it starts green.
 - [Research]: `tests.toml` must supply `args.admin_email`; never use `exclude` to fake green CI.
 - [Phase 04]: Zero-error invariant defined as (critical union error) minus exempted == empty; 5 out-of-scope findings documented in 04-SCOPE-EXEMPTIONS.md
+- [Phase 04]: Main permission warning fixed via [install.init_main_permission] group question (canonical example_ynh pattern), not allowed= on resources.permissions
 
 ### Pending Todos
 
@@ -53,6 +55,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-09-19
-Stopped at: Completed 04-01-PLAN.md
-Resume file: .planning/phases/04-lint-baseline/04-02-PLAN.md
+**Last session:** 2026-09-20T02:17:59.072Z
+**Stopped at:** Completed 04-02-PLAN.md
+**Resume file:** None
