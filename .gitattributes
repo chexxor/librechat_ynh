@@ -1,0 +1,17 @@
+# Line-ending policy for the librechat_ynh repository.
+#
+# This repo has no .gitattributes and the dev box has core.autocrlf=true.
+# Without pinning, a Windows checkout can convert scripts/* to CRLF, which:
+#   - breaks `#!/bin/bash` (bad interpreter / \r errors),
+#   - trips shellcheck SC1017,
+#   - confuses the linter's shlex/grep parsing.
+# Do NOT rely on core.autocrlf alone.
+* text=auto eol=lf
+*.sh text eol=lf
+scripts/* text eol=lf
+manifest.toml text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
