@@ -74,4 +74,25 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 2 — 2026-09-20
+
+- **Run:** VM full suite, duration **4m30s**, exit 0, Global summary printed.
+- **Code state (git rev):** `ccc5623` (includes the cycle-1 `__VAR__` fix).
+- **Test verdicts:** `install.root=FAIL`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `nginx: "proxy_http_version" directive is duplicate in /etc/nginx/proxy_params_no_auth:12` → nginx reload fails → install aborts | install.root | Package bug | `cycles/cycle-2/package_check-full.log` (error at 150334), `full_log_0.log` | FIX — remove the duplicated `proxy_http_version`/`Upgrade`/`Connection` directives from `conf/nginx.conf`; `proxy_params_no_auth` already supplies them |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "Instance is not running" | Re-triage after install.root passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+  | `imgkit` summary renderer | harness | Environment | `results_0.json` | Document |
+
+- **Progress vs Cycle 1:** the `__VAR__` token error is GONE. New bug: nginx duplicate directive. Install now reaches nginx configuration (much further than before).
+- **Flake-vs-regression:** the duplicate directive is deterministic — REGRESSION. Fixed in the same cycle turn.
+- **Fix applied:** `conf/nginx.conf` — removed `proxy_http_version 1.1;`, `proxy_set_header Upgrade ...`, `proxy_set_header Connection ...` (all supplied by `include proxy_params_no_auth`). Kept `proxy_buffering off` / `proxy_cache off` (SSE, not in the include).
+- **Note (supersedes Phase 4):** 04-SCOPE-EXEMPTIONS.md exempted the `Upgrade`/`Connection` linter warning on the condition that `proxy_params_no_auth` be "proven to supply WS headers". The live run now proves it: the include supplies `proxy_http_version 1.1` + `Upgrade` + `Connection`. The Phase 4 exemption is therefore resolved — the directives are removed, removing the warning AND the fatal duplication. Phase 4's historical record is left as-is; this triage log is the authoritative supersession.
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*
