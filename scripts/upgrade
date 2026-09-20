@@ -48,12 +48,15 @@ ynh_script_progression "Verifying MongoDB database..."
 db_name=$(ynh_sanitize_dbid --db_name=$app)
 db_user=$db_name
 
-# Safe on an existing database: creates user/db if missing, never drops.
-ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
-
-# Read back the persisted MongoDB password for the .env template.
-# ynh_mongo_setup_db (helpers v2.1) stores it under the setting key `db_pwd`.
+# Read the EXISTING MongoDB password BEFORE re-provisioning. ynh_mongo_setup_db
+# generates a NEW random password when none is passed and stores it — but the
+# MongoDB user already exists, so db.createUser fails and the user keeps the OLD
+# password. Passing the persisted password makes the call truly idempotent so the
+# setting and the real password stay in sync (avoids "Authentication failed").
 db_pwd=$(ynh_app_setting_get --key=db_pwd)
+
+# Safe on an existing database: creates user/db if missing, never drops.
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name --db_pwd="$db_pwd"
 
 #=================================================
 # Step 4 — Rebuild LibreChat

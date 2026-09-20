@@ -70,7 +70,7 @@ ynh_mongo_dump_db --database=$db_name > ./dump.bson
 #=================================================
 
 ynh_print_info "Restarting services..."
-ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300
+ynh_systemctl --service=meilisearch --action=start
 ynh_systemctl --service=$app --action=start
 
 ynh_print_info "Backup of $app completed"

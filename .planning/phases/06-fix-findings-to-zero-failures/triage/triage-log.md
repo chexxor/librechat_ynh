@@ -178,4 +178,30 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 7 — 2026-09-20
+
+- **Run:** VM full suite, duration **14m26s**, exit 0, Global summary printed.
+- **Code state (git rev):** `cc4bec2` (includes the cycle-6 `HOST` fix).
+- **Test verdicts:** `install.root=`**`SUCCESS`** ✓, `backup_restore=FAIL`, `upgrade=FAIL`, `upgrade.05e3d5b=FAIL`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | **`install.root` SUCCESS** — package installs and serves 200 | install.root | — (milestone) | `cycles/cycle-7/package_check-full.log:267` | None |
+  | `WARNING Invalid argument: --wait_until_running` → `Failed to collect files to be backed up` | backup_restore | Package bug | `cycles/cycle-7/full_log_0.log:5523`, `package_check-full.log:283-285` | FIX — `ynh_systemctl` (helpers v2.1) has no `--wait_until_running` arg |
+  | `Failed to start server: Authentication failed` after upgrade — `ynh_mongo_setup_db` regenerated a new `db_pwd` while the Mongo user kept the old password | upgrade | Package bug | `cycles/cycle-7/full_log_0.log:3963-4041` (new password `Xz4HWdji…` stored) | FIX — pass the persisted `db_pwd` into `ynh_mongo_setup_db` on upgrade |
+  | Cascaded upgrade-from-old failure | upgrade.05e3d5b | Package bug (cascade from Test 4) | install/upgrade machinery | Re-triage after upgrade passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+
+- **Progress vs Cycle 6:** the 502 error is GONE. **`install.root` now passes** — the original goal of unblocking install is fully achieved. Tests 3–5 executed for the first time (no more "All installs failed" cascade for install).
+- **Root causes (both verified from `full_log_0.log`):**
+  1. **backup/restore:** `ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300` → the v2.1 helper rejects `--wait_until_running` and the backup aborts. (`scripts/backup:73`, `scripts/restore:95`.)
+  2. **upgrade:** `ynh_mongo_setup_db` with no `--db_pwd` generates a NEW password (`Xz4HWdjiYym83AxJp54QD4EQ`), stores it as the `db_pwd` setting, and calls `db.createUser` — which fails because the user exists, leaving the real password at the original value. The env then contains the new (wrong) password → auth failure.
+- **Flake-vs-regression:** both deterministic — REGRESSIONS. Fixed in the same cycle turn.
+- **Fixes applied:**
+  - `scripts/upgrade`: read persisted `db_pwd` BEFORE `ynh_mongo_setup_db` and pass `--db_pwd="$db_pwd"` (idempotent; session/secret consistency preserved).
+  - `scripts/backup`, `scripts/restore`: dropped the unsupported `--wait_until_running --timeout=300` from the meilisearch start (kept `--action=start`).
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*

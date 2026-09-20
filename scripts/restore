@@ -92,7 +92,7 @@ yunohost service add $app --description="LibreChat daemon" --log="/var/log/$app/
 #=================================================
 
 ynh_script_progression "Starting services..."
-ynh_systemctl --service=meilisearch --action=start --wait_until_running --timeout=300
+ynh_systemctl --service=meilisearch --action=start
 ynh_systemctl --service=$app --action=start
 ynh_systemctl --service=nginx --action=reload
 
