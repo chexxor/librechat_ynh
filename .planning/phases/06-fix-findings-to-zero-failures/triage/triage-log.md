@@ -136,4 +136,24 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 5 — 2026-09-20
+
+- **Run:** VM full suite, duration **4m43s**, exit 0, Global summary printed.
+- **Code state (git rev):** `f01a3c5` (includes the cycle-4 `db_pwd` fix).
+- **Test verdicts:** `install.root=FAIL (harness)`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | **Package install SUCCEEDED** (`Installation completed`, admin password displayed, admin user created) | install.root | — (milestone) | `cycles/cycle-5/package_check-full.log:151268,151881` | None — the package install path is now correct end-to-end |
+  | `ModuleNotFoundError: No module named 'bs4'` in `lib/curl_tests.py:8` (harness post-install URL/asset validation) | install.root | Environment/harness | `cycles/cycle-5/package_check-full.log:162` | FIX ENV — install `beautifulsoup4` (+ `lxml`, `imgkit`) from `package_check/requirements.txt`; these were never installed by `setup_pc_env.sh` |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "All installs failed…" | Re-triage after install.root passes (install now succeeds → cascades should clear next cycle) |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+
+- **Progress vs Cycle 4:** MongoDB auth error GONE. **The package now installs successfully** — the `curl_tests` post-install validation is the only remaining blocker on `install.root`, and it is a harness dependency gap, not a package defect.
+- **Environment fix (permitted, noted per locked rule):** `pip3 install --break-system-packages --user beautifulsoup4 lxml imgkit` on the VM. `package_check/requirements.txt` lists `toml pycurl beautifulsoup4 lxml imgkit`; `setup_pc_env.sh` only installed `python3-toml` (and the linter deps), missing `beautifulsoup4`/`lxml`/`imgkit`. This supersedes/completes the Phase 5 `imgkit` gap (#8 in 05-FINDINGS.md §5).
+- **Flake-vs-regression:** the `bs4` failure is a deterministic environment gap (no package code involved) — fixed by installing the missing dependency; the run after the *package* code (`db_pwd`) change is cycle 5, and the harness fix is a no-package-change environment tweak.
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*
