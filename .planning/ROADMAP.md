@@ -32,10 +32,15 @@ Phases 1-3 delivered the complete lifecycle package: install, remove, backup/res
 **Depends on**: Nothing (first phase of v1.1; v1.0 shipped)
 **Requirements**: LINT-01
 **Success Criteria** (what must be TRUE):
-  1. User can run `package_linter` locally from the Windows dev box (pure Python ≥3.11, no Linux host needed) and it reports zero errors on the package
-  2. Known warnings are either fixed (e.g., `doc/` assets, maintainer placeholder) or explicitly listed with a reason to defer
-  3. A lint baseline output is archived (log/artifact) showing the zero-error result
-**Plans**: TBD
+  1. User can run `package_linter` locally from the Windows dev box (WSL2, uv-Python 3.12, no separate Linux host needed) and it reports zero **locally-fixable** errors on the package
+  2. Known warnings are fixed (8 of 9) or explicitly documented as out-of-scope-by-design with a reason (catalog category — requires an out-of-scope catalog submission PR); the exempted criticals/errors (`AppCatalog.is_in_catalog`, `AppCatalog.state_is_working`, `Configurations.tests_toml`) are each documented with a reason in `.planning/phases/04-lint-baseline/04-SCOPE-EXEMPTIONS.md`
+  3. A lint baseline output is archived (before + after artifacts) showing the zero-locally-fixable-error result, and the user has explicitly confirmed the scope-adjusted interpretation
+**Plans**: 4 plans
+Plans:
+- [ ] 04-01-PLAN.md — Wave 0 scaffold: `scripts/run_lint.sh` runner, `.gitattributes` LF pinning, baseline artifacts, scope-exemption record
+- [ ] 04-02-PLAN.md — Manifest + script fixes: 2 schema violations, deprecated helpers, backup progression, init_main_permission, maintainers
+- [ ] 04-03-PLAN.md — Config/docs modernization: nginx header removal (WS retained), README regeneration
+- [ ] 04-04-PLAN.md — Final zero-error proof, before/after artifacts, exemption reconciliation, user checkpoint
 
 ### Phase 5: tests.toml + Local package_check Environment
 **Goal**: The package has a schema-valid `tests.toml` (supplying install args like `admin_email`, optional curl smoke-tests and one `test_upgrade_from` entry) and a reproducible local Linux environment (WSL2 + Incus + btrfs, documented) that can run the full `package_check` suite end-to-end.
@@ -77,7 +82,7 @@ Phases 1-3 delivered the complete lifecycle package: install, remove, backup/res
 | 1. Foundation | v1.0 | 3/3 | Complete | 2026-09-19 |
 | 2. App Delivery | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
-| 4. Lint Baseline | v1.1 | 0/? | Not started | - |
+| 4. Lint Baseline | v1.1 | 0/4 | Planned | - |
 | 5. tests.toml + PC Environment | v1.1 | 0/? | Not started | - |
 | 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
