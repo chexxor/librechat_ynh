@@ -1,0 +1,525 @@
+Testing package /home/alex/librechat_ynh
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not a git repository (or any of the parent directories): .git
+Error: Remote yunohost already exists
+Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+
+[1m > YunoHost versions[0m
+
+[35m[1myunohost[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.41.2
+[35m[1myunohost-admin[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.15
+[35m[1myunohost-portal[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.2
+[35m[1mmoulinette[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.4
+[35m[1mssowat[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.1
+[1m
+ ============================================
+ Package linter
+ ============================================
+[0m
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.yRNJlu/app_folder...
+[96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
+
+ [1m[92m✔ [94mmanifest[0m
+ [1m[92m✔ [94mscripts/_common.sh[0m
+ [1m[92m✔ [94mscripts/install[0m
+ [1m[92m✔ [94mscripts/remove[0m
+ [1m[92m✔ [94mscripts/upgrade[0m
+ [1m[92m✔ [94mscripts/backup[0m
+ [1m[92m✔ [94mscripts/restore[0m
+ [1mⓘ [94mGeneral stuff, misc helper usage[0m
+
+    - Consider adding a change_url script to support changing where the app can be reached[0m
+
+ [1mⓘ [94mConfiguration files[0m
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+
+ [1m[93m! [94mCatalog infos[0m
+
+   [91m ✘✘✘ This app is not in YunoHost's application catalog[0m
+   [91m ✘ The application is not flagged as working in YunoHost's apps catalog[0m
+   [93m ! The application has no associated category in YunoHost's apps catalog [0m
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily[0m
+
+ [1m[92m✔ [94mIssues[0m
+ =======
+ There are some critical issues in this app :(
+[1m
+ ============================================
+ Basic bash syntax checks
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+[0m
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+[1m
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 0s (23:28:55 UTC)
+[1m
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+[0m
+(Creating snapshot snap-preinstalled-default ...)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+2083 [36m[1mINFO[m    Installing librechat…
+2101 [36m[1mINFO[m    Provisioning sources...
+15337 [36m[1mINFO[m    Provisioning apt...
+18606 [36m[1mINFO[m    Provisioning ports...
+18620 [36m[1mINFO[m    Provisioning system_user...
+19159 [36m[1mINFO[m    Provisioning install_dir...
+19164 [36m[1mINFO[m    Provisioning data_dir...
+19166 [36m[1mINFO[m    Provisioning permissions...
+19240 [36m[1mINFO[m    Provisioning nodejs...
+22684 [36m[1mINFO[m    [+...................] > Installing dependencies...
+22685 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+45114 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+45373 [36m[1mINFO[m    [#++.................] > Setting up source files...
+49170 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+51480 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+51963 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+52076 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+52076 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+52076 [33m[1mWARNING[m npm warn config omitting invalid config values
+61083 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+65523 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+79028 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+83445 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+84881 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+129052 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+129053 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+129053 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+129053 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+129054 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+129054 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+129054 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+129054 [33m[1mWARNING[m npm warn install-scripts
+129054 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+133815 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+133816 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+133816 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+133816 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+133816 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+133817 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+133817 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+133817 [33m[1mWARNING[m npm warn install-scripts
+133817 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+134200 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+134200 [33m[1mWARNING[m Attention:
+134201 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+134201 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+134201 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+134201 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+134201 [33m[1mWARNING[m • turbo 2.10.5
+134202 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+155742 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+156201 [36m[1mINFO[m    [##########+.........] > Configuring nginx...
+156761 [36m[1mINFO[m    [###########++.......] > Configuring systemd services...
+158508 [36m[1mINFO[m    [#############++.....] > Starting services...
+159027 [36m[1mINFO[m    [###############+....] > Creating admin user...
+163117 [36m[1mINFO[m    [################++..] > Sending admin email...
+163191 [36m[1mINFO[m    Admin password: uuhXucObHSZLL9Lwypx9C6ZG
+163194 [36m[1mINFO[m    [####################] > Installation of librechat completed
+163864 [32m[1mSUCCESS[m Installation completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 2319MB
+RAM usage diff after test: 584MB
+Disk usage diff after test: 4413.5MB
+(Creating snapshot snap_rootinstall ...)
+
+[1m > Removing the app...[0m
+
+1109 [36m[1mINFO[m    Removing librechat…
+1183 [36m[1mINFO[m    [++++................] > Stopping services...
+2090 [36m[1mINFO[m    [####++++............] > Removing systemd services...
+2577 [36m[1mINFO[m    [########++++........] > Removing nginx configuration...
+2802 [36m[1mINFO[m    [############++++....] > Removing MongoDB database librechat (namespaced only)...
+5156 [36m[1mINFO[m    '/home/yunohost.app/librechat/meilisearch' wasn't deleted because it doesn't exist.
+5158 [36m[1mINFO[m    [####################] > Removal of librechat completed
+5265 [36m[1mINFO[m    Deprovisioning nodejs...
+5692 [36m[1mINFO[m    Deprovisioning permissions...
+6242 [36m[1mINFO[m    Deprovisioning data_dir...
+6243 [36m[1mINFO[m    Deprovisioning install_dir...
+15054 [36m[1mINFO[m    Deprovisioning system_user...
+15289 [36m[1mINFO[m    Deprovisioning ports...
+15292 [36m[1mINFO[m    Deprovisioning apt...
+17224 [36m[1mINFO[m    Deprovisioning sources...
+17225 [32m[1mSUCCESS[m librechat uninstalled
+
+[1m > Reinstalling after removal.[0m
+
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+1905 [36m[1mINFO[m    Installing librechat…
+1914 [36m[1mINFO[m    Provisioning sources...
+16102 [36m[1mINFO[m    Provisioning apt...
+19223 [36m[1mINFO[m    Provisioning ports...
+19241 [36m[1mINFO[m    Provisioning system_user...
+19753 [36m[1mINFO[m    Provisioning install_dir...
+19756 [36m[1mINFO[m    Provisioning data_dir...
+19758 [36m[1mINFO[m    Provisioning permissions...
+19824 [36m[1mINFO[m    Provisioning nodejs...
+23281 [36m[1mINFO[m    [+...................] > Installing dependencies...
+23282 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+40140 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+40379 [36m[1mINFO[m    [#++.................] > Setting up source files...
+44083 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+46208 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+46653 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+46750 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+46751 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+46751 [33m[1mWARNING[m npm warn config omitting invalid config values
+54930 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+59647 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+71870 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+76542 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+77453 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+124973 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+124973 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+124973 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+124974 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+124974 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+124974 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+124974 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+124974 [33m[1mWARNING[m npm warn install-scripts
+124975 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129495 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+129496 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+129496 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+129496 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+129496 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+129496 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+129497 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+129497 [33m[1mWARNING[m npm warn install-scripts
+129497 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129859 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+129859 [33m[1mWARNING[m Attention:
+129859 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+129860 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+129860 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+129861 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+129861 [33m[1mWARNING[m • turbo 2.10.5
+129861 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+149707 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+150112 [36m[1mINFO[m    [##########+.........] > Configuring nginx...
+150750 [36m[1mINFO[m    [###########++.......] > Configuring systemd services...
+152344 [36m[1mINFO[m    [#############++.....] > Starting services...
+152775 [36m[1mINFO[m    [###############+....] > Creating admin user...
+156238 [36m[1mINFO[m    [################++..] > Sending admin email...
+156288 [36m[1mINFO[m    Admin password: F3rPhRW8YMyAMBb1EQavpOaK
+156290 [36m[1mINFO[m    [####################] > Installation of librechat completed
+156887 [32m[1mSUCCESS[m Installation completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m[31mError: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+Working time for this test: 7 minutes, 14 seconds (23:36:11 UTC)
+[1m
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+[0m
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Backup of the application...[0m
+
+1166 [36m[1mINFO[m    Collecting files to be backed up for librechat…
+1231 [36m[1mINFO[m    Backing up LibreChat...
+1452 [36m[1mINFO[m    Stopping services...
+1832 [36m[1mINFO[m    Restarting services...
+1916 [33m[1mWARNING[m Job for meilisearch.service failed because the control process exited with error code.
+1917 [33m[1mWARNING[m See "systemctl status meilisearch.service" and "journalctl -xeu meilisearch.service" for details.
+1920 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1921 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7100]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1921 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7100]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1921 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7100]: For more information, try '--help'.
+1922 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1922 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1923 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 4.
+1923 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1923 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1923 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7102]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1923 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7102]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1923 [33m[1mWARNING[m Sep 20 23:32:31 meilisearch[7102]: For more information, try '--help'.
+1923 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 5.
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Start request repeated too quickly.
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1924 [33m[1mWARNING[m Sep 20 23:32:31 systemd[1]: Failed to start meilisearch.service - Meilisearch search engine for librechat.
+1924 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1925 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[204]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1925 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[204]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1925 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[204]: For more information, try '--help'.
+1925 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1925 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1926 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 1.
+1926 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1926 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1926 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[276]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1927 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[276]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1927 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[276]: For more information, try '--help'.
+1927 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1927 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1927 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 2.
+1927 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1928 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1928 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[309]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1928 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[309]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1928 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[309]: For more information, try '--help'.
+1928 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1928 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1928 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 3.
+1929 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1929 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1929 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[311]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1929 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[311]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1929 [33m[1mWARNING[m Sep 20 23:36:24 meilisearch[311]: For more information, try '--help'.
+1929 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1929 [33m[1mWARNING[m Sep 20 23:36:24 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1930 [33m[1mWARNING[m Sep 20 23:36:25 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 4.
+1930 [33m[1mWARNING[m Sep 20 23:36:25 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1930 [33m[1mWARNING[m Sep 20 23:36:25 systemd[1]: meilisearch.service: Start request repeated too quickly.
+1930 [33m[1mWARNING[m Sep 20 23:36:25 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1930 [33m[1mWARNING[m Sep 20 23:36:25 systemd[1]: Failed to start meilisearch.service - Meilisearch search engine for librechat.
+1930 [33m[1mWARNING[m Sep 20 23:36:40 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1930 [33m[1mWARNING[m Sep 20 23:36:40 meilisearch[821]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1931 [33m[1mWARNING[m Sep 20 23:36:40 meilisearch[821]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1931 [33m[1mWARNING[m Sep 20 23:36:40 meilisearch[821]: For more information, try '--help'.
+1931 [33m[1mWARNING[m Sep 20 23:36:40 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1931 [33m[1mWARNING[m Sep 20 23:36:40 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1931 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 1.
+1931 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1931 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1932 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[826]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1932 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[826]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1932 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[826]: For more information, try '--help'.
+1932 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1932 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1932 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 2.
+1932 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1933 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1933 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[827]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1933 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[827]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1933 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[827]: For more information, try '--help'.
+1933 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1933 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1933 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 3.
+1933 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1934 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1934 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[828]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1934 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[828]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1934 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[828]: For more information, try '--help'.
+1934 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1934 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1935 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 4.
+1935 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1935 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: Started meilisearch.service - Meilisearch search engine for librechat.
+1935 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[829]: error: unexpected value 'true' for '--no-analytics' found; no more were expected
+1935 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[829]: Usage: meilisearch --http-addr <HTTP_ADDR> --master-key <MASTER_KEY> --no-analytics
+1935 [33m[1mWARNING[m Sep 20 23:36:41 meilisearch[829]: For more information, try '--help'.
+1936 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+1936 [33m[1mWARNING[m Sep 20 23:36:41 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1936 [33m[1mWARNING[m Sep 20 23:36:42 systemd[1]: meilisearch.service: Scheduled restart job, restart counter is at 5.
+1936 [33m[1mWARNING[m Sep 20 23:36:42 systemd[1]: Stopped meilisearch.service - Meilisearch search engine for librechat.
+1937 [33m[1mWARNING[m Sep 20 23:36:42 systemd[1]: meilisearch.service: Start request repeated too quickly.
+1937 [33m[1mWARNING[m Sep 20 23:36:42 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1937 [33m[1mWARNING[m Sep 20 23:36:42 systemd[1]: Failed to start meilisearch.service - Meilisearch search engine for librechat.
+1938 [33m[1mWARNING[m Sep 20 23:36:46 systemd[1]: meilisearch.service: Start request repeated too quickly.
+1938 [33m[1mWARNING[m Sep 20 23:36:46 systemd[1]: meilisearch.service: Failed with result 'exit-code'.
+1938 [33m[1mWARNING[m Sep 20 23:36:46 systemd[1]: Failed to start meilisearch.service - Meilisearch search engine for librechat.
+2525 [31m[1mERROR[m   Failed to collect files to backed up for librechat.
+2527 [36m[1mINFO[m    The operation 'Create a backup archive' could not be completed. Please share the full log of this operation using the command 'yunohost log share 20260920-233644-backup_create' to get help
+2530 [31m[1mERROR[m   Failed to collect files to be backed up
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/togeqoloru
+[1m[31mError: There's A SHITLOAD of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+
+[1m[31m--- FAIL ---[0m
+
+
+[1m[31m--- FAIL ---[0m
+
+Working time for this test: 40 seconds (23:36:53 UTC)
+[1m
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Upgrade...[0m
+
+145  [36m[1mINFO[m    Now upgrading librechat…
+145  [33m[1mWARNING[m Skipping the creation of a backup prior to the upgrade.
+1679 [36m[1mINFO[m    Updating sources...
+14637 [36m[1mINFO[m    Updating apt...
+18498 [36m[1mINFO[m    Updating ports...
+18504 [36m[1mINFO[m    Updating system_user...
+18917 [36m[1mINFO[m    Updating install_dir...
+18923 [36m[1mINFO[m    Updating data_dir...
+18927 [36m[1mINFO[m    Updating permissions...
+19436 [36m[1mINFO[m    Updating nodejs...
+20396 [36m[1mINFO[m    [++..................] > Ensuring dependencies are up to date...
+20396 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+30279 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+33014 [36m[1mINFO[m    [##+++...............] > Replacing LibreChat source with the new version...
+40350 [36m[1mINFO[m    [#####++.............] > Verifying MongoDB database...
+42534 [36m[1mINFO[m    [#######+++..........] > Building LibreChat (this can take several minutes)...
+42652 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+42652 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+42652 [33m[1mWARNING[m npm warn config omitting invalid config values
+60209 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+65065 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+77309 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+82756 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+83437 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+126211 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+126211 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+126211 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+126211 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+126212 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+126212 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+126212 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+126213 [33m[1mWARNING[m npm warn install-scripts
+126213 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+130725 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+130725 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+130726 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+130726 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+130726 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+130726 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+130726 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+130726 [33m[1mWARNING[m npm warn install-scripts
+130727 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+131083 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+131084 [33m[1mWARNING[m • turbo 2.10.5
+131084 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+132339 [36m[1mINFO[m    [##########++........] > Regenerating and merging configuration files...
+132835 [36m[1mINFO[m    librechat.yaml exists — preserving user configuration verbatim
+133056 [36m[1mINFO[m    librechat.yaml: appended commented template sections for missing keys only
+133056 [36m[1mINFO[m    Config regeneration/merge complete (managed env keys fresh; user keys preserved)
+133056 [36m[1mINFO[m    [############+++.....] > Reconfiguring nginx and systemd services...
+135234 [36m[1mINFO[m    [###############++...] > Restarting services...
+135483 [36m[1mINFO[m    [####################] > Upgrade of librechat completed
+136160 [32m[1mSUCCESS[m librechat upgraded
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 1263MB
+RAM usage diff after test: 89MB
+Disk usage diff after test: 2949.4MB
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 3 minutes, 9 seconds (23:40:04 UTC)
+[1m
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+/tmp/package_check.yRNJlu/app_folder ~/package_check
+fatal: not a git repository (or any of the parent directories): .git
+[1m[31mError: Failed to checkout commit 05e3d5b ?[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (23:40:06 UTC)
+[1m
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Changing the URL from sub.domain.tld/ to domain.tld/...[0m
+
+491  [31m[1mERROR[m   The app 'librechat' doesn't support URL modification yet. Maybe you should upgrade it.
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/aseginuvij
+Working time for this test: 29 seconds (23:40:35 UTC)
+[1m
+ ============================================
+ Tests summary
+ ============================================
+[0m
+Global working time for all tests: 12 minutes, 30 seconds (23:40:37 UTC)
+You can find the complete log of these tests in /tmp/package_check.yRNJlu/app_folder/full_log_0.log

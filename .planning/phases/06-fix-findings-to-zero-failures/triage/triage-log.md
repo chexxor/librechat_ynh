@@ -204,4 +204,26 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 8 — 2026-09-20
+
+- **Run:** VM full suite, duration **12m30s**, exit 0, Global summary printed. (VM NIC flapped mid-run and the IP moved `.83`→`.85`; `eth0-watchdog` restored it and the run still completed — environmental, noted, no code change.)
+- **Code state (git rev):** `3107b60` (includes the cycle-7 mongo/systemctl fixes).
+- **Test verdicts:** `install.root=`**`SUCCESS`** ✓, `backup_restore=FAIL`, `upgrade=`**`SUCCESS`** ✓, `upgrade.05e3d5b=FAIL`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `upgrade` SUCCESS — mongo idempotency fix worked | upgrade | — (milestone) | `cycles/cycle-8/package_check-full.log:482` | None |
+  | `meilisearch: error: unexpected value 'true' for '--no-analytics'` → service fails to start → `Failed to collect files to be backed up` | backup_restore | Package bug | `cycles/cycle-8/package_check-full.log:1921-1938,2525` | FIX — meilisearch v1.53.2 wants `--no-analytics` with no value |
+  | `fatal: not a git repository … Failed to checkout commit 05e3d5b` | upgrade.05e3d5b | Environment (sync method) | `cycles/cycle-8/package_check-full.log:497` | FIX ENV — the app dir on the VM must be a git clone (package_check checks out the old commit) |
+  | `The app 'librechat' doesn't support URL modification yet` | change_url | Exempt | `cycles/cycle-8/package_check-full.log:515` | Document (POLS-02) |
+
+- **Progress vs Cycle 7:** `upgrade` (same-version) now passes. Remaining: `backup_restore` (meilisearch flag bug) and `upgrade.05e3d5b` (git-repo sync requirement).
+- **Flake-vs-regression:** the meilisearch flag bug is deterministic — REGRESSION. The git-repo message is a deterministic harness requirement (not a package defect). The mid-run IP flap is an external cause; the run completed anyway so no retry was needed.
+- **Fixes applied:**
+  - `conf/meilisearch.service`: `--no-analytics=true` → `--no-analytics`.
+  - Environment: sync the package to the VM as a real git clone so `git checkout 05e3d5b` works (see next cycle).
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*
