@@ -61,6 +61,7 @@ None yet.
 
 - [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioning is a one-time USER step in 05-03 — OpenCode cannot create the VM; requires SSH reachability from Windows (setup script + walkthrough are ready).
 - [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) — expect unknown-scope findings.
+- [Phase 5 BLOCKER - 2026-09-20]: 05-03 Task 2 COMPLETE (VM provisioned: btrfs_pool on /dev/sda1, incusbr0, yunohost remote, deps, package_check clone, package tree + tests.toml MD5-matched; env-sanity.txt committed c963811). 05-03 Task 3 was IN PROGRESS: container ynh-appci-bookworm-amd64-stable-test-0 launched and running; package_linter crashed on missing host jsonschema (auto-fixed by installing python3-{jsonschema,packaging,pyparsing,six,toml}); also had to install tmux and python3-toml for the parser, and `incus image copy yunohost:91abc4fc4c43 local: --alias yunohost-bookworm-stable-appci` to fix the upstream image-alias mismatch. Then VM at 192.168.1.85 went OFFLINE mid-run (no ARP entry, SSH times out, no SSH on any subnet IP) — right after `./package_check.sh -s` (force-stop) hung. Needs the user to power the VM back on / re-confirm its (DHCP) IP. Full suite must be re-run from scratch once the VM is back.
 
 ## Session Continuity
 
