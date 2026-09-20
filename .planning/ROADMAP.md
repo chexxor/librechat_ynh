@@ -21,7 +21,7 @@ Phases 1-3 delivered the complete lifecycle package: install, remove, backup/res
 - Decimal phases (4.1, 5.1...): Urgent insertions via `/gsd-insert-phase`
 
 - [ ] **Phase 4: Lint Baseline** - package_linter runs clean on the Windows dev box; establishes the cheapest source of findings before any infra work
-- [ ] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible WSL2/Incus Linux environment runs the full package_check suite
+- [ ] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible Hyper-V Debian 12 VM + Incus + btrfs Linux environment runs the full package_check suite
 - [ ] **Phase 6: Fix Findings to Zero Failures** - Iterative fixes until the full package_check suite completes with zero failures; clean run archived as POLS-01 verification
 - [ ] **Phase 7: GitHub Actions Lint Workflow** - Lint-only workflow on hosted runners, added last so it starts green
 
@@ -43,17 +43,17 @@ Plans:
 - [ ] 04-04-PLAN.md — Final zero-error proof, before/after artifacts, exemption reconciliation, user checkpoint
 
 ### Phase 5: tests.toml + Local package_check Environment
-**Goal**: The package has a schema-valid `tests.toml` (supplying install args like `admin_email`, optional curl smoke-tests and one `test_upgrade_from` entry) and a reproducible local Linux environment (WSL2 + Incus + btrfs, documented) that can run the full `package_check` suite end-to-end.
+**Goal**: The package has a schema-valid `tests.toml` (supplying install args like `admin_email`, optional curl smoke-tests and one `test_upgrade_from` entry) and a reproducible local Linux environment (dedicated Hyper-V Debian 12 VM + Incus + btrfs, documented) that can run the full `package_check` suite end-to-end.
 **Depends on**: Phase 4 (lint clean so environmental findings aren't confused with static ones)
 **Requirements**: CI-01, CI-02
 **Success Criteria** (what must be TRUE):
   1. `tests.toml` exists with `test_format = 1.0` and the documented schema header; package_check parses it without errors and installs proceed (argument `admin_email` supplied — no `exclude` misuse)
-  2. User can, following a documented setup doc, run `package_check` locally from the WSL2 environment against the package and see the full test suite start and complete (pass or fail — findings allowed, crashes not)
-  3. The environment setup (Incus init, btrfs, `lynx jq btrfs-progs`, yunohost remote) is documented and reproducible by re-running the doc from scratch
+  2. User can, following a documented setup doc, run `package_check` locally from the Hyper-V Debian 12 VM environment against the package and see the full test suite start and complete (pass or fail — findings allowed, crashes not)
+  3. The environment setup on the Hyper-V Debian 12 VM host (Incus init, btrfs, `lynx jq btrfs-progs`, yunohost remote) is documented and reproducible by re-running the doc from scratch
 **Plans**: 3 plans
 Plans:
 - [ ] 05-01-PLAN.md — `tests.toml` (CI-01): schema-valid, supplies `admin_email`, one `test_upgrade_from.05e3d5b` entry, curl smoke-tests; parse + dry-run validated
-- [ ] 05-02-PLAN.md — Host artifacts (CI-02): idempotent `scripts/setup_pc_env.sh`, `doc/PACKAGE_CHECK.md` walkthrough, and the ROADMAP/REQUIREMENTS WSL2-to-Hyper-V wording amendment
+- [ ] 05-02-PLAN.md — Host artifacts (CI-02): idempotent `scripts/setup_pc_env.sh`, `doc/PACKAGE_CHECK.md` walkthrough, and the ROADMAP/REQUIREMENTS host-wording amendment (Hyper-V)
 - [ ] 05-03-PLAN.md — Full-suite run (CI-02): user-provisioned Hyper-V VM checkpoint, SSH-driven in-VM setup, one full `package_check` run archived in the phase dir
 
 ### Phase 6: Fix Findings to Zero Failures

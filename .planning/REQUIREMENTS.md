@@ -10,7 +10,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Local CI
 
 - [ ] **CI-01**: `tests.toml` test suite exists with `test_format = 1.0`, supplies install args (e.g. `args.admin_email`), and follows documented syntax (no `exclude` misuse)
-- [ ] **CI-02**: User can run `package_check` locally from a WSL2 environment (Incus + btrfs setup documented and reproducible)
+- [ ] **CI-02**: User can run `package_check` locally from a dedicated Hyper-V Debian 12 VM + Incus + btrfs environment (setup documented and reproducible)
 - [ ] **POLS-01**: `package_check` full suite runs to completion with **zero failures**; all findings fixed (install root/subpath/private/reinstall/backup-restore/upgrade)
 
 ### Static Linting
