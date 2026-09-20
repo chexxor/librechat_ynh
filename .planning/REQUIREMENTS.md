@@ -15,7 +15,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Static Linting
 
-- [ ] **LINT-01**: YunoHost `package_linter` reports zero errors on the package (run on Windows-capable Python, no Linux host needed)
+- [x] **LINT-01**: YunoHost `package_linter` reports zero errors on the package (run on Windows-capable Python, no Linux host needed)
 
 ### GitHub Actions
 
@@ -50,7 +50,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LINT-01 | Phase 4 | Pending |
+| LINT-01 | Phase 4 | Complete |
 | CI-01 | Phase 5 | Pending |
 | CI-02 | Phase 5 | Pending |
 | POLS-01 | Phase 6 | Pending |

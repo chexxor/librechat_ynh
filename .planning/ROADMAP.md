@@ -82,7 +82,7 @@ Plans:
 | 1. Foundation | v1.0 | 3/3 | Complete | 2026-09-19 |
 | 2. App Delivery | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
-| 4. Lint Baseline | v1.1 | 0/4 | Planned | - |
+| 4. Lint Baseline | 1/4 | In Progress|  | - |
 | 5. tests.toml + PC Environment | v1.1 | 0/? | Not started | - |
 | 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |

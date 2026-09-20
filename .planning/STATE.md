@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 4 of 7 (Lint Baseline)
-Plan: 0 of ? in current phase (not yet planned)
-Status: Ready to plan
-Last activity: 2026-09-19 — Roadmap created for v1.1
+Plan: 1 of 4 in current phase
+Status: Executing
+Last activity: 2026-09-19 — Completed 04-01-PLAN.md (linter scaffolding + baseline)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 10%
 
 ## Performance Metrics
 
@@ -29,6 +29,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0 (1-3) | 7 | 7 | - |
+| v1.1 Phase 04 | 1 | 4 | 2min (P01) |
 
 ## Accumulated Context
 
@@ -39,6 +40,7 @@ Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
 - [Research]: GH Actions = lint-only; full package_check on hosted runners is an anti-feature (Incus/btrfs requirements + OOM). Official YNH CI covers the full suite after catalog submission.
 - [Research]: Phase order — linter first (zero infra), then tests.toml + local PC env, then fix-findings iteration, GH workflow last so it starts green.
 - [Research]: `tests.toml` must supply `args.admin_email`; never use `exclude` to fake green CI.
+- [Phase 04]: Zero-error invariant defined as (critical union error) minus exempted == empty; 5 out-of-scope findings documented in 04-SCOPE-EXEMPTIONS.md
 
 ### Pending Todos
 
@@ -52,5 +54,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-09-19
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-lint-baseline/04-CONTEXT.md
+Stopped at: Completed 04-01-PLAN.md
+Resume file: .planning/phases/04-lint-baseline/04-02-PLAN.md
