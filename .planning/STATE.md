@@ -13,10 +13,10 @@ Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 4 of 7 (Lint Baseline)
 **Current Plan:** 4
 **Total Plans in Phase:** 4
-**Status:** Ready to execute
+**Status:** Phase complete — ready for verification
 Last activity: 2026-09-19 — Completed 04-03-PLAN.md (nginx modernization + README regeneration)
 
-**Progress:** [█████████░] 91%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -32,6 +32,7 @@ Last activity: 2026-09-19 — Completed 04-03-PLAN.md (nginx modernization + REA
 | v1.0 (1-3) | 7 | 7 | - |
 | v1.1 Phase 04 | 2 | 4 | 2.5min |
 | Phase 04 P03 | 3min | 2 tasks | 4 files |
+| Phase 04 P04 | 1min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -46,6 +47,8 @@ Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
 - [Phase 04]: Main permission warning fixed via [install.init_main_permission] group question (canonical example_ynh pattern), not allowed= on resources.permissions
 - [Phase 04]: nginx WS headers (proxy_http_version + Upgrade + Connection) deliberately retained over include proxy_params_no_auth; only the 4 plain Host/X-Real-IP/X-Forwarded-* headers removed
 - [Phase 04]: README must contain readme_generator marker + dash.yunohost.org/integration/{id}.svg (literal linter greps), not arbitrary shields.io badges
+- [Phase 04]: Canonical lint-baseline record is the lint-before-fix.*/lint-after-fix.* pair (text + JSON each); runner scratch lint-baseline.* left on disk but non-canonical
+- [Phase 04]: Scope-adjusted zero-error accepted: post-fix JSON retains exactly 1 critical + 2 errors + 2 warnings, all documented exemptions in 04-SCOPE-EXEMPTIONS.md; LINT-01 closed
 
 ### Pending Todos
 
@@ -58,6 +61,6 @@ None yet.
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T02:21:33.818Z
-**Stopped at:** Completed 04-03-PLAN.md
+**Last session:** 2026-09-20T02:25:05.507Z
+**Stopped at:** Completed 04-04-PLAN.md (phase 4 complete, LINT-01 closed)
 **Resume file:** None
