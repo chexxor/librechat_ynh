@@ -39,8 +39,9 @@ db_user=$db_name
 ynh_app_setting_set --key=db_name --value=$db_name
 ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name
 
-# Read back the generated MongoDB password for the .env template
-db_pwd=$(ynh_app_setting_get --key=mongopwd)
+# Read back the generated MongoDB password for the .env template.
+# ynh_mongo_setup_db (helpers v2.1) stores it under the setting key `db_pwd`.
+db_pwd=$(ynh_app_setting_get --key=db_pwd)
 
 #=================================================
 # Step 4 — Generate secrets

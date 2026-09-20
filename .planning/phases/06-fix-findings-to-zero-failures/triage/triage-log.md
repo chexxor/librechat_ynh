@@ -115,4 +115,25 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 4 — 2026-09-20
+
+- **Run:** VM full suite, duration **4m31s**, exit 0, Global summary printed.
+- **Code state (git rev):** `9ce46fc` (includes the cycle-3 env-sourcing fix).
+- **Test verdicts:** `install.root=FAIL`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `MongoServerError: Authentication failed` (code 18) during **Step 10 — Creating admin user** | install.root | Package bug | `cycles/cycle-4/package_check-full.log:152` | FIX — the Mongo password was read from the wrong setting key |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "All installs failed…" | Re-triage after install.root passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+  | `imgkit` summary renderer | harness | Environment | `results_0.json` | Document |
+
+- **Progress vs Cycle 3:** the `MONGO_URI unset` error is GONE (env now loads into the create-user process). New failure: Mongo auth rejected.
+- **Root cause:** YunoHost helpers v2.1 `ynh_mongo_setup_db` stores the generated password under the setting key **`db_pwd`** (verified against `/usr/share/yunohost/helpers.v2.1.d/mongodb` in a container), but our scripts read **`mongopwd`** — a key that is never set. So `MONGO_URI` had an empty password → auth failed. `mongopwd` does not appear anywhere in `/usr/share/yunohost/`.
+- **Flake-vs-regression:** deterministic — REGRESSION. Fixed in the same cycle turn.
+- **Fix applied:** replaced `ynh_app_setting_get --key=mongopwd` with `--key=db_pwd` in `scripts/install`, `scripts/upgrade`, and `scripts/_common.sh` (3 sites; 0 `mongopwd` references remain in `scripts/`).
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*

@@ -143,7 +143,8 @@ librechat_regen_and_merge_configs() {
     set +o xtrace
 
     # 1. Read back persisted values FIRST
-    db_pwd=$(ynh_app_setting_get --key=mongopwd)
+    # db_pwd is the setting key used by ynh_mongo_setup_db (helpers v2.1).
+    db_pwd=$(ynh_app_setting_get --key=db_pwd)
     jwt_secret=$(ynh_app_setting_get --key=jwt_secret)
     jwt_refresh_secret=$(ynh_app_setting_get --key=jwt_refresh_secret)
     admin_panel_secret=$(ynh_app_setting_get --key=admin_panel_secret)
