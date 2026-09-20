@@ -21,7 +21,7 @@ Phases 1-3 delivered the complete lifecycle package: install, remove, backup/res
 - Decimal phases (4.1, 5.1...): Urgent insertions via `/gsd-insert-phase`
 
 - [ ] **Phase 4: Lint Baseline** - package_linter runs clean on the Windows dev box; establishes the cheapest source of findings before any infra work
-- [ ] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible Hyper-V Debian 12 VM + Incus + btrfs Linux environment runs the full package_check suite
+- [x] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible Hyper-V Debian 12 VM + Incus + btrfs Linux environment runs the full package_check suite (completed 2026-09-20)
 - [ ] **Phase 6: Fix Findings to Zero Failures** - Iterative fixes until the full package_check suite completes with zero failures; clean run archived as POLS-01 verification
 - [ ] **Phase 7: GitHub Actions Lint Workflow** - Lint-only workflow on hosted runners, added last so it starts green
 
@@ -87,7 +87,7 @@ Plans:
 | 2. App Delivery | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 4. Lint Baseline | 2/4 | In Progress|  | - |
-| 5. tests.toml + PC Environment | 2/3 | In Progress (05-03 Task 5 verify pending) |  | - |
+| 5. tests.toml + PC Environment | 3/3 | Complete   | 2026-09-20 | - |
 | 6. Fix Findings to Zero | v1.1 | 0/? | Not started | - |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
 
