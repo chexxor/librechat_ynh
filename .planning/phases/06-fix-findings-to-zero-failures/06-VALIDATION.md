@@ -1,8 +1,8 @@
 ---
 phase: 6
 slug: fix-findings-to-zero-failures
-status: draft
-nyquist_compliant: false
+status: approved
+nyquist_compliant: true
 wave_0_complete: false
 created: 2026-09-20
 ---
@@ -86,14 +86,14 @@ created: 2026-09-20
 
 Updated by `gsd-plan-checker` when plans are approved:
 
-- [ ] All tasks have `<automated>` verify commands or Wave 0 dependencies
-- [ ] No 3 consecutive implementation tasks without automated verify (sampling continuity)
-- [ ] Wave 0 test files cover all MISSING references
-- [ ] No watch-mode flags in any automated command
-- [ ] Feedback latency per task: < 300s ✅ (VM cycle is the floor; static gate < 60s)
-- [ ] `nyquist_compliant: true` set in frontmatter
+- [x] All tasks have `<automated>` verify commands or Wave 0 dependencies
+- [x] No 3 consecutive implementation tasks without automated verify (sampling continuity)
+- [x] Wave 0 test files cover all MISSING references
+- [x] No watch-mode flags in any automated command
+- [x] Feedback latency per task: < 300s ✅ (static gates < 60s; VM full-suite cycles are the accepted locked cost)
+- [x] `nyquist_compliant: true` set in frontmatter
 
-**Plan-checker approval:** pending
+**Plan-checker approval:** approved on 2026-09-20 (all 5 plans pass `verify plan-structure`; requirement POLS-01 covered in every plan; dependency graph acyclic with waves 1→2→3→4; context compliance confirmed; Dimension 8 pass — one non-blocking latency note: the VM full-suite cycle runs ~4–5 min, accepted per locked decision)
 
 ---
 
