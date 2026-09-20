@@ -1,0 +1,57 @@
+Testing package /mnt/c/Users/Alex/Projects/librechat_ynh
+{
+  "test_serie": "default",
+  "test_type": "TEST_PACKAGE_LINTER",
+  "test_arg": "",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {}
+}
+{
+  "test_serie": "default",
+  "test_type": "TEST_INSTALL",
+  "test_arg": "root",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {}
+}
+{
+  "test_serie": "default",
+  "test_type": "TEST_BACKUP_RESTORE",
+  "test_arg": "",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {}
+}
+{
+  "test_serie": "default",
+  "test_type": "TEST_UPGRADE",
+  "test_arg": "",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {}
+}
+{
+  "test_serie": "default",
+  "test_type": "TEST_UPGRADE",
+  "test_arg": "05e3d5b",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {
+    "upgrade_name": "v1.0 (0.8.8-rc3~ynh2)"
+  }
+}
+{
+  "test_serie": "default",
+  "test_type": "TEST_CHANGE_URL",
+  "test_arg": "",
+  "preinstall_template": "",
+  "preupgrade_template": "",
+  "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com",
+  "extra": {}
+}

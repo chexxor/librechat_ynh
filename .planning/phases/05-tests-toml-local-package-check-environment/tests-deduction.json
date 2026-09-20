@@ -1,0 +1,59 @@
+{
+    "default": {
+        "package_linter": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            }
+        },
+        "install.root": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            }
+        },
+        "backup_restore": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            }
+        },
+        "upgrade": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            }
+        },
+        "upgrade.05e3d5b": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            },
+            "upgrade_name": "v1.0 (0.8.8-rc3~ynh2)"
+        },
+        "change_url": {
+            "preinstall": "",
+            "preupgrade": "",
+            "install_args": {
+                "domain": "domain.tld",
+                "init_main_permission": "visitors",
+                "admin_email": "package_checker@example.com"
+            }
+        }
+    }
+}
