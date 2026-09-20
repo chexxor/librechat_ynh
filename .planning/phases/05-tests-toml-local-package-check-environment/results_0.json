@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/alex/package_check/lib/analyze_test_results.py", line 5, in <module>
+    import imgkit
+ModuleNotFoundError: No module named 'imgkit'

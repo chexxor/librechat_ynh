@@ -1,0 +1,2394 @@
+Testing package /home/alex/librechat_ynh
+{"test_serie": "default", "test_type": "TEST_PACKAGE_LINTER", "test_arg": "", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {}}{"test_serie": "default", "test_type": "TEST_INSTALL", "test_arg": "root", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {}}{"test_serie": "default", "test_type": "TEST_BACKUP_RESTORE", "test_arg": "", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {}}{"test_serie": "default", "test_type": "TEST_UPGRADE", "test_arg": "", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {}}{"test_serie": "default", "test_type": "TEST_UPGRADE", "test_arg": "05e3d5b", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {"upgrade_name": "v1.0 (0.8.8-rc3~ynh2)"}}{"test_serie": "default", "test_type": "TEST_CHANGE_URL", "test_arg": "", "preinstall_template": "", "preupgrade_template": "", "install_args": "domain=domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com", "extra": {}}Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+Launching ynh-appci-bookworm-amd64-stable-test-0
+
+[1m > YunoHost versions[0m
+
+[35m[1myunohost[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.41.2
+[35m[1myunohost-admin[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.15
+[35m[1myunohost-portal[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.2
+[35m[1mmoulinette[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.4
+[35m[1mssowat[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.1
+[1m
+ ============================================
+ Package linter
+ ============================================
+[0m
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.TgiLAK/app_folder...
+[96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
+
+ [1m[92m✔ [94mmanifest[0m
+ [1m[92m✔ [94mscripts/_common.sh[0m
+ [1m[92m✔ [94mscripts/install[0m
+ [1m[92m✔ [94mscripts/remove[0m
+ [1m[92m✔ [94mscripts/upgrade[0m
+ [1m[92m✔ [94mscripts/backup[0m
+ [1m[92m✔ [94mscripts/restore[0m
+ [1mⓘ [94mGeneral stuff, misc helper usage[0m
+
+    - Consider adding a change_url script to support changing where the app can be reached[0m
+
+ [1m[93m! [94mConfiguration files[0m
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+   [93m ! In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass: Upgrade [0m
+    - In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass. But in some specific case it would be useful to override the default value, if this is the case you can safely ignore this message: Connection[0m
+
+ [1m[93m! [94mCatalog infos[0m
+
+   [91m ✘✘✘ This app is not in YunoHost's application catalog[0m
+   [91m ✘ The application is not flagged as working in YunoHost's apps catalog[0m
+   [93m ! The application has no associated category in YunoHost's apps catalog [0m
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily[0m
+
+ [1m[92m✔ [94mIssues[0m
+ =======
+ There are some critical issues in this app :(
+Create witness files...
+[1m
+ ============================================
+ Basic bash syntax checks
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+[0m
+Get:2 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:3 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:4 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+Get:5 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+Get:1 https://forge.yunohost.org/debian bookworm InRelease [15.4 kB]
+Get:6 https://dl.yarnpkg.com/debian stable InRelease
+Get:7 https://forge.yunohost.org/debian bookworm/stable amd64 Packages [2949 B]
+Get:8 https://packages.sury.org/php bookworm InRelease [6136 B]
+Get:9 https://dl.yarnpkg.com/debian stable/main all Packages [10.9 kB]
+Get:10 https://dl.yarnpkg.com/debian stable/main amd64 Packages [10.9 kB]
+Get:11 https://packages.sury.org/php bookworm/main amd64 Packages [290 kB]
+Get:12 http://deb.debian.org/debian bookworm/main Translation-en [6107 kB]
+Get:13 http://deb.debian.org/debian bookworm/contrib amd64 Packages [53.5 kB]
+Get:14 http://deb.debian.org/debian bookworm/contrib Translation-en [48.4 kB]
+Get:15 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+Get:16 http://deb.debian.org/debian bookworm-updates/main Translation-en [5448 B]
+Get:17 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [340 kB]
+Get:18 http://deb.debian.org/debian-security bookworm-security/main Translation-en [213 kB]
+Get:19 http://deb.debian.org/debian-security bookworm-security/contrib amd64 Packages [1456 B]
+Get:20 http://deb.debian.org/debian-security bookworm-security/contrib Translation-en [1068 B]
+Fetched 16.2 MB in 2s (6865 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+python3 is already the newest version (3.11.2-1+b1).
+python3 set to manually installed.
+The following additional packages will be installed:
+  fontconfig fonts-droid-fallback fonts-noto-mono fonts-urw-base35 g++ g++-12
+  ghostscript gsfonts imagemagick-6-common libaec0 libavahi-client3
+  libavahi-common-data libavahi-common3 libcairo-gobject2 libcairo2
+  libcfitsio10 libcgif0 libcups2 libdatrie1 libexif12 libfftw3-double3
+  libfontenc1 libgdk-pixbuf-2.0-0 libgdk-pixbuf2.0-bin libgdk-pixbuf2.0-common
+  libgraphite2-3 libgs-common libgs10 libgs10-common libgsf-1-114
+  libgsf-1-common libharfbuzz0b libhdf5-103-1 libhwy1 libice6 libijs-0.35
+  libimagequant0 libimath-3-1-29 libjbig2dec0 libjxl0.7 liblcms2-2 liblqr-1-0
+  libmagickcore-6.q16-6 libmatio11 libopenexr-3-1-30 libopenjp2-7
+  libopenslide0 liborc-0.4-0 libpango-1.0-0 libpangocairo-1.0-0
+  libpangoft2-1.0-0 libpaper-utils libpaper1 libpixman-1-0 libpoppler-glib8
+  libpoppler126 librsvg2-2 librsvg2-common libsm6 libstdc++-12-dev libsz2
+  libthai-data libthai0 libwebpdemux2 libwebpmux3 libxcb-render0 libxcb-shm0
+  libxrender1 libxt6 poppler-data x11-common xfonts-encodings xfonts-utils
+Suggested packages:
+  fonts-noto fonts-freefont-otf | fonts-freefont-ttf fonts-texgyre
+  g++-multilib g++-12-multilib gcc-12-doc cups-common libfftw3-bin
+  libfftw3-dev liblcms2-utils libmagickcore-6.q16-6-extra librsvg2-bin
+  libstdc++-12-doc nip2 poppler-utils fonts-japanese-mincho
+  | fonts-ipafont-mincho fonts-japanese-gothic | fonts-ipafont-gothic
+  fonts-arphic-ukai fonts-arphic-uming fonts-nanum
+The following NEW packages will be installed:
+  build-essential fontconfig fonts-droid-fallback fonts-noto-mono
+  fonts-urw-base35 g++ g++-12 ghostscript gsfonts imagemagick-6-common libaec0
+  libavahi-client3 libavahi-common-data libavahi-common3 libcairo-gobject2
+  libcairo2 libcfitsio10 libcgif0 libcups2 libdatrie1 libexif12
+  libfftw3-double3 libfontenc1 libgdk-pixbuf-2.0-0 libgdk-pixbuf2.0-bin
+  libgdk-pixbuf2.0-common libgraphite2-3 libgs-common libgs10 libgs10-common
+  libgsf-1-114 libgsf-1-common libharfbuzz0b libhdf5-103-1 libhwy1 libice6
+  libijs-0.35 libimagequant0 libimath-3-1-29 libjbig2dec0 libjxl0.7 liblcms2-2
+  liblqr-1-0 libmagickcore-6.q16-6 libmatio11 libopenexr-3-1-30 libopenjp2-7
+  libopenslide0 liborc-0.4-0 libpango-1.0-0 libpangocairo-1.0-0
+  libpangoft2-1.0-0 libpaper-utils libpaper1 libpixman-1-0 libpoppler-glib8
+  libpoppler126 librsvg2-2 librsvg2-common libsm6 libstdc++-12-dev libsz2
+  libthai-data libthai0 libvips42 libwebpdemux2 libwebpmux3 libxcb-render0
+  libxcb-shm0 libxrender1 libxt6 poppler-data x11-common xfonts-encodings
+  xfonts-utils
+0 upgraded, 75 newly installed, 0 to remove and 22 not upgraded.
+Need to get 51.9 MB of archives.
+After this operation, 188 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 fonts-droid-fallback all 1:6.0.1r16-1.1 [1807 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libfftw3-double3 amd64 3.3.10-1 [776 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 liblcms2-2 amd64 2.14-2+deb12u1 [154 kB]
+Get:4 http://deb.debian.org/debian bookworm/main amd64 liblqr-1-0 amd64 0.4.2-2.1 [29.1 kB]
+Get:5 http://deb.debian.org/debian bookworm/main amd64 libopenjp2-7 amd64 2.5.0-2+deb12u3 [189 kB]
+Get:6 http://deb.debian.org/debian bookworm/main amd64 libwebpdemux2 amd64 1.2.4-0.2+deb12u1 [99.4 kB]
+Get:7 http://deb.debian.org/debian bookworm/main amd64 libwebpmux3 amd64 1.2.4-0.2+deb12u1 [109 kB]
+Get:8 http://deb.debian.org/debian-security bookworm-security/main amd64 imagemagick-6-common all 8:6.9.11.60+dfsg-1.6+deb12u13 [175 kB]
+Get:9 http://deb.debian.org/debian-security bookworm-security/main amd64 libmagickcore-6.q16-6 amd64 8:6.9.11.60+dfsg-1.6+deb12u13 [1806 kB]
+Get:10 http://deb.debian.org/debian bookworm/main amd64 poppler-data all 0.4.12-1 [1601 kB]
+Get:11 http://deb.debian.org/debian bookworm/main amd64 libfontenc1 amd64 1:1.1.4-1 [24.3 kB]
+Get:12 http://deb.debian.org/debian bookworm/main amd64 x11-common all 1:7.7+23 [252 kB]
+Get:13 http://deb.debian.org/debian bookworm/main amd64 xfonts-encodings all 1:1.0.4-2.2 [577 kB]
+Get:14 http://deb.debian.org/debian bookworm/main amd64 xfonts-utils amd64 1:7.7+6 [93.0 kB]
+Get:15 http://deb.debian.org/debian bookworm/main amd64 fonts-urw-base35 all 20200910-7 [10.8 MB]
+Get:16 http://deb.debian.org/debian bookworm/main amd64 libstdc++-12-dev amd64 12.2.0-14+deb12u1 [2047 kB]
+Get:17 http://deb.debian.org/debian bookworm/main amd64 g++-12 amd64 12.2.0-14+deb12u1 [10.7 MB]
+Get:18 http://deb.debian.org/debian bookworm/main amd64 g++ amd64 4:12.2.0-3 [1356 B]
+Get:19 http://deb.debian.org/debian bookworm/main amd64 build-essential amd64 12.9 [7704 B]
+Get:20 http://deb.debian.org/debian bookworm/main amd64 fontconfig amd64 2.14.1-4 [449 kB]
+Get:21 http://deb.debian.org/debian bookworm/main amd64 fonts-noto-mono all 20201225-1 [402 kB]
+Get:22 http://deb.debian.org/debian bookworm/main amd64 libgs-common all 10.0.0~dfsg-11+deb12u8 [149 kB]
+Get:23 http://deb.debian.org/debian bookworm/main amd64 libgs10-common all 10.0.0~dfsg-11+deb12u8 [587 kB]
+Get:24 http://deb.debian.org/debian bookworm/main amd64 libavahi-common-data amd64 0.8-10+deb12u1 [107 kB]
+Get:25 http://deb.debian.org/debian bookworm/main amd64 libavahi-common3 amd64 0.8-10+deb12u1 [42.1 kB]
+Get:26 http://deb.debian.org/debian bookworm/main amd64 libavahi-client3 amd64 0.8-10+deb12u1 [45.8 kB]
+Get:27 http://deb.debian.org/debian bookworm/main amd64 libcups2 amd64 2.4.2-3+deb12u9 [245 kB]
+Get:28 http://deb.debian.org/debian bookworm/main amd64 libijs-0.35 amd64 0.35-15 [16.4 kB]
+Get:29 http://deb.debian.org/debian-security bookworm-security/main amd64 libjbig2dec0 amd64 0.19-3+deb12u1 [64.6 kB]
+Get:30 http://deb.debian.org/debian bookworm/main amd64 libpaper1 amd64 1.1.29 [12.5 kB]
+Get:31 http://deb.debian.org/debian bookworm/main amd64 libice6 amd64 2:1.0.10-1 [58.5 kB]
+Get:32 http://deb.debian.org/debian bookworm/main amd64 libsm6 amd64 2:1.2.3-1 [35.1 kB]
+Get:33 http://deb.debian.org/debian bookworm/main amd64 libxt6 amd64 1:1.2.1-1.1 [186 kB]
+Get:34 http://deb.debian.org/debian bookworm/main amd64 libgs10 amd64 10.0.0~dfsg-11+deb12u8 [2467 kB]
+Get:35 http://deb.debian.org/debian bookworm/main amd64 ghostscript amd64 10.0.0~dfsg-11+deb12u8 [57.8 kB]
+Get:36 http://deb.debian.org/debian bookworm/main amd64 gsfonts all 2:20200910-7 [18.5 kB]
+Get:37 http://deb.debian.org/debian bookworm/main amd64 libaec0 amd64 1.0.6-1+b1 [21.1 kB]
+Get:38 http://deb.debian.org/debian bookworm/main amd64 libpixman-1-0 amd64 0.42.2-1 [546 kB]
+Get:39 http://deb.debian.org/debian bookworm/main amd64 libxcb-render0 amd64 1.15-1 [115 kB]
+Get:40 http://deb.debian.org/debian bookworm/main amd64 libxcb-shm0 amd64 1.15-1 [105 kB]
+Get:41 http://deb.debian.org/debian bookworm/main amd64 libxrender1 amd64 1:0.9.10-1.1 [33.2 kB]
+Get:42 http://deb.debian.org/debian bookworm/main amd64 libcairo2 amd64 1.16.0-7 [575 kB]
+Get:43 http://deb.debian.org/debian bookworm/main amd64 libcairo-gobject2 amd64 1.16.0-7 [112 kB]
+Get:44 http://deb.debian.org/debian bookworm/main amd64 libcfitsio10 amd64 4.2.0-3 [563 kB]
+Get:45 http://deb.debian.org/debian bookworm/main amd64 libcgif0 amd64 0.3.0-1 [9748 B]
+Get:46 http://deb.debian.org/debian bookworm/main amd64 libdatrie1 amd64 0.2.13-2+b1 [43.3 kB]
+Get:47 http://deb.debian.org/debian bookworm/main amd64 libexif12 amd64 0.6.24-1+deb12u1 [397 kB]
+Get:48 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf2.0-common all 2.42.10+dfsg-1+deb12u4 [307 kB]
+Get:49 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf-2.0-0 amd64 2.42.10+dfsg-1+deb12u4 [139 kB]
+Get:50 http://deb.debian.org/debian bookworm/main amd64 libgdk-pixbuf2.0-bin amd64 2.42.10+dfsg-1+deb12u4 [18.2 kB]
+Get:51 http://deb.debian.org/debian bookworm/main amd64 libgraphite2-3 amd64 1.3.14-1+deb12u1 [74.6 kB]
+Get:52 http://deb.debian.org/debian bookworm/main amd64 libgsf-1-common all 1.14.50-1+deb12u1 [154 kB]
+Get:53 http://deb.debian.org/debian bookworm/main amd64 libgsf-1-114 amd64 1.14.50-1+deb12u1 [154 kB]
+Get:54 http://deb.debian.org/debian bookworm/main amd64 libharfbuzz0b amd64 6.0.0+dfsg-3 [1945 kB]
+Get:55 http://deb.debian.org/debian bookworm/main amd64 libsz2 amd64 1.0.6-1+b1 [7804 B]
+Get:56 http://deb.debian.org/debian bookworm/main amd64 libhdf5-103-1 amd64 1.10.8+repack1-1 [1237 kB]
+Get:57 http://deb.debian.org/debian bookworm/main amd64 libhwy1 amd64 1.0.3-3+deb12u1 [348 kB]
+Get:58 http://deb.debian.org/debian bookworm/main amd64 libimagequant0 amd64 2.17.0-1 [32.5 kB]
+Get:59 http://deb.debian.org/debian bookworm/main amd64 libimath-3-1-29 amd64 3.1.6-1 [47.4 kB]
+Get:60 http://deb.debian.org/debian bookworm/main amd64 libjxl0.7 amd64 0.7.0-10+deb12u1 [1046 kB]
+Get:61 http://deb.debian.org/debian bookworm/main amd64 libmatio11 amd64 1.5.23-2+deb12u1 [103 kB]
+Get:62 http://deb.debian.org/debian bookworm/main amd64 libopenexr-3-1-30 amd64 3.1.5-5 [923 kB]
+Get:63 http://deb.debian.org/debian bookworm/main amd64 libopenslide0 amd64 3.4.1+dfsg-6+deb12u1 [86.9 kB]
+Get:64 http://deb.debian.org/debian bookworm/main amd64 liborc-0.4-0 amd64 1:0.4.33-2 [164 kB]
+Get:65 http://deb.debian.org/debian bookworm/main amd64 libthai-data all 0.1.29-1 [176 kB]
+Get:66 http://deb.debian.org/debian bookworm/main amd64 libthai0 amd64 0.1.29-1 [57.5 kB]
+Get:67 http://deb.debian.org/debian bookworm/main amd64 libpango-1.0-0 amd64 1.50.12+ds-1 [212 kB]
+Get:68 http://deb.debian.org/debian bookworm/main amd64 libpangoft2-1.0-0 amd64 1.50.12+ds-1 [47.4 kB]
+Get:69 http://deb.debian.org/debian bookworm/main amd64 libpangocairo-1.0-0 amd64 1.50.12+ds-1 [34.2 kB]
+Get:70 http://deb.debian.org/debian bookworm/main amd64 libpaper-utils amd64 1.1.29 [8868 B]
+Get:71 http://deb.debian.org/debian-security bookworm-security/main amd64 libpoppler126 amd64 22.12.0-2+deb12u3 [1856 kB]
+Get:72 http://deb.debian.org/debian-security bookworm-security/main amd64 libpoppler-glib8 amd64 22.12.0-2+deb12u3 [133 kB]
+Get:73 http://deb.debian.org/debian bookworm/main amd64 librsvg2-2 amd64 2.54.7+dfsg-1~deb12u1 [2620 kB]
+Get:74 http://deb.debian.org/debian bookworm/main amd64 librsvg2-common amd64 2.54.7+dfsg-1~deb12u1 [21.4 kB]
+Get:75 http://deb.debian.org/debian bookworm/main amd64 libvips42 amd64 8.14.1-3+deb12u3 [1269 kB]
+Fetched 51.9 MB in 4s (13.2 MB/s)
+Extracting templates from packages: 40%Extracting templates from packages: 80%Extracting templates from packages: 100%
+Preconfiguring packages ...
+Selecting previously unselected package fonts-droid-fallback.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 42085 files and directories currently installed.)
+Preparing to unpack .../00-fonts-droid-fallback_1%3a6.0.1r16-1.1_all.deb ...
+Unpacking fonts-droid-fallback (1:6.0.1r16-1.1) ...
+Selecting previously unselected package libfftw3-double3:amd64.
+Preparing to unpack .../01-libfftw3-double3_3.3.10-1_amd64.deb ...
+Unpacking libfftw3-double3:amd64 (3.3.10-1) ...
+Selecting previously unselected package liblcms2-2:amd64.
+Preparing to unpack .../02-liblcms2-2_2.14-2+deb12u1_amd64.deb ...
+Unpacking liblcms2-2:amd64 (2.14-2+deb12u1) ...
+Selecting previously unselected package liblqr-1-0:amd64.
+Preparing to unpack .../03-liblqr-1-0_0.4.2-2.1_amd64.deb ...
+Unpacking liblqr-1-0:amd64 (0.4.2-2.1) ...
+Selecting previously unselected package libopenjp2-7:amd64.
+Preparing to unpack .../04-libopenjp2-7_2.5.0-2+deb12u3_amd64.deb ...
+Unpacking libopenjp2-7:amd64 (2.5.0-2+deb12u3) ...
+Selecting previously unselected package libwebpdemux2:amd64.
+Preparing to unpack .../05-libwebpdemux2_1.2.4-0.2+deb12u1_amd64.deb ...
+Unpacking libwebpdemux2:amd64 (1.2.4-0.2+deb12u1) ...
+Selecting previously unselected package libwebpmux3:amd64.
+Preparing to unpack .../06-libwebpmux3_1.2.4-0.2+deb12u1_amd64.deb ...
+Unpacking libwebpmux3:amd64 (1.2.4-0.2+deb12u1) ...
+Selecting previously unselected package imagemagick-6-common.
+Preparing to unpack .../07-imagemagick-6-common_8%3a6.9.11.60+dfsg-1.6+deb12u13_all.deb ...
+Unpacking imagemagick-6-common (8:6.9.11.60+dfsg-1.6+deb12u13) ...
+Selecting previously unselected package libmagickcore-6.q16-6:amd64.
+Preparing to unpack .../08-libmagickcore-6.q16-6_8%3a6.9.11.60+dfsg-1.6+deb12u13_amd64.deb ...
+Unpacking libmagickcore-6.q16-6:amd64 (8:6.9.11.60+dfsg-1.6+deb12u13) ...
+Selecting previously unselected package poppler-data.
+Preparing to unpack .../09-poppler-data_0.4.12-1_all.deb ...
+Unpacking poppler-data (0.4.12-1) ...
+Selecting previously unselected package libfontenc1:amd64.
+Preparing to unpack .../10-libfontenc1_1%3a1.1.4-1_amd64.deb ...
+Unpacking libfontenc1:amd64 (1:1.1.4-1) ...
+Setting up libfontenc1:amd64 (1:1.1.4-1) ...
+Selecting previously unselected package x11-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 42961 files and directories currently installed.)
+Preparing to unpack .../x11-common_1%3a7.7+23_all.deb ...
+Unpacking x11-common (1:7.7+23) ...
+Setting up x11-common (1:7.7+23) ...
+Selecting previously unselected package xfonts-encodings.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 42991 files and directories currently installed.)
+Preparing to unpack .../xfonts-encodings_1%3a1.0.4-2.2_all.deb ...
+Unpacking xfonts-encodings (1:1.0.4-2.2) ...
+Setting up xfonts-encodings (1:1.0.4-2.2) ...
+Selecting previously unselected package xfonts-utils.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 43049 files and directories currently installed.)
+Preparing to unpack .../xfonts-utils_1%3a7.7+6_amd64.deb ...
+Unpacking xfonts-utils (1:7.7+6) ...
+Setting up xfonts-utils (1:7.7+6) ...
+Selecting previously unselected package fonts-urw-base35.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 43090 files and directories currently installed.)
+Preparing to unpack .../fonts-urw-base35_20200910-7_all.deb ...
+Unpacking fonts-urw-base35 (20200910-7) ...
+Setting up fonts-urw-base35 (20200910-7) ...
+Selecting previously unselected package libstdc++-12-dev:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 43273 files and directories currently installed.)
+Preparing to unpack .../00-libstdc++-12-dev_12.2.0-14+deb12u1_amd64.deb ...
+Unpacking libstdc++-12-dev:amd64 (12.2.0-14+deb12u1) ...
+Selecting previously unselected package g++-12.
+Preparing to unpack .../01-g++-12_12.2.0-14+deb12u1_amd64.deb ...
+Unpacking g++-12 (12.2.0-14+deb12u1) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../02-g++_4%3a12.2.0-3_amd64.deb ...
+Unpacking g++ (4:12.2.0-3) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../03-build-essential_12.9_amd64.deb ...
+Unpacking build-essential (12.9) ...
+Selecting previously unselected package fontconfig.
+Preparing to unpack .../04-fontconfig_2.14.1-4_amd64.deb ...
+Unpacking fontconfig (2.14.1-4) ...
+Selecting previously unselected package fonts-noto-mono.
+Preparing to unpack .../05-fonts-noto-mono_20201225-1_all.deb ...
+Unpacking fonts-noto-mono (20201225-1) ...
+Selecting previously unselected package libgs-common.
+Preparing to unpack .../06-libgs-common_10.0.0~dfsg-11+deb12u8_all.deb ...
+Unpacking libgs-common (10.0.0~dfsg-11+deb12u8) ...
+Selecting previously unselected package libgs10-common.
+Preparing to unpack .../07-libgs10-common_10.0.0~dfsg-11+deb12u8_all.deb ...
+Unpacking libgs10-common (10.0.0~dfsg-11+deb12u8) ...
+Selecting previously unselected package libavahi-common-data:amd64.
+Preparing to unpack .../08-libavahi-common-data_0.8-10+deb12u1_amd64.deb ...
+Unpacking libavahi-common-data:amd64 (0.8-10+deb12u1) ...
+Selecting previously unselected package libavahi-common3:amd64.
+Preparing to unpack .../09-libavahi-common3_0.8-10+deb12u1_amd64.deb ...
+Unpacking libavahi-common3:amd64 (0.8-10+deb12u1) ...
+Selecting previously unselected package libavahi-client3:amd64.
+Preparing to unpack .../10-libavahi-client3_0.8-10+deb12u1_amd64.deb ...
+Unpacking libavahi-client3:amd64 (0.8-10+deb12u1) ...
+Selecting previously unselected package libcups2:amd64.
+Preparing to unpack .../11-libcups2_2.4.2-3+deb12u9_amd64.deb ...
+Unpacking libcups2:amd64 (2.4.2-3+deb12u9) ...
+Selecting previously unselected package libijs-0.35:amd64.
+Preparing to unpack .../12-libijs-0.35_0.35-15_amd64.deb ...
+Unpacking libijs-0.35:amd64 (0.35-15) ...
+Selecting previously unselected package libjbig2dec0:amd64.
+Preparing to unpack .../13-libjbig2dec0_0.19-3+deb12u1_amd64.deb ...
+Unpacking libjbig2dec0:amd64 (0.19-3+deb12u1) ...
+Selecting previously unselected package libpaper1:amd64.
+Preparing to unpack .../14-libpaper1_1.1.29_amd64.deb ...
+Unpacking libpaper1:amd64 (1.1.29) ...
+Selecting previously unselected package libice6:amd64.
+Preparing to unpack .../15-libice6_2%3a1.0.10-1_amd64.deb ...
+Unpacking libice6:amd64 (2:1.0.10-1) ...
+Selecting previously unselected package libsm6:amd64.
+Preparing to unpack .../16-libsm6_2%3a1.2.3-1_amd64.deb ...
+Unpacking libsm6:amd64 (2:1.2.3-1) ...
+Selecting previously unselected package libxt6:amd64.
+Preparing to unpack .../17-libxt6_1%3a1.2.1-1.1_amd64.deb ...
+Unpacking libxt6:amd64 (1:1.2.1-1.1) ...
+Selecting previously unselected package libgs10:amd64.
+Preparing to unpack .../18-libgs10_10.0.0~dfsg-11+deb12u8_amd64.deb ...
+Unpacking libgs10:amd64 (10.0.0~dfsg-11+deb12u8) ...
+Selecting previously unselected package ghostscript.
+Preparing to unpack .../19-ghostscript_10.0.0~dfsg-11+deb12u8_amd64.deb ...
+Unpacking ghostscript (10.0.0~dfsg-11+deb12u8) ...
+Selecting previously unselected package gsfonts.
+Preparing to unpack .../20-gsfonts_2%3a20200910-7_all.deb ...
+Unpacking gsfonts (2:20200910-7) ...
+Selecting previously unselected package libaec0:amd64.
+Preparing to unpack .../21-libaec0_1.0.6-1+b1_amd64.deb ...
+Unpacking libaec0:amd64 (1.0.6-1+b1) ...
+Selecting previously unselected package libpixman-1-0:amd64.
+Preparing to unpack .../22-libpixman-1-0_0.42.2-1_amd64.deb ...
+Unpacking libpixman-1-0:amd64 (0.42.2-1) ...
+Selecting previously unselected package libxcb-render0:amd64.
+Preparing to unpack .../23-libxcb-render0_1.15-1_amd64.deb ...
+Unpacking libxcb-render0:amd64 (1.15-1) ...
+Selecting previously unselected package libxcb-shm0:amd64.
+Preparing to unpack .../24-libxcb-shm0_1.15-1_amd64.deb ...
+Unpacking libxcb-shm0:amd64 (1.15-1) ...
+Selecting previously unselected package libxrender1:amd64.
+Preparing to unpack .../25-libxrender1_1%3a0.9.10-1.1_amd64.deb ...
+Unpacking libxrender1:amd64 (1:0.9.10-1.1) ...
+Selecting previously unselected package libcairo2:amd64.
+Preparing to unpack .../26-libcairo2_1.16.0-7_amd64.deb ...
+Unpacking libcairo2:amd64 (1.16.0-7) ...
+Selecting previously unselected package libcairo-gobject2:amd64.
+Preparing to unpack .../27-libcairo-gobject2_1.16.0-7_amd64.deb ...
+Unpacking libcairo-gobject2:amd64 (1.16.0-7) ...
+Selecting previously unselected package libcfitsio10:amd64.
+Preparing to unpack .../28-libcfitsio10_4.2.0-3_amd64.deb ...
+Unpacking libcfitsio10:amd64 (4.2.0-3) ...
+Selecting previously unselected package libcgif0:amd64.
+Preparing to unpack .../29-libcgif0_0.3.0-1_amd64.deb ...
+Unpacking libcgif0:amd64 (0.3.0-1) ...
+Selecting previously unselected package libdatrie1:amd64.
+Preparing to unpack .../30-libdatrie1_0.2.13-2+b1_amd64.deb ...
+Unpacking libdatrie1:amd64 (0.2.13-2+b1) ...
+Selecting previously unselected package libexif12:amd64.
+Preparing to unpack .../31-libexif12_0.6.24-1+deb12u1_amd64.deb ...
+Unpacking libexif12:amd64 (0.6.24-1+deb12u1) ...
+Selecting previously unselected package libgdk-pixbuf2.0-common.
+Preparing to unpack .../32-libgdk-pixbuf2.0-common_2.42.10+dfsg-1+deb12u4_all.deb ...
+Unpacking libgdk-pixbuf2.0-common (2.42.10+dfsg-1+deb12u4) ...
+Selecting previously unselected package libgdk-pixbuf-2.0-0:amd64.
+Preparing to unpack .../33-libgdk-pixbuf-2.0-0_2.42.10+dfsg-1+deb12u4_amd64.deb ...
+Unpacking libgdk-pixbuf-2.0-0:amd64 (2.42.10+dfsg-1+deb12u4) ...
+Selecting previously unselected package libgdk-pixbuf2.0-bin.
+Preparing to unpack .../34-libgdk-pixbuf2.0-bin_2.42.10+dfsg-1+deb12u4_amd64.deb ...
+Unpacking libgdk-pixbuf2.0-bin (2.42.10+dfsg-1+deb12u4) ...
+Selecting previously unselected package libgraphite2-3:amd64.
+Preparing to unpack .../35-libgraphite2-3_1.3.14-1+deb12u1_amd64.deb ...
+Unpacking libgraphite2-3:amd64 (1.3.14-1+deb12u1) ...
+Selecting previously unselected package libgsf-1-common.
+Preparing to unpack .../36-libgsf-1-common_1.14.50-1+deb12u1_all.deb ...
+Unpacking libgsf-1-common (1.14.50-1+deb12u1) ...
+Selecting previously unselected package libgsf-1-114:amd64.
+Preparing to unpack .../37-libgsf-1-114_1.14.50-1+deb12u1_amd64.deb ...
+Unpacking libgsf-1-114:amd64 (1.14.50-1+deb12u1) ...
+Selecting previously unselected package libharfbuzz0b:amd64.
+Preparing to unpack .../38-libharfbuzz0b_6.0.0+dfsg-3_amd64.deb ...
+Unpacking libharfbuzz0b:amd64 (6.0.0+dfsg-3) ...
+Selecting previously unselected package libsz2:amd64.
+Preparing to unpack .../39-libsz2_1.0.6-1+b1_amd64.deb ...
+Unpacking libsz2:amd64 (1.0.6-1+b1) ...
+Selecting previously unselected package libhdf5-103-1:amd64.
+Preparing to unpack .../40-libhdf5-103-1_1.10.8+repack1-1_amd64.deb ...
+Unpacking libhdf5-103-1:amd64 (1.10.8+repack1-1) ...
+Selecting previously unselected package libhwy1:amd64.
+Preparing to unpack .../41-libhwy1_1.0.3-3+deb12u1_amd64.deb ...
+Unpacking libhwy1:amd64 (1.0.3-3+deb12u1) ...
+Selecting previously unselected package libimagequant0:amd64.
+Preparing to unpack .../42-libimagequant0_2.17.0-1_amd64.deb ...
+Unpacking libimagequant0:amd64 (2.17.0-1) ...
+Selecting previously unselected package libimath-3-1-29:amd64.
+Preparing to unpack .../43-libimath-3-1-29_3.1.6-1_amd64.deb ...
+Unpacking libimath-3-1-29:amd64 (3.1.6-1) ...
+Selecting previously unselected package libjxl0.7:amd64.
+Preparing to unpack .../44-libjxl0.7_0.7.0-10+deb12u1_amd64.deb ...
+Unpacking libjxl0.7:amd64 (0.7.0-10+deb12u1) ...
+Selecting previously unselected package libmatio11:amd64.
+Preparing to unpack .../45-libmatio11_1.5.23-2+deb12u1_amd64.deb ...
+Unpacking libmatio11:amd64 (1.5.23-2+deb12u1) ...
+Selecting previously unselected package libopenexr-3-1-30:amd64.
+Preparing to unpack .../46-libopenexr-3-1-30_3.1.5-5_amd64.deb ...
+Unpacking libopenexr-3-1-30:amd64 (3.1.5-5) ...
+Selecting previously unselected package libopenslide0.
+Preparing to unpack .../47-libopenslide0_3.4.1+dfsg-6+deb12u1_amd64.deb ...
+Unpacking libopenslide0 (3.4.1+dfsg-6+deb12u1) ...
+Selecting previously unselected package liborc-0.4-0:amd64.
+Preparing to unpack .../48-liborc-0.4-0_1%3a0.4.33-2_amd64.deb ...
+Unpacking liborc-0.4-0:amd64 (1:0.4.33-2) ...
+Selecting previously unselected package libthai-data.
+Preparing to unpack .../49-libthai-data_0.1.29-1_all.deb ...
+Unpacking libthai-data (0.1.29-1) ...
+Selecting previously unselected package libthai0:amd64.
+Preparing to unpack .../50-libthai0_0.1.29-1_amd64.deb ...
+Unpacking libthai0:amd64 (0.1.29-1) ...
+Selecting previously unselected package libpango-1.0-0:amd64.
+Preparing to unpack .../51-libpango-1.0-0_1.50.12+ds-1_amd64.deb ...
+Unpacking libpango-1.0-0:amd64 (1.50.12+ds-1) ...
+Selecting previously unselected package libpangoft2-1.0-0:amd64.
+Preparing to unpack .../52-libpangoft2-1.0-0_1.50.12+ds-1_amd64.deb ...
+Unpacking libpangoft2-1.0-0:amd64 (1.50.12+ds-1) ...
+Selecting previously unselected package libpangocairo-1.0-0:amd64.
+Preparing to unpack .../53-libpangocairo-1.0-0_1.50.12+ds-1_amd64.deb ...
+Unpacking libpangocairo-1.0-0:amd64 (1.50.12+ds-1) ...
+Selecting previously unselected package libpaper-utils.
+Preparing to unpack .../54-libpaper-utils_1.1.29_amd64.deb ...
+Unpacking libpaper-utils (1.1.29) ...
+Selecting previously unselected package libpoppler126:amd64.
+Preparing to unpack .../55-libpoppler126_22.12.0-2+deb12u3_amd64.deb ...
+Unpacking libpoppler126:amd64 (22.12.0-2+deb12u3) ...
+Selecting previously unselected package libpoppler-glib8:amd64.
+Preparing to unpack .../56-libpoppler-glib8_22.12.0-2+deb12u3_amd64.deb ...
+Unpacking libpoppler-glib8:amd64 (22.12.0-2+deb12u3) ...
+Selecting previously unselected package librsvg2-2:amd64.
+Preparing to unpack .../57-librsvg2-2_2.54.7+dfsg-1~deb12u1_amd64.deb ...
+Unpacking librsvg2-2:amd64 (2.54.7+dfsg-1~deb12u1) ...
+Selecting previously unselected package librsvg2-common:amd64.
+Preparing to unpack .../58-librsvg2-common_2.54.7+dfsg-1~deb12u1_amd64.deb ...
+Unpacking librsvg2-common:amd64 (2.54.7+dfsg-1~deb12u1) ...
+Selecting previously unselected package libvips42:amd64.
+Preparing to unpack .../59-libvips42_8.14.1-3+deb12u3_amd64.deb ...
+Unpacking libvips42:amd64 (8.14.1-3+deb12u3) ...
+Setting up libgsf-1-common (1.14.50-1+deb12u1) ...
+Setting up libgraphite2-3:amd64 (1.3.14-1+deb12u1) ...
+Setting up liblcms2-2:amd64 (2.14-2+deb12u1) ...
+Setting up libpixman-1-0:amd64 (0.42.2-1) ...
+Setting up libpaper1:amd64 (1.1.29) ...
+
+Creating config file /etc/papersize with new version
+Setting up libice6:amd64 (2:1.0.10-1) ...
+Setting up fontconfig (2.14.1-4) ...
+Regenerating fonts cache... done.
+Setting up imagemagick-6-common (8:6.9.11.60+dfsg-1.6+deb12u13) ...
+Setting up libcgif0:amd64 (0.3.0-1) ...
+Setting up fonts-noto-mono (20201225-1) ...
+Setting up libxrender1:amd64 (1:0.9.10-1.1) ...
+Setting up libdatrie1:amd64 (0.2.13-2+b1) ...
+Setting up libstdc++-12-dev:amd64 (12.2.0-14+deb12u1) ...
+Setting up libxcb-render0:amd64 (1.15-1) ...
+Setting up libijs-0.35:amd64 (0.35-15) ...
+Setting up libwebpdemux2:amd64 (1.2.4-0.2+deb12u1) ...
+Setting up libgs-common (10.0.0~dfsg-11+deb12u8) ...
+Setting up libgdk-pixbuf2.0-common (2.42.10+dfsg-1+deb12u4) ...
+Setting up libhwy1:amd64 (1.0.3-3+deb12u1) ...
+Setting up libxcb-shm0:amd64 (1.15-1) ...
+Setting up libpaper-utils (1.1.29) ...
+Setting up libcfitsio10:amd64 (4.2.0-3) ...
+Setting up libimath-3-1-29:amd64 (3.1.6-1) ...
+Setting up libcairo2:amd64 (1.16.0-7) ...
+Setting up libaec0:amd64 (1.0.6-1+b1) ...
+Setting up poppler-data (0.4.12-1) ...
+Setting up libgsf-1-114:amd64 (1.14.50-1+deb12u1) ...
+Setting up libjbig2dec0:amd64 (0.19-3+deb12u1) ...
+Setting up gsfonts (2:20200910-7) ...
+Setting up libavahi-common-data:amd64 (0.8-10+deb12u1) ...
+Setting up libopenexr-3-1-30:amd64 (3.1.5-5) ...
+Setting up libexif12:amd64 (0.6.24-1+deb12u1) ...
+Setting up libimagequant0:amd64 (2.17.0-1) ...
+Setting up liborc-0.4-0:amd64 (1:0.4.33-2) ...
+Setting up libjxl0.7:amd64 (0.7.0-10+deb12u1) ...
+Setting up libfftw3-double3:amd64 (3.3.10-1) ...
+Setting up liblqr-1-0:amd64 (0.4.2-2.1) ...
+Setting up libopenjp2-7:amd64 (2.5.0-2+deb12u3) ...
+Setting up libharfbuzz0b:amd64 (6.0.0+dfsg-3) ...
+Setting up libthai-data (0.1.29-1) ...
+Setting up libgdk-pixbuf-2.0-0:amd64 (2.42.10+dfsg-1+deb12u4) ...
+Setting up libcairo-gobject2:amd64 (1.16.0-7) ...
+Setting up fonts-droid-fallback (1:6.0.1r16-1.1) ...
+Setting up libopenslide0 (3.4.1+dfsg-6+deb12u1) ...
+Setting up libwebpmux3:amd64 (1.2.4-0.2+deb12u1) ...
+Setting up libsm6:amd64 (2:1.2.3-1) ...
+Setting up libsz2:amd64 (1.0.6-1+b1) ...
+Setting up g++-12 (12.2.0-14+deb12u1) ...
+Setting up libgs10-common (10.0.0~dfsg-11+deb12u8) ...
+Setting up libavahi-common3:amd64 (0.8-10+deb12u1) ...
+Setting up libthai0:amd64 (0.1.29-1) ...
+Setting up libmagickcore-6.q16-6:amd64 (8:6.9.11.60+dfsg-1.6+deb12u13) ...
+Setting up libxt6:amd64 (1:1.2.1-1.1) ...
+Setting up libpoppler126:amd64 (22.12.0-2+deb12u3) ...
+Setting up g++ (4:12.2.0-3) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+Setting up libhdf5-103-1:amd64 (1.10.8+repack1-1) ...
+Setting up libgdk-pixbuf2.0-bin (2.42.10+dfsg-1+deb12u4) ...
+Setting up build-essential (12.9) ...
+Setting up libavahi-client3:amd64 (0.8-10+deb12u1) ...
+Setting up libpoppler-glib8:amd64 (22.12.0-2+deb12u3) ...
+Setting up libpango-1.0-0:amd64 (1.50.12+ds-1) ...
+Setting up libmatio11:amd64 (1.5.23-2+deb12u1) ...
+Setting up libcups2:amd64 (2.4.2-3+deb12u9) ...
+Setting up libpangoft2-1.0-0:amd64 (1.50.12+ds-1) ...
+Setting up libpangocairo-1.0-0:amd64 (1.50.12+ds-1) ...
+Setting up libgs10:amd64 (10.0.0~dfsg-11+deb12u8) ...
+Setting up ghostscript (10.0.0~dfsg-11+deb12u8) ...
+Setting up librsvg2-2:amd64 (2.54.7+dfsg-1~deb12u1) ...
+Setting up librsvg2-common:amd64 (2.54.7+dfsg-1~deb12u1) ...
+Setting up libvips42:amd64 (8.14.1-3+deb12u3) ...
+Processing triggers for man-db (2.11.2-2) ...
+Not building database; man-db/auto-update is not 'true'.
+Processing triggers for libc-bin (2.36-9+deb12u14) ...
+Processing triggers for libgdk-pixbuf-2.0-0:amd64 (2.42.10+dfsg-1+deb12u4) ...
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+{"yunohost": {"version": "12.1.41.2", "repo": "stable"}, "yunohost-admin": {"version": "12.1.15", "repo": "stable"}, "yunohost-portal": {"version": "12.1.2", "repo": "stable"}, "moulinette": {"version": "12.1.4", "repo": "stable"}, "ssowat": {"version": "12.1.1", "repo": "stable"}}
+Return code: 0
+Working time: 0s (19:56:12 UTC)
+{"yunohost": {"version": "12.1.41.2", "repo": "stable"}, "yunohost-admin": {"version": "12.1.15", "repo": "stable"}, "yunohost-portal": {"version": "12.1.2", "repo": "stable"}, "moulinette": {"version": "12.1.4", "repo": "stable"}, "ssowat": {"version": "12.1.1", "repo": "stable"}}
+Return code: 0
+Working time: 0s (19:56:16 UTC)
+[1m
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+[0m
+{
+    "success": [],
+    "info": [
+        "App.change_url_script",
+        "Configurations.systemd_config_harden_security",
+        "Configurations.systemd_config_harden_security",
+        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
+        "AppCatalog.is_in_github_org"
+    ],
+    "warning": [
+        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
+        "AppCatalog.has_category"
+    ],
+    "error": [
+        "AppCatalog.state_is_working"
+    ],
+    "critical": [
+        "AppCatalog.is_in_catalog"
+    ]
+}
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 3 seconds (19:56:19 UTC)
+[1m
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+[0m
+Loading snapshot snap0 ...
+(Creating snapshot snap-preinstalled-default ...)
+Failed to start the container ... restarting ...
+Working time: 20 seconds (19:57:00 UTC)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+Running yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+29   [37m[1mDEBUG[m   acquiring lock...
+39   [37m[1mDEBUG[m   lock has been acquired
+78   [37m[1mDEBUG[m   loading python module yunohost.app took 0.038s
+78   [37m[1mDEBUG[m   processing action 'yunohost.app.install'
+471  [37m[1mDEBUG[m   Extracting…
+550  [37m[1mDEBUG[m   Done
+589  [37m[1mDEBUG[m   initializing root ldap interface
+590  [37m[1mDEBUG[m   Checking requirements for librechat…
+597  [37m[1mDEBUG[m   Checking that required services are up and running...
+2011 [36m[1mINFO[m    Installing librechat…
+2026 [36m[1mINFO[m    Provisioning sources...
+2026 [37m[1mDEBUG[m   Prefetching asset main: https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz ...
+4745 [37m[1mDEBUG[m   Prefetching asset meilisearch: https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-amd64 ...
+16440 [36m[1mINFO[m    Provisioning apt...
+16449 [37m[1mDEBUG[m   Executing command '['sh', '-c', '/bin/bash -x "./provision_or_update_apt"  7>&1']'
+16452 [37m[1mDEBUG[m   + source /usr/share/yunohost/helpers
+16452 [37m[1mDEBUG[m   ++++ dirname -- /usr/share/yunohost/helpers
+16453 [37m[1mDEBUG[m   +++ cd -- /usr/share/yunohost
+16453 [37m[1mDEBUG[m   +++ pwd
+16453 [37m[1mDEBUG[m   ++ SCRIPT_DIR=/usr/share/yunohost
+16454 [37m[1mDEBUG[m   ++ YNH_HELPERS_VERSION=2.1
+16454 [37m[1mDEBUG[m   +++ set +o
+16454 [37m[1mDEBUG[m   +++ grep xtrace
+16455 [37m[1mDEBUG[m   ++ readonly 'XTRACE_ENABLE=set -o xtrace'
+16455 [37m[1mDEBUG[m   ++ XTRACE_ENABLE='set -o xtrace'
+16455 [37m[1mDEBUG[m   ++ set +x
+16469 [37m[1mDEBUG[m   + ynh_abort_if_errors
+16470 [37m[1mDEBUG[m   + set -o errexit
+16470 [37m[1mDEBUG[m   + set -o nounset
+16470 [37m[1mDEBUG[m   + trap ynh_exit_properly EXIT
+16470 [37m[1mDEBUG[m   + ynh_apt_install_dependencies libvips42 build-essential python3
+16470 [37m[1mDEBUG[m   ++ sed 's/\([^\<=\>]\)\ \([^(]\)/\1, \2/g'
+16470 [37m[1mDEBUG[m   ++ sed 's/|/ | /'
+16472 [37m[1mDEBUG[m   + local 'dependencies=libvips42, build-essential, python3'
+16472 [37m[1mDEBUG[m   ++ ynh_read_manifest version
+16472 [37m[1mDEBUG[m   ++ cat /var/cache/yunohost/app_tmp_work_dirs/app_k5lfk2kf/manifest.toml
+16473 [37m[1mDEBUG[m   ++ toml_to_json
+16473 [37m[1mDEBUG[m   ++ python3 -c 'import toml, json, sys; print(json.dumps(toml.load(sys.stdin)))'
+16473 [37m[1mDEBUG[m   ++ jq .version --raw-output
+16497 [37m[1mDEBUG[m   + local version=0.8.8-rc3~ynh2
+16497 [37m[1mDEBUG[m   + local app_ynh_deps=librechat-ynh-deps
+16497 [37m[1mDEBUG[m   + grep '[<=>]'
+16499 [37m[1mDEBUG[m   ++ grep -oP '(?<=php)[0-9.]+(?=-|\>|)'
+16499 [37m[1mDEBUG[m   ++ sort -u
+16500 [37m[1mDEBUG[m   + local specific_php_version=
+16500 [37m[1mDEBUG[m   + [[ -n '' ]]
+16500 [37m[1mDEBUG[m   + grep --quiet php
+16501 [37m[1mDEBUG[m   ++ _ynh_apt_package_is_installed postgresql-15
+16502 [37m[1mDEBUG[m   ++ local package=postgresql-15
+16502 [37m[1mDEBUG[m   ++ dpkg-query --show '--showformat=${db:Status-Status}' postgresql-15
+16502 [37m[1mDEBUG[m   ++ grep --quiet '^installed$'
+16508 [37m[1mDEBUG[m   ++ echo no
+16508 [37m[1mDEBUG[m   + local psql_installed=no
+16508 [37m[1mDEBUG[m   + [[ true == \t\r\u\e ]]
+16508 [37m[1mDEBUG[m   + YNH_APT_INSTALL_DEPENDENCIES_REPLACE=false
+16509 [37m[1mDEBUG[m   ++ mktemp --directory
+16510 [37m[1mDEBUG[m   + local TMPDIR=/tmp/tmp.oF2viEEZMo
+16510 [37m[1mDEBUG[m   + mkdir -p /tmp/tmp.oF2viEEZMo/librechat-ynh-deps/DEBIAN
+16511 [37m[1mDEBUG[m   + chmod -R 755 /tmp/tmp.oF2viEEZMo/librechat-ynh-deps
+16512 [37m[1mDEBUG[m   + cat
+16513 [37m[1mDEBUG[m   + _ynh_apt update --error-on=any
+16513 [37m[1mDEBUG[m   + [[ update --error-on=any == \u\p\d\a\t\e ]]
+16513 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+16513 [37m[1mDEBUG[m   + local try
+16514 [37m[1mDEBUG[m   + set +o xtrace
+16773 [37m[1mDEBUG[m   + return 0
+16773 [37m[1mDEBUG[m   + LC_ALL=C
+16773 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+16773 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 update --error-on=any
+17037 [37m[1mDEBUG[m   Hit:1 https://dl.yarnpkg.com/debian stable InRelease
+17075 [37m[1mDEBUG[m   Hit:2 http://deb.debian.org/debian bookworm InRelease
+17133 [37m[1mDEBUG[m   Hit:3 http://deb.debian.org/debian bookworm-updates InRelease
+17163 [37m[1mDEBUG[m   Hit:4 https://packages.sury.org/php bookworm InRelease
+17190 [37m[1mDEBUG[m   Hit:5 http://deb.debian.org/debian-security bookworm-security InRelease
+18029 [37m[1mDEBUG[m   Hit:6 https://forge.yunohost.org/debian bookworm InRelease
+18422 [37m[1mDEBUG[m   Reading package lists...
+18430 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+18430 [37m[1mDEBUG[m   + local try
+18430 [37m[1mDEBUG[m   + set +o xtrace
+18703 [37m[1mDEBUG[m   + return 0
+18703 [37m[1mDEBUG[m   + LC_ALL=C
+18703 [37m[1mDEBUG[m   + dpkg-deb --build /tmp/tmp.oF2viEEZMo/librechat-ynh-deps /tmp/tmp.oF2viEEZMo/librechat-ynh-deps.deb
+18712 [37m[1mDEBUG[m   + LC_ALL=C
+18712 [37m[1mDEBUG[m   + dpkg --force-depends --install /tmp/tmp.oF2viEEZMo/librechat-ynh-deps.deb
+18712 [37m[1mDEBUG[m   + tee /tmp/tmp.oF2viEEZMo/dpkg_log
+18730 [37m[1mDEBUG[m   Selecting previously unselected package librechat-ynh-deps.
+18785 [37m[1mDEBUG[m   (Reading database ... 45184 files and directories currently installed.)
+18786 [37m[1mDEBUG[m   Preparing to unpack .../librechat-ynh-deps.deb ...
+18788 [37m[1mDEBUG[m   Unpacking librechat-ynh-deps (0.8.8-rc3~ynh2) ...
+18803 [37m[1mDEBUG[m   Setting up librechat-ynh-deps (0.8.8-rc3~ynh2) ...
+18834 [37m[1mDEBUG[m   + _ynh_apt_install --fix-broken
+18834 [37m[1mDEBUG[m   + _ynh_apt --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken
+18834 [37m[1mDEBUG[m   + [[ --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken == \u\p\d\a\t\e ]]
+18834 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+18834 [37m[1mDEBUG[m   + local try
+18835 [37m[1mDEBUG[m   + set +o xtrace
+19083 [37m[1mDEBUG[m   + return 0
+19083 [37m[1mDEBUG[m   + LC_ALL=C
+19084 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+19084 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken
+19148 [37m[1mDEBUG[m   Reading package lists...
+19231 [37m[1mDEBUG[m   Building dependency tree...
+19232 [37m[1mDEBUG[m   Reading state information...
+19308 [37m[1mDEBUG[m   0 upgraded, 0 newly installed, 0 to remove and 22 not upgraded.
+19309 [37m[1mDEBUG[m   + rm --recursive --force /tmp/tmp.oF2viEEZMo
+19310 [37m[1mDEBUG[m   + _ynh_apt_package_is_installed librechat-ynh-deps
+19310 [37m[1mDEBUG[m   + local package=librechat-ynh-deps
+19310 [37m[1mDEBUG[m   + grep --quiet '^installed$'
+19310 [37m[1mDEBUG[m   + dpkg-query --show '--showformat=${db:Status-Status}' librechat-ynh-deps
+19317 [37m[1mDEBUG[m   ++ _ynh_apt_package_is_installed postgresql-15
+19317 [37m[1mDEBUG[m   ++ local package=postgresql-15
+19317 [37m[1mDEBUG[m   ++ dpkg-query --show '--showformat=${db:Status-Status}' postgresql-15
+19317 [37m[1mDEBUG[m   ++ grep --quiet '^installed$'
+19323 [37m[1mDEBUG[m   ++ echo no
+19324 [37m[1mDEBUG[m   + local psql_installed2=no
+19324 [37m[1mDEBUG[m   + [[ no != \n\o ]]
+19324 [37m[1mDEBUG[m   + ynh_exit_properly
+19324 [37m[1mDEBUG[m   + local exit_code=0
+19324 [37m[1mDEBUG[m   + [[ provision_or_update_apt =~ ^install$|^upgrade$|^restore$ ]]
+19324 [37m[1mDEBUG[m   + '[' 0 -eq 0 ']'
+19324 [37m[1mDEBUG[m   + exit 0
+19425 [36m[1mINFO[m    Provisioning ports...
+19444 [36m[1mINFO[m    Provisioning system_user...
+19547 [37m[1mDEBUG[m   registered 'sha512_crypt' handler: <class 'passlib.handlers.sha2_crypt.sha512_crypt'>
+19864 [36m[1mINFO[m    Provisioning install_dir...
+19868 [36m[1mINFO[m    Provisioning data_dir...
+19869 [36m[1mINFO[m    Provisioning permissions...
+19872 [37m[1mDEBUG[m   Permission 'librechat.main' updated
+19875 [37m[1mDEBUG[m   Permission 'librechat.main' created
+19879 [37m[1mDEBUG[m   Permission 'librechat.main' updated
+19881 [37m[1mDEBUG[m   Permission 'librechat.main' updated
+19883 [37m[1mDEBUG[m   Permission 'librechat.admin' updated
+19887 [37m[1mDEBUG[m   Permission 'librechat.admin' created
+19891 [37m[1mDEBUG[m   Permission 'librechat.admin' updated
+19892 [37m[1mDEBUG[m   Permission 'librechat.admin' updated
+19897 [37m[1mDEBUG[m   Creating LDAP perm librechat.admin
+19903 [37m[1mDEBUG[m   Creating LDAP perm librechat.main
+19908 [37m[1mDEBUG[m   Permissions were resynchronized to LDAP
+19924 [37m[1mDEBUG[m   Formating result in 'export' mode
+19924 [37m[1mDEBUG[m   SSO and portal configurations regenerated
+19925 [36m[1mINFO[m    Provisioning nodejs...
+19929 [37m[1mDEBUG[m   Executing command '['sh', '-c', '/bin/bash -x "./provision_or_update_nodejs"  7>&1']'
+19933 [37m[1mDEBUG[m   + source /usr/share/yunohost/helpers
+19934 [37m[1mDEBUG[m   ++++ dirname -- /usr/share/yunohost/helpers
+19934 [37m[1mDEBUG[m   +++ cd -- /usr/share/yunohost
+19934 [37m[1mDEBUG[m   +++ pwd
+19935 [37m[1mDEBUG[m   ++ SCRIPT_DIR=/usr/share/yunohost
+19935 [37m[1mDEBUG[m   ++ YNH_HELPERS_VERSION=2.1
+19935 [37m[1mDEBUG[m   +++ set +o
+19935 [37m[1mDEBUG[m   +++ grep xtrace
+19936 [37m[1mDEBUG[m   ++ readonly 'XTRACE_ENABLE=set -o xtrace'
+19936 [37m[1mDEBUG[m   ++ XTRACE_ENABLE='set -o xtrace'
+19936 [37m[1mDEBUG[m   ++ set +x
+19944 [37m[1mDEBUG[m   + ynh_abort_if_errors
+19944 [37m[1mDEBUG[m   + set -o errexit
+19944 [37m[1mDEBUG[m   + set -o nounset
+19945 [37m[1mDEBUG[m   + trap ynh_exit_properly EXIT
+19945 [37m[1mDEBUG[m   + /usr/share/yunohost/helpers.v2.1.d/vendor/n/n install 24
+20305 [37m[1mDEBUG[m     installing : node-v24.21.0
+20394 [37m[1mDEBUG[m          mkdir : /opt/node_n/n/versions/node/24.21.0
+20398 [37m[1mDEBUG[m          fetch : https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.xz
+22779 [37m[1mDEBUG[m        copying : node/24.21.0
+23128 [37m[1mDEBUG[m      installed : v24.21.0
+23128 [37m[1mDEBUG[m   + ynh_exit_properly
+23128 [37m[1mDEBUG[m   + local exit_code=0
+23129 [37m[1mDEBUG[m   + [[ provision_or_update_nodejs =~ ^install$|^upgrade$|^restore$ ]]
+23129 [37m[1mDEBUG[m   + '[' 0 -eq 0 ']'
+23129 [37m[1mDEBUG[m   + exit 0
+23247 [37m[1mDEBUG[m   Executing command '['sh', '-c', '/bin/bash -x "./install"  7>&1']'
+23249 [37m[1mDEBUG[m   + source _common.sh
+23249 [37m[1mDEBUG[m   ++ mongo_version=7.0
+23249 [37m[1mDEBUG[m   + source /usr/share/yunohost/helpers
+23250 [37m[1mDEBUG[m   ++++ dirname -- /usr/share/yunohost/helpers
+23251 [37m[1mDEBUG[m   +++ cd -- /usr/share/yunohost
+23251 [37m[1mDEBUG[m   +++ pwd
+23251 [37m[1mDEBUG[m   ++ SCRIPT_DIR=/usr/share/yunohost
+23251 [37m[1mDEBUG[m   ++ YNH_HELPERS_VERSION=2.1
+23251 [37m[1mDEBUG[m   +++ set +o
+23251 [37m[1mDEBUG[m   +++ grep xtrace
+23252 [37m[1mDEBUG[m   ++ readonly 'XTRACE_ENABLE=set -o xtrace'
+23252 [37m[1mDEBUG[m   ++ XTRACE_ENABLE='set -o xtrace'
+23253 [37m[1mDEBUG[m   ++ set +x
+23284 [37m[1mDEBUG[m   + ynh_script_progression 'Installing dependencies...'
+23284 [37m[1mDEBUG[m   + set +o xtrace
+23287 [36m[1mINFO[m    [+...................] > Installing dependencies...
+23287 [37m[1mDEBUG[m   + ynh_install_mongo
+23287 [37m[1mDEBUG[m   + [[ -n 7.0 ]]
+23288 [37m[1mDEBUG[m   + ynh_print_info 'Installing MongoDB Community Edition ...'
+23288 [37m[1mDEBUG[m   + echo 'Installing MongoDB Community Edition ...'
+23288 [37m[1mDEBUG[m   + local mongo_debian_release=bookworm
+23288 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+23288 [37m[1mDEBUG[m   ++ uniq
+23288 [37m[1mDEBUG[m   ++ grep '^flags' /proc/cpuinfo
+23290 [37m[1mDEBUG[m   + [[ flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves xsaveerptr arat vaes vpclmulqdq rdpid fsrm != *\a\v\x* ]]
+23290 [37m[1mDEBUG[m   + [[ 7.0 == \4\.\4 ]]
+23290 [37m[1mDEBUG[m   + ynh_apt_install_dependencies_from_extra_repository '--repo=deb http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main' '--package=mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh' --key=https://www.mongodb.org/static/pgp/server-7.0.asc
+23290 [37m[1mDEBUG[m   + args_array=(['r']='repo=' ['p']='package=' ['k']='key=')
+23290 [37m[1mDEBUG[m   + local -A args_array
+23290 [37m[1mDEBUG[m   + local repo
+23291 [37m[1mDEBUG[m   + local package
+23291 [37m[1mDEBUG[m   + local key
+23291 [37m[1mDEBUG[m   + ynh_handle_getopts_args '--repo=deb http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main' '--package=mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh' --key=https://www.mongodb.org/static/pgp/server-7.0.asc
+23291 [37m[1mDEBUG[m   ++ set +o
+23291 [37m[1mDEBUG[m   ++ grep xtrace
+23292 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+23292 [37m[1mDEBUG[m   + set +o xtrace
+23333 [37m[1mDEBUG[m   + local packages
+23333 [37m[1mDEBUG[m   + read -r -a packages
+23333 [37m[1mDEBUG[m   + IFS=', '
+23333 [37m[1mDEBUG[m   + read -r -a repo_parts
+23333 [37m[1mDEBUG[m   + index=0
+23333 [37m[1mDEBUG[m   + [[ deb == \d\e\b ]]
+23333 [37m[1mDEBUG[m   + index=1
+23333 [37m[1mDEBUG[m   + uri=http://repo.mongodb.org/apt/debian
+23333 [37m[1mDEBUG[m   + index=2
+23333 [37m[1mDEBUG[m   + suite=bookworm/mongodb-org/7.0
+23333 [37m[1mDEBUG[m   + index=3
+23333 [37m[1mDEBUG[m   + (( 4 > 0 ))
+23333 [37m[1mDEBUG[m   + component=main
+23333 [37m[1mDEBUG[m   + [[ https://www.mongodb.org/static/pgp/server-7.0.asc == \t\r\u\s\t\e\d\=\y\e\s ]]
+23333 [37m[1mDEBUG[m   + trust=
+23334 [37m[1mDEBUG[m   + mkdir --parents /etc/apt/sources.list.d
+23334 [37m[1mDEBUG[m   + echo 'deb  http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 main'
+23334 [37m[1mDEBUG[m   + local pin=repo.mongodb.org/apt/debian
+23334 [37m[1mDEBUG[m   + pin=repo.mongodb.org
+23334 [37m[1mDEBUG[m   + mkdir --parents /etc/apt/preferences.d
+23335 [37m[1mDEBUG[m   + cat
+23336 [37m[1mDEBUG[m   + '[' -n https://www.mongodb.org/static/pgp/server-7.0.asc ']'
+23337 [37m[1mDEBUG[m   + [[ https://www.mongodb.org/static/pgp/server-7.0.asc != \t\r\u\s\t\e\d\=\y\e\s ]]
+23337 [37m[1mDEBUG[m   + mkdir --parents /etc/apt/trusted.gpg.d
+23338 [37m[1mDEBUG[m   + wget --timeout 900 --quiet https://www.mongodb.org/static/pgp/server-7.0.asc --output-document=-
+23338 [37m[1mDEBUG[m   + gpg --dearmor
+24540 [37m[1mDEBUG[m   + _ynh_apt update --error-on=any -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/librechat.list
+24541 [37m[1mDEBUG[m   + [[ update --error-on=any -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/librechat.list == \u\p\d\a\t\e ]]
+24541 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+24541 [37m[1mDEBUG[m   + local try
+24541 [37m[1mDEBUG[m   + set +o xtrace
+24799 [37m[1mDEBUG[m   + return 0
+24799 [37m[1mDEBUG[m   + LC_ALL=C
+24799 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+24799 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 update --error-on=any -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/librechat.list
+24863 [37m[1mDEBUG[m   Hit:1 https://packages.sury.org/php bookworm InRelease
+24881 [37m[1mDEBUG[m   Hit:2 https://dl.yarnpkg.com/debian stable InRelease
+25487 [37m[1mDEBUG[m   Get:4 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 InRelease [2906 B]
+25590 [37m[1mDEBUG[m   Hit:3 https://forge.yunohost.org/debian bookworm InRelease
+25621 [37m[1mDEBUG[m   Get:5 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 Packages [121 kB]
+25677 [37m[1mDEBUG[m   Fetched 124 kB in 1s (147 kB/s)
+25699 [37m[1mDEBUG[m   Reading package lists...
+25701 [37m[1mDEBUG[m   + touch /etc/apt/sources.list.d/librechat.list
+25702 [37m[1mDEBUG[m   + ynh_apt_install_dependencies 'mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh'
+25703 [37m[1mDEBUG[m   ++ sed 's/|/ | /'
+25703 [37m[1mDEBUG[m   ++ sed 's/\([^\<=\>]\)\ \([^(]\)/\1, \2/g'
+25704 [37m[1mDEBUG[m   + local 'dependencies=mongodb-org, mongodb-org-server, mongodb-org-tools, mongodb-mongosh'
+25704 [37m[1mDEBUG[m   ++ ynh_read_manifest version
+25705 [37m[1mDEBUG[m   ++ cat /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/manifest.toml
+25705 [37m[1mDEBUG[m   ++ toml_to_json
+25705 [37m[1mDEBUG[m   ++ python3 -c 'import toml, json, sys; print(json.dumps(toml.load(sys.stdin)))'
+25705 [37m[1mDEBUG[m   ++ jq .version --raw-output
+25728 [37m[1mDEBUG[m   + local version=0.8.8-rc3~ynh2
+25728 [37m[1mDEBUG[m   + local app_ynh_deps=librechat-ynh-deps
+25728 [37m[1mDEBUG[m   + grep '[<=>]'
+25729 [37m[1mDEBUG[m   ++ grep -oP '(?<=php)[0-9.]+(?=-|\>|)'
+25729 [37m[1mDEBUG[m   ++ sort -u
+25730 [37m[1mDEBUG[m   + local specific_php_version=
+25731 [37m[1mDEBUG[m   + [[ -n '' ]]
+25731 [37m[1mDEBUG[m   + grep --quiet php
+25732 [37m[1mDEBUG[m   ++ _ynh_apt_package_is_installed postgresql-15
+25732 [37m[1mDEBUG[m   ++ local package=postgresql-15
+25732 [37m[1mDEBUG[m   ++ dpkg-query --show '--showformat=${db:Status-Status}' postgresql-15
+25733 [37m[1mDEBUG[m   ++ grep --quiet '^installed$'
+25738 [37m[1mDEBUG[m   ++ echo no
+25739 [37m[1mDEBUG[m   + local psql_installed=no
+25739 [37m[1mDEBUG[m   + [[ true == \t\r\u\e ]]
+25739 [37m[1mDEBUG[m   + YNH_APT_INSTALL_DEPENDENCIES_REPLACE=false
+25739 [37m[1mDEBUG[m   ++ mktemp --directory
+25740 [37m[1mDEBUG[m   + local TMPDIR=/tmp/tmp.KHDTfvPMFM
+25740 [37m[1mDEBUG[m   + mkdir -p /tmp/tmp.KHDTfvPMFM/librechat-ynh-deps/DEBIAN
+25742 [37m[1mDEBUG[m   + chmod -R 755 /tmp/tmp.KHDTfvPMFM/librechat-ynh-deps
+25742 [37m[1mDEBUG[m   + cat
+25744 [37m[1mDEBUG[m   + _ynh_apt update --error-on=any
+25744 [37m[1mDEBUG[m   + [[ update --error-on=any == \u\p\d\a\t\e ]]
+25744 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+25744 [37m[1mDEBUG[m   + local try
+25744 [37m[1mDEBUG[m   + set +o xtrace
+26009 [37m[1mDEBUG[m   + return 0
+26009 [37m[1mDEBUG[m   + LC_ALL=C
+26009 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+26009 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 update --error-on=any
+26084 [37m[1mDEBUG[m   Hit:1 https://packages.sury.org/php bookworm InRelease
+26123 [37m[1mDEBUG[m   Hit:2 https://dl.yarnpkg.com/debian stable InRelease
+26134 [37m[1mDEBUG[m   Hit:3 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0 InRelease
+26161 [37m[1mDEBUG[m   Get:4 http://deb.debian.org/debian bookworm InRelease [151 kB]
+26346 [37m[1mDEBUG[m   Get:6 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+26412 [37m[1mDEBUG[m   Get:7 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+26474 [37m[1mDEBUG[m   Get:8 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+26812 [37m[1mDEBUG[m   Hit:5 https://forge.yunohost.org/debian bookworm InRelease
+26938 [37m[1mDEBUG[m   Get:9 http://deb.debian.org/debian bookworm/main Translation-en [6107 kB]
+27165 [37m[1mDEBUG[m   Get:10 http://deb.debian.org/debian bookworm/contrib amd64 Packages [53.5 kB]
+27166 [37m[1mDEBUG[m   Get:11 http://deb.debian.org/debian bookworm/contrib Translation-en [48.4 kB]
+27166 [37m[1mDEBUG[m   Get:12 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+27167 [37m[1mDEBUG[m   Get:13 http://deb.debian.org/debian bookworm-updates/main Translation-en [5448 B]
+27228 [37m[1mDEBUG[m   Get:14 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [340 kB]
+27296 [37m[1mDEBUG[m   Get:15 http://deb.debian.org/debian-security bookworm-security/main Translation-en [213 kB]
+27303 [37m[1mDEBUG[m   Get:16 http://deb.debian.org/debian-security bookworm-security/contrib amd64 Packages [1456 B]
+27303 [37m[1mDEBUG[m   Get:17 http://deb.debian.org/debian-security bookworm-security/contrib Translation-en [1068 B]
+27780 [37m[1mDEBUG[m   Fetched 15.8 MB in 2s (9040 kB/s)
+28129 [37m[1mDEBUG[m   Reading package lists...
+28138 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+28139 [37m[1mDEBUG[m   + local try
+28139 [37m[1mDEBUG[m   + set +o xtrace
+28387 [37m[1mDEBUG[m   + return 0
+28387 [37m[1mDEBUG[m   + LC_ALL=C
+28387 [37m[1mDEBUG[m   + dpkg-deb --build /tmp/tmp.KHDTfvPMFM/librechat-ynh-deps /tmp/tmp.KHDTfvPMFM/librechat-ynh-deps.deb
+28406 [37m[1mDEBUG[m   + LC_ALL=C
+28406 [37m[1mDEBUG[m   + dpkg --force-depends --install /tmp/tmp.KHDTfvPMFM/librechat-ynh-deps.deb
+28406 [37m[1mDEBUG[m   + tee /tmp/tmp.KHDTfvPMFM/dpkg_log
+28451 [37m[1mDEBUG[m   (Reading database ... 45184 files and directories currently installed.)
+28451 [37m[1mDEBUG[m   Preparing to unpack .../librechat-ynh-deps.deb ...
+28458 [37m[1mDEBUG[m   Unpacking librechat-ynh-deps (0.8.8-rc3~ynh2) over (0.8.8-rc3~ynh2) ...
+28476 [37m[1mDEBUG[m   dpkg: librechat-ynh-deps: dependency problems, but configuring anyway as you requested:
+28476 [37m[1mDEBUG[m    librechat-ynh-deps depends on mongodb-org; however:
+28476 [37m[1mDEBUG[m     Package mongodb-org is not installed.
+28476 [37m[1mDEBUG[m    librechat-ynh-deps depends on mongodb-org-server; however:
+28476 [37m[1mDEBUG[m     Package mongodb-org-server is not installed.
+28476 [37m[1mDEBUG[m    librechat-ynh-deps depends on mongodb-org-tools; however:
+28476 [37m[1mDEBUG[m     Package mongodb-org-tools is not installed.
+28476 [37m[1mDEBUG[m    librechat-ynh-deps depends on mongodb-mongosh; however:
+28476 [37m[1mDEBUG[m     Package mongodb-mongosh is not installed.
+28476 [37m[1mDEBUG[m   
+28476 [37m[1mDEBUG[m   Setting up librechat-ynh-deps (0.8.8-rc3~ynh2) ...
+28493 [37m[1mDEBUG[m   + _ynh_apt_install --fix-broken
+28494 [37m[1mDEBUG[m   + _ynh_apt --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken
+28494 [37m[1mDEBUG[m   + [[ --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken == \u\p\d\a\t\e ]]
+28494 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+28494 [37m[1mDEBUG[m   + local try
+28494 [37m[1mDEBUG[m   + set +o xtrace
+28755 [37m[1mDEBUG[m   + return 0
+28755 [37m[1mDEBUG[m   + LC_ALL=C
+28755 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+28756 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install --fix-broken
+28822 [37m[1mDEBUG[m   Reading package lists...
+28893 [37m[1mDEBUG[m   Building dependency tree...
+28894 [37m[1mDEBUG[m   Reading state information...
+28922 [37m[1mDEBUG[m   Correcting dependencies... Done
+28986 [37m[1mDEBUG[m   The following additional packages will be installed:
+28986 [37m[1mDEBUG[m     mongodb-database-tools mongodb-mongosh mongodb-org mongodb-org-database
+28986 [37m[1mDEBUG[m     mongodb-org-database-tools-extra mongodb-org-mongos mongodb-org-server
+28986 [37m[1mDEBUG[m     mongodb-org-shell mongodb-org-tools
+28999 [37m[1mDEBUG[m   The following NEW packages will be installed:
+28999 [37m[1mDEBUG[m     mongodb-database-tools mongodb-mongosh mongodb-org mongodb-org-database
+28999 [37m[1mDEBUG[m     mongodb-org-database-tools-extra mongodb-org-mongos mongodb-org-server
+29000 [37m[1mDEBUG[m     mongodb-org-shell mongodb-org-tools
+29081 [37m[1mDEBUG[m   0 upgraded, 9 newly installed, 0 to remove and 22 not upgraded.
+29081 [37m[1mDEBUG[m   Need to get 186 MB of archives.
+29081 [37m[1mDEBUG[m   After this operation, 615 MB of additional disk space will be used.
+29081 [37m[1mDEBUG[m   Get:1 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-database-tools amd64 100.18.0 [64.9 MB]
+30760 [37m[1mDEBUG[m   Get:2 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-mongosh amd64 2.12.0 [61.5 MB]
+32293 [37m[1mDEBUG[m   Get:3 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-shell amd64 7.0.43 [2724 B]
+32340 [37m[1mDEBUG[m   Get:4 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-server amd64 7.0.43 [34.9 MB]
+33214 [37m[1mDEBUG[m   Get:5 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-mongos amd64 7.0.43 [24.2 MB]
+33812 [37m[1mDEBUG[m   Get:6 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-database-tools-extra amd64 7.0.43 [7392 B]
+33862 [37m[1mDEBUG[m   Get:7 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-database amd64 7.0.43 [3184 B]
+33921 [37m[1mDEBUG[m   Get:8 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org-tools amd64 7.0.43 [2536 B]
+33973 [37m[1mDEBUG[m   Get:9 http://repo.mongodb.org/apt/debian bookworm/mongodb-org/7.0/main amd64 mongodb-org amd64 7.0.43 [2564 B]
+34149 [37m[1mDEBUG[m   Fetched 186 MB in 5s (37.3 MB/s)
+34166 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-database-tools.
+34185 [37m[1mDEBUG[m   (Reading database ... 45184 files and directories currently installed.)
+34186 [37m[1mDEBUG[m   Preparing to unpack .../0-mongodb-database-tools_100.18.0_amd64.deb ...
+34188 [37m[1mDEBUG[m   Unpacking mongodb-database-tools (100.18.0) ...
+34921 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-mongosh.
+34929 [37m[1mDEBUG[m   Preparing to unpack .../1-mongodb-mongosh_2.12.0_amd64.deb ...
+34932 [37m[1mDEBUG[m   Unpacking mongodb-mongosh (2.12.0) ...
+36191 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-shell.
+36200 [37m[1mDEBUG[m   Preparing to unpack .../2-mongodb-org-shell_7.0.43_amd64.deb ...
+36203 [37m[1mDEBUG[m   Unpacking mongodb-org-shell (7.0.43) ...
+36235 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-server.
+36243 [37m[1mDEBUG[m   Preparing to unpack .../3-mongodb-org-server_7.0.43_amd64.deb ...
+36247 [37m[1mDEBUG[m   Unpacking mongodb-org-server (7.0.43) ...
+37019 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-mongos.
+37028 [37m[1mDEBUG[m   Preparing to unpack .../4-mongodb-org-mongos_7.0.43_amd64.deb ...
+37031 [37m[1mDEBUG[m   Unpacking mongodb-org-mongos (7.0.43) ...
+37597 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-database-tools-extra.
+37605 [37m[1mDEBUG[m   Preparing to unpack .../5-mongodb-org-database-tools-extra_7.0.43_amd64.deb ...
+37607 [37m[1mDEBUG[m   Unpacking mongodb-org-database-tools-extra (7.0.43) ...
+37641 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-database.
+37649 [37m[1mDEBUG[m   Preparing to unpack .../6-mongodb-org-database_7.0.43_amd64.deb ...
+37653 [37m[1mDEBUG[m   Unpacking mongodb-org-database (7.0.43) ...
+37681 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org-tools.
+37689 [37m[1mDEBUG[m   Preparing to unpack .../7-mongodb-org-tools_7.0.43_amd64.deb ...
+37691 [37m[1mDEBUG[m   Unpacking mongodb-org-tools (7.0.43) ...
+37718 [37m[1mDEBUG[m   Selecting previously unselected package mongodb-org.
+37725 [37m[1mDEBUG[m   Preparing to unpack .../8-mongodb-org_7.0.43_amd64.deb ...
+37728 [37m[1mDEBUG[m   Unpacking mongodb-org (7.0.43) ...
+37763 [37m[1mDEBUG[m   Setting up mongodb-mongosh (2.12.0) ...
+37770 [37m[1mDEBUG[m   Setting up mongodb-org-server (7.0.43) ...
+37832 [37m[1mDEBUG[m   Adding system user `mongodb' (UID 112) ...
+37832 [37m[1mDEBUG[m   Adding new user `mongodb' (UID 112) with group `nogroup' ...
+37856 [37m[1mDEBUG[m   Not creating `/nonexistent'.
+37917 [37m[1mDEBUG[m   Adding group `mongodb' (GID 120) ...
+37943 [37m[1mDEBUG[m   Done.
+37968 [37m[1mDEBUG[m   Adding user `mongodb' to group `mongodb' ...
+37996 [37m[1mDEBUG[m   Done.
+38180 [37m[1mDEBUG[m   Setting up mongodb-org-shell (7.0.43) ...
+38188 [37m[1mDEBUG[m   Setting up mongodb-database-tools (100.18.0) ...
+38197 [37m[1mDEBUG[m   Setting up mongodb-org-mongos (7.0.43) ...
+38205 [37m[1mDEBUG[m   Setting up mongodb-org-database-tools-extra (7.0.43) ...
+38212 [37m[1mDEBUG[m   Setting up mongodb-org-database (7.0.43) ...
+38220 [37m[1mDEBUG[m   Setting up mongodb-org-tools (7.0.43) ...
+38228 [37m[1mDEBUG[m   Setting up mongodb-org (7.0.43) ...
+38237 [37m[1mDEBUG[m   Processing triggers for man-db (2.11.2-2) ...
+38241 [37m[1mDEBUG[m   Not building database; man-db/auto-update is not 'true'.
+38301 [37m[1mDEBUG[m   + rm --recursive --force /tmp/tmp.KHDTfvPMFM
+38302 [37m[1mDEBUG[m   + _ynh_apt_package_is_installed librechat-ynh-deps
+38302 [37m[1mDEBUG[m   + local package=librechat-ynh-deps
+38303 [37m[1mDEBUG[m   + dpkg-query --show '--showformat=${db:Status-Status}' librechat-ynh-deps
+38303 [37m[1mDEBUG[m   + grep --quiet '^installed$'
+38310 [37m[1mDEBUG[m   ++ _ynh_apt_package_is_installed postgresql-15
+38310 [37m[1mDEBUG[m   ++ local package=postgresql-15
+38310 [37m[1mDEBUG[m   ++ dpkg-query --show '--showformat=${db:Status-Status}' postgresql-15
+38310 [37m[1mDEBUG[m   ++ grep --quiet '^installed$'
+38316 [37m[1mDEBUG[m   ++ echo no
+38317 [37m[1mDEBUG[m   + local psql_installed2=no
+38317 [37m[1mDEBUG[m   + [[ no != \n\o ]]
+38317 [37m[1mDEBUG[m   + local apps_auto_installed
+38317 [37m[1mDEBUG[m   + mapfile -t apps_auto_installed
+38317 [37m[1mDEBUG[m   ++ apt-mark showauto mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh
+38454 [37m[1mDEBUG[m   + _ynh_apt_install mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh
+38454 [37m[1mDEBUG[m   + _ynh_apt --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh
+38454 [37m[1mDEBUG[m   + [[ --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh == \u\p\d\a\t\e ]]
+38454 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+38454 [37m[1mDEBUG[m   + local try
+38454 [37m[1mDEBUG[m   + set +o xtrace
+38741 [37m[1mDEBUG[m   + return 0
+38741 [37m[1mDEBUG[m   + LC_ALL=C
+38741 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+38741 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 --no-remove --option Dpkg::Options::=--force-confdef --option Dpkg::Options::=--force-confold install mongodb-org mongodb-org-server mongodb-org-tools mongodb-mongosh
+38757 [37m[1mDEBUG[m   Reading package lists...
+38853 [37m[1mDEBUG[m   Building dependency tree...
+38854 [37m[1mDEBUG[m   Reading state information...
+38961 [37m[1mDEBUG[m   mongodb-org is already the newest version (7.0.43).
+38962 [37m[1mDEBUG[m   mongodb-org set to manually installed.
+38962 [37m[1mDEBUG[m   mongodb-org-server is already the newest version (7.0.43).
+38962 [37m[1mDEBUG[m   mongodb-org-server set to manually installed.
+38962 [37m[1mDEBUG[m   mongodb-org-tools is already the newest version (7.0.43).
+38962 [37m[1mDEBUG[m   mongodb-org-tools set to manually installed.
+38962 [37m[1mDEBUG[m   mongodb-mongosh is already the newest version (2.12.0).
+38962 [37m[1mDEBUG[m   mongodb-mongosh set to manually installed.
+38962 [37m[1mDEBUG[m   0 upgraded, 0 newly installed, 0 to remove and 22 not upgraded.
+38962 [37m[1mDEBUG[m   + (( 4 != 0 ))
+38962 [37m[1mDEBUG[m   + apt-mark auto mongodb-mongosh mongodb-org mongodb-org-server mongodb-org-tools
+39097 [37m[1mDEBUG[m   mongodb-mongosh set to automatically installed.
+39097 [37m[1mDEBUG[m   mongodb-org set to automatically installed.
+39097 [37m[1mDEBUG[m   mongodb-org-server set to automatically installed.
+39097 [37m[1mDEBUG[m   mongodb-org-tools set to automatically installed.
+39098 [37m[1mDEBUG[m   + ynh_safe_rm /etc/apt/sources.list.d/librechat.list
+39098 [37m[1mDEBUG[m   + local target=/etc/apt/sources.list.d/librechat.list
+39098 [37m[1mDEBUG[m   + set +o xtrace
+39106 [37m[1mDEBUG[m   + ynh_safe_rm /etc/apt/preferences.d/librechat
+39106 [37m[1mDEBUG[m   + local target=/etc/apt/preferences.d/librechat
+39106 [37m[1mDEBUG[m   + set +o xtrace
+39113 [37m[1mDEBUG[m   + ynh_safe_rm /etc/apt/trusted.gpg.d/librechat.gpg
+39113 [37m[1mDEBUG[m   + local target=/etc/apt/trusted.gpg.d/librechat.gpg
+39113 [37m[1mDEBUG[m   + set +o xtrace
+39120 [37m[1mDEBUG[m   + _ynh_apt update --error-on=any
+39120 [37m[1mDEBUG[m   + [[ update --error-on=any == \u\p\d\a\t\e ]]
+39120 [37m[1mDEBUG[m   + _ynh_wait_dpkg_free
+39121 [37m[1mDEBUG[m   + local try
+39121 [37m[1mDEBUG[m   + set +o xtrace
+39380 [37m[1mDEBUG[m   + return 0
+39380 [37m[1mDEBUG[m   + LC_ALL=C
+39380 [37m[1mDEBUG[m   + DEBIAN_FRONTEND=noninteractive
+39380 [37m[1mDEBUG[m   + apt-get --assume-yes --quiet -o=Acquire::Retries=3 -o=Dpkg::Use-Pty=0 update --error-on=any
+39453 [37m[1mDEBUG[m   Hit:1 https://packages.sury.org/php bookworm InRelease
+39507 [37m[1mDEBUG[m   Hit:2 https://dl.yarnpkg.com/debian stable InRelease
+39532 [37m[1mDEBUG[m   Hit:3 http://deb.debian.org/debian bookworm InRelease
+39591 [37m[1mDEBUG[m   Hit:4 http://deb.debian.org/debian bookworm-updates InRelease
+39649 [37m[1mDEBUG[m   Hit:5 http://deb.debian.org/debian-security bookworm-security InRelease
+40183 [37m[1mDEBUG[m   Hit:6 https://forge.yunohost.org/debian bookworm InRelease
+40582 [37m[1mDEBUG[m   Reading package lists...
+40589 [37m[1mDEBUG[m   + mongodb_servicename=mongod
+40589 [37m[1mDEBUG[m   + systemctl enable mongod --quiet
+40755 [37m[1mDEBUG[m   + systemctl daemon-reload --quiet
+40917 [37m[1mDEBUG[m   + ynh_systemctl --service=mongod --action=restart '--wait_until=aiting for connections' --log_path=/var/log/mongodb/mongod.log
+40917 [37m[1mDEBUG[m   + args_array=(['n']='service=' ['m']='mount=' ['a']='action=' ['w']='wait_until=' ['p']='log_path=' ['t']='timeout=' ['e']='length=')
+40917 [37m[1mDEBUG[m   + local -A args_array
+40917 [37m[1mDEBUG[m   + local service
+40917 [37m[1mDEBUG[m   + local mount
+40917 [37m[1mDEBUG[m   + local action
+40917 [37m[1mDEBUG[m   + local wait_until
+40918 [37m[1mDEBUG[m   + local length
+40918 [37m[1mDEBUG[m   + local log_path
+40918 [37m[1mDEBUG[m   + local timeout
+40918 [37m[1mDEBUG[m   + ynh_handle_getopts_args --service=mongod --action=restart '--wait_until=aiting for connections' --log_path=/var/log/mongodb/mongod.log
+40918 [37m[1mDEBUG[m   ++ grep xtrace
+40918 [37m[1mDEBUG[m   ++ set +o
+40919 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+40919 [37m[1mDEBUG[m   + set +o xtrace
+41043 [37m[1mDEBUG[m   + service=mongod
+41043 [37m[1mDEBUG[m   + mount=
+41043 [37m[1mDEBUG[m   + action=restart
+41043 [37m[1mDEBUG[m   + wait_until='aiting for connections'
+41044 [37m[1mDEBUG[m   + length=20
+41044 [37m[1mDEBUG[m   + log_path=/var/log/mongodb/mongod.log
+41044 [37m[1mDEBUG[m   + '[' -n '' ']'
+41044 [37m[1mDEBUG[m   + ynh_in_ci_tests
+41044 [37m[1mDEBUG[m   + '[' 1 -eq 1 ']'
+41044 [37m[1mDEBUG[m   + '[' 20 -le 20 ']'
+41044 [37m[1mDEBUG[m   + timeout=120
+41044 [37m[1mDEBUG[m   + length=100
+41044 [37m[1mDEBUG[m   + '[' restart == stop ']'
+41044 [37m[1mDEBUG[m   + [[ -n aiting for connections ]]
+41044 [37m[1mDEBUG[m   ++ mktemp
+41044 [37m[1mDEBUG[m   + local templog=/tmp/tmp.D5QWAcyKie
+41045 [37m[1mDEBUG[m   + '[' /var/log/mongodb/mongod.log == systemd ']'
+41045 [37m[1mDEBUG[m   + local pid_tail=3469
+41045 [37m[1mDEBUG[m   + '[' restart == reload ']'
+41045 [37m[1mDEBUG[m   + tail --follow=name --retry --lines=0 /var/log/mongodb/mongod.log
+41045 [37m[1mDEBUG[m   ++ cut -d+ -f1
+41045 [37m[1mDEBUG[m   ++ date --utc --rfc-3339=seconds
+41047 [37m[1mDEBUG[m   + local 'time_start=2026-09-20 19:57:46 UTC'
+41047 [37m[1mDEBUG[m   + systemctl restart mongod
+41075 [37m[1mDEBUG[m   + [[ -n aiting for connections ]]
+41076 [37m[1mDEBUG[m   + set +o xtrace
+43088 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+43088 [37m[1mDEBUG[m   + '[' 3 -ge 3 ']'
+43088 [37m[1mDEBUG[m   + echo ''
+43088 [37m[1mDEBUG[m   + '[' 3 -eq 120 ']'
+43089 [37m[1mDEBUG[m   + _ynh_clean_check_starting
+43089 [37m[1mDEBUG[m   + '[' -n 3469 ']'
+43089 [37m[1mDEBUG[m   + kill -SIGTERM 3469
+43089 [37m[1mDEBUG[m   + '[' -n /tmp/tmp.D5QWAcyKie ']'
+43089 [37m[1mDEBUG[m   + ynh_safe_rm /tmp/tmp.D5QWAcyKie
+43089 [37m[1mDEBUG[m   + local target=/tmp/tmp.D5QWAcyKie
+43089 [37m[1mDEBUG[m   + set +o xtrace
+43089 [37m[1mDEBUG[m   
+43096 [37m[1mDEBUG[m   + yunohost service add mongod '--description=MongoDB daemon' --log=/var/log/mongodb/mongod.log
+43235 [37m[1mDEBUG[m   SUCCESS The service 'mongod' was added
+43247 [37m[1mDEBUG[m   + ynh_app_setting_set --key=mongo_version --value=7.0
+43247 [37m[1mDEBUG[m   + local _globalapp=librechat
+43247 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+43247 [37m[1mDEBUG[m   + local -A args_array
+43247 [37m[1mDEBUG[m   + local app
+43247 [37m[1mDEBUG[m   + local key
+43247 [37m[1mDEBUG[m   + local value
+43248 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=mongo_version --value=7.0
+43248 [37m[1mDEBUG[m   ++ set +o
+43248 [37m[1mDEBUG[m   ++ grep xtrace
+43249 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+43249 [37m[1mDEBUG[m   + set +o xtrace
+43283 [37m[1mDEBUG[m   + app=librechat
+43283 [37m[1mDEBUG[m   + ynh_app_setting set librechat mongo_version 7.0
+43283 [37m[1mDEBUG[m   ++ set +o
+43284 [37m[1mDEBUG[m   ++ grep xtrace
+43285 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+43285 [37m[1mDEBUG[m   + set +o xtrace
+43313 [37m[1mDEBUG[m   + ynh_script_progression 'Setting up source files...'
+43313 [37m[1mDEBUG[m   + set +o xtrace
+43314 [36m[1mINFO[m    [#++.................] > Setting up source files...
+43315 [37m[1mDEBUG[m   + ynh_setup_source --dest_dir=/var/www/librechat
+43315 [37m[1mDEBUG[m   + args_array=(['d']='dest_dir=' ['s']='source_id=' ['k']='keep=' ['r']='full_replace')
+43315 [37m[1mDEBUG[m   + local -A args_array
+43315 [37m[1mDEBUG[m   + local dest_dir
+43315 [37m[1mDEBUG[m   + local source_id
+43315 [37m[1mDEBUG[m   + local keep
+43315 [37m[1mDEBUG[m   + local full_replace
+43316 [37m[1mDEBUG[m   + ynh_handle_getopts_args --dest_dir=/var/www/librechat
+43316 [37m[1mDEBUG[m   ++ grep xtrace
+43316 [37m[1mDEBUG[m   ++ set +o
+43317 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+43317 [37m[1mDEBUG[m   + set +o xtrace
+43341 [37m[1mDEBUG[m   + keep=
+43341 [37m[1mDEBUG[m   + full_replace=0
+43341 [37m[1mDEBUG[m   + source_id=main
+43341 [37m[1mDEBUG[m   + '[' -e /var/www/librechat/composer.phar ']'
+43342 [37m[1mDEBUG[m   ++ ynh_read_manifest 'resources.sources["main"]'
+43342 [37m[1mDEBUG[m   ++ toml_to_json
+43342 [37m[1mDEBUG[m   ++ jq '.resources.sources["main"]' --raw-output
+43342 [37m[1mDEBUG[m   ++ python3 -c 'import toml, json, sys; print(json.dumps(toml.load(sys.stdin)))'
+43342 [37m[1mDEBUG[m   ++ cat /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/manifest.toml
+43368 [37m[1mDEBUG[m   + local 'sources_json={
+43368 [37m[1mDEBUG[m     "url": "https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz",
+43368 [37m[1mDEBUG[m     "sha256": "691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4",
+43368 [37m[1mDEBUG[m     "in_subdir": true,
+43368 [37m[1mDEBUG[m     "autoupdate": {
+43368 [37m[1mDEBUG[m       "strategy": "latest_github_tag"
+43368 [37m[1mDEBUG[m     }
+43369 [37m[1mDEBUG[m   }'
+43369 [37m[1mDEBUG[m   + jq -re .url
+43385 [37m[1mDEBUG[m   https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz
+43385 [37m[1mDEBUG[m   + local arch_prefix=
+43386 [37m[1mDEBUG[m   ++ jq -r .url
+43386 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43404 [37m[1mDEBUG[m   + local src_url=https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz
+43405 [37m[1mDEBUG[m   ++ jq -r .sha256
+43405 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43424 [37m[1mDEBUG[m   + local src_sum=691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4
+43424 [37m[1mDEBUG[m   ++ jq -r .format
+43425 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43443 [37m[1mDEBUG[m   + local src_format=
+43444 [37m[1mDEBUG[m   ++ jq -r .in_subdir
+43444 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43461 [37m[1mDEBUG[m   + local src_in_subdir=true
+43461 [37m[1mDEBUG[m   + src_in_subdir=true
+43462 [37m[1mDEBUG[m   ++ jq -r .extract
+43462 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43482 [37m[1mDEBUG[m   + local src_extract=
+43483 [37m[1mDEBUG[m   ++ jq -r .platform
+43483 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43503 [37m[1mDEBUG[m   + local src_platform=
+43503 [37m[1mDEBUG[m   ++ jq -r .rename
+43504 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+43523 [37m[1mDEBUG[m   + local src_rename=
+43523 [37m[1mDEBUG[m   + [[ -n https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz ]]
+43523 [37m[1mDEBUG[m   + [[ -n 691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4 ]]
+43524 [37m[1mDEBUG[m   + [[ -z '' ]]
+43524 [37m[1mDEBUG[m   + [[ https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz =~ ^.*\.zip$ ]]
+43524 [37m[1mDEBUG[m   + [[ https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz =~ ^.*/zipball/.*$ ]]
+43524 [37m[1mDEBUG[m   + [[ https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz =~ ^.*\.tar\.gz$ ]]
+43524 [37m[1mDEBUG[m   + src_format=tar.gz
+43524 [37m[1mDEBUG[m   + src_format=tar.gz
+43524 [37m[1mDEBUG[m   ++ echo tar.gz
+43524 [37m[1mDEBUG[m   ++ tr '[:upper:]' '[:lower:]'
+43526 [37m[1mDEBUG[m   + src_format=tar.gz
+43526 [37m[1mDEBUG[m   + src_extract=true
+43526 [37m[1mDEBUG[m   + [[ true != \t\r\u\e ]]
+43526 [37m[1mDEBUG[m   ++ dirname /var/cache/yunohost/download/librechat/main
+43527 [37m[1mDEBUG[m   + mkdir -p /var/cache/yunohost/download/librechat
+43528 [37m[1mDEBUG[m   + src_filename=/var/cache/yunohost/download/librechat/main
+43528 [37m[1mDEBUG[m   + '[' tar.gz = docker ']'
+43528 [37m[1mDEBUG[m   + '[' -n https://github.com/danny-avila/LibreChat/archive/refs/tags/v0.8.8-rc3.tar.gz ']'
+43528 [37m[1mDEBUG[m   + '[' -e /var/cache/yunohost/download/librechat/main ']'
+43529 [37m[1mDEBUG[m   + sha256sum --check --status
+43529 [37m[1mDEBUG[m   + echo '691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4 /var/cache/yunohost/download/librechat/main'
+43584 [37m[1mDEBUG[m   + '[' '!' -e /var/cache/yunohost/download/librechat/main ']'
+43585 [37m[1mDEBUG[m   + echo '691cfe63aa4301d1c28821405a84b9725679fa0f4dbde0054d24bd80591c67d4 /var/cache/yunohost/download/librechat/main'
+43585 [37m[1mDEBUG[m   + sha256sum --check --status
+43634 [37m[1mDEBUG[m   + rm -rf /var/cache/yunohost/files_to_keep_during_setup_source/
+43635 [37m[1mDEBUG[m   + '[' -n '' ']'
+43635 [37m[1mDEBUG[m   + '[' 0 -eq 1 ']'
+43635 [37m[1mDEBUG[m   + mkdir --parents /var/www/librechat
+43636 [37m[1mDEBUG[m   + [[ true == \f\a\l\s\e ]]
+43636 [37m[1mDEBUG[m   + [[ tar.gz == \d\o\c\k\e\r ]]
+43637 [37m[1mDEBUG[m   + [[ tar.gz == \z\i\p ]]
+43637 [37m[1mDEBUG[m   + [[ tar.gz == \x\z ]]
+43637 [37m[1mDEBUG[m   + [[ tar.gz == \z\s\t ]]
+43637 [37m[1mDEBUG[m   + strip=()
+43637 [37m[1mDEBUG[m   + local strip
+43637 [37m[1mDEBUG[m   + '[' true '!=' false ']'
+43637 [37m[1mDEBUG[m   + '[' true == true ']'
+43637 [37m[1mDEBUG[m   + local sub_dirs=1
+43638 [37m[1mDEBUG[m   + strip=(--strip-components "$sub_dirs")
+43638 [37m[1mDEBUG[m   + [[ tar.gz =~ ^tar.gz|tar.bz2|tar.xz|tar.zst|tar$ ]]
+43638 [37m[1mDEBUG[m   + tar --extract --file=/var/cache/yunohost/download/librechat/main --directory=/var/www/librechat --strip-components 1
+44071 [37m[1mDEBUG[m   + ynh_safe_rm /var/cache/yunohost/download/librechat/main
+44071 [37m[1mDEBUG[m   + local target=/var/cache/yunohost/download/librechat/main
+44072 [37m[1mDEBUG[m   + set +o xtrace
+44081 [37m[1mDEBUG[m   + '[' -d /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/patches/main ']'
+44081 [37m[1mDEBUG[m   + '[' -n '' ']'
+44081 [37m[1mDEBUG[m   + rm -rf /var/cache/yunohost/files_to_keep_during_setup_source/
+44082 [37m[1mDEBUG[m   + '[' -n /var/www/librechat ']'
+44082 [37m[1mDEBUG[m   + '[' /var/www/librechat == /var/www/librechat ']'
+44082 [37m[1mDEBUG[m   + _ynh_apply_default_permissions /var/www/librechat
+44082 [37m[1mDEBUG[m   + local target=/var/www/librechat
+44082 [37m[1mDEBUG[m   + ynh_system_user_exists --username=librechat
+44082 [37m[1mDEBUG[m   + args_array=(['u']='username=')
+44082 [37m[1mDEBUG[m   + local -A args_array
+44082 [37m[1mDEBUG[m   + local username
+44082 [37m[1mDEBUG[m   + ynh_handle_getopts_args --username=librechat
+44082 [37m[1mDEBUG[m   ++ grep xtrace
+44083 [37m[1mDEBUG[m   ++ set +o
+44084 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+44084 [37m[1mDEBUG[m   + set +o xtrace
+44090 [37m[1mDEBUG[m   + getent passwd librechat
+44093 [37m[1mDEBUG[m   + '[' -f /var/www/librechat ']'
+44094 [37m[1mDEBUG[m   + '[' /var/www/librechat == /var/www/librechat ']'
+44094 [37m[1mDEBUG[m   ++ ynh_read_manifest resources.install_dir.group
+44094 [37m[1mDEBUG[m   ++ sed s/null//g
+44094 [37m[1mDEBUG[m   ++ sed s/__APP__/librechat/g
+44095 [37m[1mDEBUG[m   ++ cut -f1 -d:
+44095 [37m[1mDEBUG[m   ++ toml_to_json
+44095 [37m[1mDEBUG[m   ++ python3 -c 'import toml, json, sys; print(json.dumps(toml.load(sys.stdin)))'
+44095 [37m[1mDEBUG[m   ++ cat /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/manifest.toml
+44096 [37m[1mDEBUG[m   ++ jq .resources.install_dir.group --raw-output
+44119 [37m[1mDEBUG[m   + local group=
+44119 [37m[1mDEBUG[m   + [[ -z '' ]]
+44120 [37m[1mDEBUG[m   + grep -q '^\s*alias\s\|^\s*root\s' /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/conf/nginx.conf
+44121 [37m[1mDEBUG[m   + group=librechat
+44121 [37m[1mDEBUG[m   + chmod -R u=rwX,g=rX,o=--- /var/www/librechat
+44162 [37m[1mDEBUG[m   + chown -R librechat:librechat /var/www/librechat
+44207 [37m[1mDEBUG[m   + return
+44207 [37m[1mDEBUG[m   + ynh_setup_source --dest_dir=/usr/bin --source_id=meilisearch
+44207 [37m[1mDEBUG[m   + args_array=(['d']='dest_dir=' ['s']='source_id=' ['k']='keep=' ['r']='full_replace')
+44207 [37m[1mDEBUG[m   + local -A args_array
+44207 [37m[1mDEBUG[m   + local dest_dir
+44208 [37m[1mDEBUG[m   + local source_id
+44208 [37m[1mDEBUG[m   + local keep
+44208 [37m[1mDEBUG[m   + local full_replace
+44208 [37m[1mDEBUG[m   + ynh_handle_getopts_args --dest_dir=/usr/bin --source_id=meilisearch
+44208 [37m[1mDEBUG[m   ++ set +o
+44208 [37m[1mDEBUG[m   ++ grep xtrace
+44210 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+44210 [37m[1mDEBUG[m   + set +o xtrace
+44249 [37m[1mDEBUG[m   + keep=
+44249 [37m[1mDEBUG[m   + full_replace=0
+44250 [37m[1mDEBUG[m   + source_id=meilisearch
+44250 [37m[1mDEBUG[m   + '[' -e /usr/bin/composer.phar ']'
+44250 [37m[1mDEBUG[m   ++ ynh_read_manifest 'resources.sources["meilisearch"]'
+44250 [37m[1mDEBUG[m   ++ cat /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/manifest.toml
+44250 [37m[1mDEBUG[m   ++ jq '.resources.sources["meilisearch"]' --raw-output
+44250 [37m[1mDEBUG[m   ++ toml_to_json
+44251 [37m[1mDEBUG[m   ++ python3 -c 'import toml, json, sys; print(json.dumps(toml.load(sys.stdin)))'
+44274 [37m[1mDEBUG[m   + local 'sources_json={
+44274 [37m[1mDEBUG[m     "amd64": {
+44274 [37m[1mDEBUG[m       "url": "https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-amd64",
+44274 [37m[1mDEBUG[m       "sha256": "6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd"
+44274 [37m[1mDEBUG[m     },
+44274 [37m[1mDEBUG[m     "arm64": {
+44274 [37m[1mDEBUG[m       "url": "https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-aarch64",
+44274 [37m[1mDEBUG[m       "sha256": "12a38c387953e61807a5a0deb64e4bf52def38e49872c7963949a7d4d41a2117"
+44274 [37m[1mDEBUG[m     },
+44274 [37m[1mDEBUG[m     "format": "whatever",
+44274 [37m[1mDEBUG[m     "extract": false,
+44274 [37m[1mDEBUG[m     "rename": "meilisearch",
+44275 [37m[1mDEBUG[m     "autoupdate": {
+44275 [37m[1mDEBUG[m       "strategy": "latest_github_release",
+44275 [37m[1mDEBUG[m       "asset": {
+44275 [37m[1mDEBUG[m         "amd64": "meilisearch-linux-amd64$",
+44275 [37m[1mDEBUG[m         "arm64": "meilisearch-linux-aarch64$"
+44275 [37m[1mDEBUG[m       }
+44275 [37m[1mDEBUG[m     }
+44275 [37m[1mDEBUG[m   }'
+44275 [37m[1mDEBUG[m   + jq -re .url
+44291 [37m[1mDEBUG[m   null
+44291 [37m[1mDEBUG[m   + local arch_prefix=.amd64
+44292 [37m[1mDEBUG[m   ++ jq -r .amd64.url
+44292 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44309 [37m[1mDEBUG[m   + local src_url=https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-amd64
+44310 [37m[1mDEBUG[m   ++ jq -r .amd64.sha256
+44310 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44328 [37m[1mDEBUG[m   + local src_sum=6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd
+44328 [37m[1mDEBUG[m   ++ jq -r .format
+44328 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44346 [37m[1mDEBUG[m   + local src_format=whatever
+44346 [37m[1mDEBUG[m   ++ jq -r .in_subdir
+44346 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44365 [37m[1mDEBUG[m   + local src_in_subdir=
+44366 [37m[1mDEBUG[m   + src_in_subdir=true
+44366 [37m[1mDEBUG[m   ++ jq -r .extract
+44366 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44383 [37m[1mDEBUG[m   + local src_extract=false
+44384 [37m[1mDEBUG[m   ++ jq -r .platform
+44384 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44402 [37m[1mDEBUG[m   + local src_platform=
+44403 [37m[1mDEBUG[m   ++ jq -r .rename
+44403 [37m[1mDEBUG[m   ++ sed 's/^null$//'
+44421 [37m[1mDEBUG[m   + local src_rename=meilisearch
+44421 [37m[1mDEBUG[m   + [[ -n https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-amd64 ]]
+44421 [37m[1mDEBUG[m   + [[ -n 6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd ]]
+44421 [37m[1mDEBUG[m   + [[ -z whatever ]]
+44422 [37m[1mDEBUG[m   + src_format=whatever
+44422 [37m[1mDEBUG[m   ++ tr '[:upper:]' '[:lower:]'
+44422 [37m[1mDEBUG[m   ++ echo whatever
+44423 [37m[1mDEBUG[m   + src_format=whatever
+44423 [37m[1mDEBUG[m   + src_extract=false
+44423 [37m[1mDEBUG[m   + [[ false != \t\r\u\e ]]
+44423 [37m[1mDEBUG[m   + [[ false != \f\a\l\s\e ]]
+44424 [37m[1mDEBUG[m   ++ dirname /var/cache/yunohost/download/librechat/meilisearch
+44425 [37m[1mDEBUG[m   + mkdir -p /var/cache/yunohost/download/librechat
+44426 [37m[1mDEBUG[m   + src_filename=/var/cache/yunohost/download/librechat/meilisearch
+44426 [37m[1mDEBUG[m   + '[' whatever = docker ']'
+44427 [37m[1mDEBUG[m   + '[' -n https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-amd64 ']'
+44427 [37m[1mDEBUG[m   + '[' -e /var/cache/yunohost/download/librechat/meilisearch ']'
+44427 [37m[1mDEBUG[m   + echo '6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd /var/cache/yunohost/download/librechat/meilisearch'
+44427 [37m[1mDEBUG[m   + sha256sum --check --status
+45566 [37m[1mDEBUG[m   + '[' '!' -e /var/cache/yunohost/download/librechat/meilisearch ']'
+45566 [37m[1mDEBUG[m   + echo '6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd /var/cache/yunohost/download/librechat/meilisearch'
+45566 [37m[1mDEBUG[m   + sha256sum --check --status
+46738 [37m[1mDEBUG[m   + rm -rf /var/cache/yunohost/files_to_keep_during_setup_source/
+46739 [37m[1mDEBUG[m   + '[' -n '' ']'
+46739 [37m[1mDEBUG[m   + '[' 0 -eq 1 ']'
+46739 [37m[1mDEBUG[m   + mkdir --parents /usr/bin
+46740 [37m[1mDEBUG[m   + [[ false == \f\a\l\s\e ]]
+46740 [37m[1mDEBUG[m   + [[ -z meilisearch ]]
+46740 [37m[1mDEBUG[m   + mv /var/cache/yunohost/download/librechat/meilisearch /usr/bin/meilisearch
+46741 [37m[1mDEBUG[m   + '[' -d /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/patches/meilisearch ']'
+46742 [37m[1mDEBUG[m   + '[' -n '' ']'
+46742 [37m[1mDEBUG[m   + rm -rf /var/cache/yunohost/files_to_keep_during_setup_source/
+46743 [37m[1mDEBUG[m   + '[' -n /var/www/librechat ']'
+46743 [37m[1mDEBUG[m   + '[' /usr/bin == /var/www/librechat ']'
+46743 [37m[1mDEBUG[m   + chmod +x /usr/bin/meilisearch
+46744 [37m[1mDEBUG[m   + ynh_script_progression 'Creating MongoDB database...'
+46744 [37m[1mDEBUG[m   + set +o xtrace
+46745 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+46746 [37m[1mDEBUG[m   ++ ynh_sanitize_dbid --db_name=librechat
+46746 [37m[1mDEBUG[m   ++ args_array=(['n']='db_name=')
+46746 [37m[1mDEBUG[m   ++ local -A args_array
+46746 [37m[1mDEBUG[m   ++ local db_name
+46746 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --db_name=librechat
+46746 [37m[1mDEBUG[m   +++ set +o
+46747 [37m[1mDEBUG[m   +++ grep xtrace
+46748 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+46748 [37m[1mDEBUG[m   ++ set +o xtrace
+46755 [37m[1mDEBUG[m   ++ echo librechat
+46755 [37m[1mDEBUG[m   + db_name=librechat
+46755 [37m[1mDEBUG[m   + db_user=librechat
+46755 [37m[1mDEBUG[m   + ynh_app_setting_set --key=db_name --value=librechat
+46755 [37m[1mDEBUG[m   + local _globalapp=librechat
+46755 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+46755 [37m[1mDEBUG[m   + local -A args_array
+46756 [37m[1mDEBUG[m   + local app
+46756 [37m[1mDEBUG[m   + local key
+46756 [37m[1mDEBUG[m   + local value
+46756 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_name --value=librechat
+46756 [37m[1mDEBUG[m   ++ set +o
+46756 [37m[1mDEBUG[m   ++ grep xtrace
+46757 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+46757 [37m[1mDEBUG[m   + set +o xtrace
+46788 [37m[1mDEBUG[m   + app=librechat
+46788 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_name librechat
+46788 [37m[1mDEBUG[m   ++ set +o
+46789 [37m[1mDEBUG[m   ++ grep xtrace
+46790 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+46790 [37m[1mDEBUG[m   + set +o xtrace
+46815 [37m[1mDEBUG[m   + ynh_mongo_setup_db --db_user=librechat --db_name=librechat
+46815 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
+46816 [37m[1mDEBUG[m   + local -A args_array
+46816 [37m[1mDEBUG[m   + local db_user
+46816 [37m[1mDEBUG[m   + local db_name
+46816 [37m[1mDEBUG[m   + db_pwd=
+46816 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_name=librechat
+46816 [37m[1mDEBUG[m   ++ grep xtrace
+46816 [37m[1mDEBUG[m   ++ set +o
+46817 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+46817 [37m[1mDEBUG[m   + set +o xtrace
+46848 [37m[1mDEBUG[m   ++ ynh_string_random
+46848 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+46848 [37m[1mDEBUG[m   ++ local -A args_array
+46848 [37m[1mDEBUG[m   ++ local length
+46848 [37m[1mDEBUG[m   ++ local filter
+46848 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args
+46849 [37m[1mDEBUG[m   +++ set +o
+46849 [37m[1mDEBUG[m   +++ grep xtrace
+46850 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+46850 [37m[1mDEBUG[m   ++ set +o xtrace
+46850 [37m[1mDEBUG[m   ++ return
+46851 [37m[1mDEBUG[m   ++ length=24
+46851 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+46851 [37m[1mDEBUG[m   ++ head -c 24
+46851 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+46852 [37m[1mDEBUG[m   + local new_db_pwd=Pv4LSnjt7CYRL1X1Kp5XJcTB
+46852 [37m[1mDEBUG[m   + db_pwd=Pv4LSnjt7CYRL1X1Kp5XJcTB
+46852 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=Pv4LSnjt7CYRL1X1Kp5XJcTB --db_name=librechat
+46852 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
+46853 [37m[1mDEBUG[m   + local -A args_array
+46853 [37m[1mDEBUG[m   + local db_user
+46853 [37m[1mDEBUG[m   + local db_name
+46853 [37m[1mDEBUG[m   + local db_pwd
+46853 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=Pv4LSnjt7CYRL1X1Kp5XJcTB --db_name=librechat
+46853 [37m[1mDEBUG[m   ++ set +o
+46853 [37m[1mDEBUG[m   ++ grep xtrace
+46854 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+46855 [37m[1mDEBUG[m   + set +o xtrace
+46899 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "Pv4LSnjt7CYRL1X1Kp5XJcTB", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+46899 [37m[1mDEBUG[m   + args_array=(['d']='database=' ['c']='command=')
+46899 [37m[1mDEBUG[m   + local -A args_array
+46899 [37m[1mDEBUG[m   + local database
+46899 [37m[1mDEBUG[m   + local command
+46899 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "Pv4LSnjt7CYRL1X1Kp5XJcTB", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+46899 [37m[1mDEBUG[m   ++ grep xtrace
+46900 [37m[1mDEBUG[m   ++ set +o
+46901 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+46901 [37m[1mDEBUG[m   + set +o xtrace
+46922 [37m[1mDEBUG[m   + database=librechat
+46922 [37m[1mDEBUG[m   + '[' -n librechat ']'
+46923 [37m[1mDEBUG[m   + mongosh --quiet
+47240 [37m[1mDEBUG[m   test> switched to db librechat
+47321 [37m[1mDEBUG[m   librechat> { ok: 1 }
+47759 [37m[1mDEBUG[m   librechat> + ynh_mongo_exec --database=librechat '--command=db.grantRolesToUser("librechat",[{ role: "clusterMonitor", db: "admin" }]);'
+47760 [37m[1mDEBUG[m   + args_array=(['d']='database=' ['c']='command=')
+47760 [37m[1mDEBUG[m   + local -A args_array
+47760 [37m[1mDEBUG[m   + local database
+47760 [37m[1mDEBUG[m   + local command
+47760 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.grantRolesToUser("librechat",[{ role: "clusterMonitor", db: "admin" }]);'
+47760 [37m[1mDEBUG[m   ++ set +o
+47760 [37m[1mDEBUG[m   ++ grep xtrace
+47761 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+47762 [37m[1mDEBUG[m   + set +o xtrace
+47784 [37m[1mDEBUG[m   + database=librechat
+47784 [37m[1mDEBUG[m   + '[' -n librechat ']'
+47784 [37m[1mDEBUG[m   + mongosh --quiet
+48109 [37m[1mDEBUG[m   test> switched to db librechat
+48191 [37m[1mDEBUG[m   librechat> { ok: 1 }
+48259 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=Pv4LSnjt7CYRL1X1Kp5XJcTB
+48260 [37m[1mDEBUG[m   + local _globalapp=librechat
+48260 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48260 [37m[1mDEBUG[m   + local -A args_array
+48260 [37m[1mDEBUG[m   + local app
+48260 [37m[1mDEBUG[m   + local key
+48260 [37m[1mDEBUG[m   + local value
+48261 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=Pv4LSnjt7CYRL1X1Kp5XJcTB
+48261 [37m[1mDEBUG[m   ++ set +o
+48261 [37m[1mDEBUG[m   ++ grep xtrace
+48262 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48262 [37m[1mDEBUG[m   + set +o xtrace
+48294 [37m[1mDEBUG[m   + app=librechat
+48294 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd Pv4LSnjt7CYRL1X1Kp5XJcTB
+48294 [37m[1mDEBUG[m   ++ set +o
+48294 [37m[1mDEBUG[m   ++ grep xtrace
+48296 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48296 [37m[1mDEBUG[m   + set +o xtrace
+48324 [37m[1mDEBUG[m   ++ ynh_app_setting_get --key=mongopwd
+48324 [37m[1mDEBUG[m   ++ local _globalapp=librechat
+48325 [37m[1mDEBUG[m   ++ args_array=(['a']='app=' ['k']='key=')
+48325 [37m[1mDEBUG[m   ++ local -A args_array
+48325 [37m[1mDEBUG[m   ++ local app
+48325 [37m[1mDEBUG[m   ++ local key
+48325 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --key=mongopwd
+48325 [37m[1mDEBUG[m   +++ set +o
+48325 [37m[1mDEBUG[m   +++ grep xtrace
+48327 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48327 [37m[1mDEBUG[m   ++ set +o xtrace
+48339 [37m[1mDEBUG[m   ++ app=librechat
+48339 [37m[1mDEBUG[m   ++ ynh_app_setting get librechat mongopwd
+48339 [37m[1mDEBUG[m   +++ set +o
+48340 [37m[1mDEBUG[m   +++ grep xtrace
+48341 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48341 [37m[1mDEBUG[m   ++ set +o xtrace
+48366 [37m[1mDEBUG[m   + db_pwd=
+48366 [37m[1mDEBUG[m   + ynh_script_progression 'Generating secrets...'
+48366 [37m[1mDEBUG[m   + set +o xtrace
+48367 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+48367 [37m[1mDEBUG[m   + librechat_generate_secrets
+48368 [37m[1mDEBUG[m   ++ ynh_string_random --length=64
+48368 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+48368 [37m[1mDEBUG[m   ++ local -A args_array
+48368 [37m[1mDEBUG[m   ++ local length
+48368 [37m[1mDEBUG[m   ++ local filter
+48368 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --length=64
+48368 [37m[1mDEBUG[m   +++ grep xtrace
+48369 [37m[1mDEBUG[m   +++ set +o
+48370 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48370 [37m[1mDEBUG[m   ++ set +o xtrace
+48382 [37m[1mDEBUG[m   ++ length=64
+48382 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+48382 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+48382 [37m[1mDEBUG[m   ++ head -c 64
+48383 [37m[1mDEBUG[m   + jwt_secret=zNpnGDTiXWLHeQw8ubfSIFUXlrOhWyIXe2thVCRduOCcdNZNwOJ8JY8QDukyw0sT
+48383 [37m[1mDEBUG[m   + ynh_app_setting_set --key=jwt_secret --value=zNpnGDTiXWLHeQw8ubfSIFUXlrOhWyIXe2thVCRduOCcdNZNwOJ8JY8QDukyw0sT
+48384 [37m[1mDEBUG[m   + local _globalapp=librechat
+48384 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48384 [37m[1mDEBUG[m   + local -A args_array
+48384 [37m[1mDEBUG[m   + local app
+48384 [37m[1mDEBUG[m   + local key
+48384 [37m[1mDEBUG[m   + local value
+48384 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=jwt_secret --value=zNpnGDTiXWLHeQw8ubfSIFUXlrOhWyIXe2thVCRduOCcdNZNwOJ8JY8QDukyw0sT
+48384 [37m[1mDEBUG[m   ++ grep xtrace
+48384 [37m[1mDEBUG[m   ++ set +o
+48386 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48386 [37m[1mDEBUG[m   + set +o xtrace
+48417 [37m[1mDEBUG[m   + app=librechat
+48417 [37m[1mDEBUG[m   + ynh_app_setting set librechat jwt_secret zNpnGDTiXWLHeQw8ubfSIFUXlrOhWyIXe2thVCRduOCcdNZNwOJ8JY8QDukyw0sT
+48417 [37m[1mDEBUG[m   ++ set +o
+48418 [37m[1mDEBUG[m   ++ grep xtrace
+48419 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48419 [37m[1mDEBUG[m   + set +o xtrace
+48446 [37m[1mDEBUG[m   ++ ynh_string_random --length=64
+48446 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+48446 [37m[1mDEBUG[m   ++ local -A args_array
+48446 [37m[1mDEBUG[m   ++ local length
+48446 [37m[1mDEBUG[m   ++ local filter
+48446 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --length=64
+48446 [37m[1mDEBUG[m   +++ set +o
+48447 [37m[1mDEBUG[m   +++ grep xtrace
+48448 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48448 [37m[1mDEBUG[m   ++ set +o xtrace
+48462 [37m[1mDEBUG[m   ++ length=64
+48463 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+48463 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+48463 [37m[1mDEBUG[m   ++ head -c 64
+48464 [37m[1mDEBUG[m   + jwt_refresh_secret=PHVjahjIt320RhXKNtCY7MM8ok2PAw3loduNOdhdzB22WHjMbvhJT9APYqYHe3i2
+48464 [37m[1mDEBUG[m   + ynh_app_setting_set --key=jwt_refresh_secret --value=PHVjahjIt320RhXKNtCY7MM8ok2PAw3loduNOdhdzB22WHjMbvhJT9APYqYHe3i2
+48465 [37m[1mDEBUG[m   + local _globalapp=librechat
+48465 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48465 [37m[1mDEBUG[m   + local -A args_array
+48465 [37m[1mDEBUG[m   + local app
+48465 [37m[1mDEBUG[m   + local key
+48465 [37m[1mDEBUG[m   + local value
+48466 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=jwt_refresh_secret --value=PHVjahjIt320RhXKNtCY7MM8ok2PAw3loduNOdhdzB22WHjMbvhJT9APYqYHe3i2
+48466 [37m[1mDEBUG[m   ++ set +o
+48466 [37m[1mDEBUG[m   ++ grep xtrace
+48467 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48467 [37m[1mDEBUG[m   + set +o xtrace
+48503 [37m[1mDEBUG[m   + app=librechat
+48504 [37m[1mDEBUG[m   + ynh_app_setting set librechat jwt_refresh_secret PHVjahjIt320RhXKNtCY7MM8ok2PAw3loduNOdhdzB22WHjMbvhJT9APYqYHe3i2
+48504 [37m[1mDEBUG[m   ++ set +o
+48504 [37m[1mDEBUG[m   ++ grep xtrace
+48506 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48506 [37m[1mDEBUG[m   + set +o xtrace
+48535 [37m[1mDEBUG[m   ++ ynh_string_random --length=64
+48535 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+48535 [37m[1mDEBUG[m   ++ local -A args_array
+48535 [37m[1mDEBUG[m   ++ local length
+48535 [37m[1mDEBUG[m   ++ local filter
+48535 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --length=64
+48536 [37m[1mDEBUG[m   +++ set +o
+48536 [37m[1mDEBUG[m   +++ grep xtrace
+48538 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48538 [37m[1mDEBUG[m   ++ set +o xtrace
+48551 [37m[1mDEBUG[m   ++ length=64
+48551 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+48551 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+48551 [37m[1mDEBUG[m   ++ head -c 64
+48553 [37m[1mDEBUG[m   + admin_panel_secret=u4xWpk8v5IYOnUkjHCkc51F7SoRABrAwQSCnUvGnOuUtyLPz0m8lgWQkwXVtXZIa
+48553 [37m[1mDEBUG[m   + ynh_app_setting_set --key=admin_panel_secret --value=u4xWpk8v5IYOnUkjHCkc51F7SoRABrAwQSCnUvGnOuUtyLPz0m8lgWQkwXVtXZIa
+48553 [37m[1mDEBUG[m   + local _globalapp=librechat
+48553 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48553 [37m[1mDEBUG[m   + local -A args_array
+48553 [37m[1mDEBUG[m   + local app
+48553 [37m[1mDEBUG[m   + local key
+48554 [37m[1mDEBUG[m   + local value
+48554 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=admin_panel_secret --value=u4xWpk8v5IYOnUkjHCkc51F7SoRABrAwQSCnUvGnOuUtyLPz0m8lgWQkwXVtXZIa
+48554 [37m[1mDEBUG[m   ++ grep xtrace
+48554 [37m[1mDEBUG[m   ++ set +o
+48555 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48555 [37m[1mDEBUG[m   + set +o xtrace
+48589 [37m[1mDEBUG[m   + app=librechat
+48589 [37m[1mDEBUG[m   + ynh_app_setting set librechat admin_panel_secret u4xWpk8v5IYOnUkjHCkc51F7SoRABrAwQSCnUvGnOuUtyLPz0m8lgWQkwXVtXZIa
+48589 [37m[1mDEBUG[m   ++ set +o
+48589 [37m[1mDEBUG[m   ++ grep xtrace
+48591 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48591 [37m[1mDEBUG[m   + set +o xtrace
+48626 [37m[1mDEBUG[m   ++ ynh_string_random --length=32
+48627 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+48627 [37m[1mDEBUG[m   ++ local -A args_array
+48627 [37m[1mDEBUG[m   ++ local length
+48627 [37m[1mDEBUG[m   ++ local filter
+48627 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --length=32
+48627 [37m[1mDEBUG[m   +++ set +o
+48628 [37m[1mDEBUG[m   +++ grep xtrace
+48629 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48629 [37m[1mDEBUG[m   ++ set +o xtrace
+48643 [37m[1mDEBUG[m   ++ length=32
+48643 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+48644 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+48644 [37m[1mDEBUG[m   ++ head -c 32
+48645 [37m[1mDEBUG[m   + meili_master_key=ulftDzb5TjCs1VmGoFGkajqfGkodfPZ4
+48645 [37m[1mDEBUG[m   + ynh_app_setting_set --key=meili_master_key --value=ulftDzb5TjCs1VmGoFGkajqfGkodfPZ4
+48645 [37m[1mDEBUG[m   + local _globalapp=librechat
+48646 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48646 [37m[1mDEBUG[m   + local -A args_array
+48646 [37m[1mDEBUG[m   + local app
+48646 [37m[1mDEBUG[m   + local key
+48646 [37m[1mDEBUG[m   + local value
+48646 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=meili_master_key --value=ulftDzb5TjCs1VmGoFGkajqfGkodfPZ4
+48646 [37m[1mDEBUG[m   ++ set +o
+48646 [37m[1mDEBUG[m   ++ grep xtrace
+48648 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48648 [37m[1mDEBUG[m   + set +o xtrace
+48680 [37m[1mDEBUG[m   + app=librechat
+48680 [37m[1mDEBUG[m   + ynh_app_setting set librechat meili_master_key ulftDzb5TjCs1VmGoFGkajqfGkodfPZ4
+48681 [37m[1mDEBUG[m   ++ grep xtrace
+48681 [37m[1mDEBUG[m   ++ set +o
+48682 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48682 [37m[1mDEBUG[m   + set +o xtrace
+48712 [37m[1mDEBUG[m   ++ ynh_string_random --length=24
+48712 [37m[1mDEBUG[m   ++ args_array=(['l']='length=' ['f']='filter=')
+48712 [37m[1mDEBUG[m   ++ local -A args_array
+48712 [37m[1mDEBUG[m   ++ local length
+48713 [37m[1mDEBUG[m   ++ local filter
+48713 [37m[1mDEBUG[m   ++ ynh_handle_getopts_args --length=24
+48713 [37m[1mDEBUG[m   +++ set +o
+48713 [37m[1mDEBUG[m   +++ grep xtrace
+48714 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
+48714 [37m[1mDEBUG[m   ++ set +o xtrace
+48727 [37m[1mDEBUG[m   ++ length=24
+48727 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
+48728 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
+48728 [37m[1mDEBUG[m   ++ head -c 24
+48730 [37m[1mDEBUG[m   + admin_password=X49NEmIWRMaCjAPzwpy8VTNd
+48730 [37m[1mDEBUG[m   + ynh_app_setting_set --key=admin_password --value=X49NEmIWRMaCjAPzwpy8VTNd
+48730 [37m[1mDEBUG[m   + local _globalapp=librechat
+48730 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
+48730 [37m[1mDEBUG[m   + local -A args_array
+48730 [37m[1mDEBUG[m   + local app
+48731 [37m[1mDEBUG[m   + local key
+48731 [37m[1mDEBUG[m   + local value
+48731 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=admin_password --value=X49NEmIWRMaCjAPzwpy8VTNd
+48731 [37m[1mDEBUG[m   ++ grep xtrace
+48731 [37m[1mDEBUG[m   ++ set +o
+48732 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48732 [37m[1mDEBUG[m   + set +o xtrace
+48763 [37m[1mDEBUG[m   + app=librechat
+48763 [37m[1mDEBUG[m   + ynh_app_setting set librechat admin_password X49NEmIWRMaCjAPzwpy8VTNd
+48763 [37m[1mDEBUG[m   ++ set +o
+48763 [37m[1mDEBUG[m   ++ grep xtrace
+48765 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+48765 [37m[1mDEBUG[m   + set +o xtrace
+48794 [37m[1mDEBUG[m   + ynh_script_progression 'Building LibreChat (this can take several minutes)...'
+48794 [37m[1mDEBUG[m   + set +o xtrace
+48796 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+48796 [37m[1mDEBUG[m   + librechat_build
+48796 [37m[1mDEBUG[m   + pushd /var/www/librechat
+48796 [37m[1mDEBUG[m   /var/www/librechat /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/scripts
+48796 [37m[1mDEBUG[m   + npm config set allow-remote true
+48890 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+48890 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+48891 [33m[1mWARNING[m npm warn config omitting invalid config values
+48901 [37m[1mDEBUG[m   + ynh_exec_as_app npm ci
+48901 [37m[1mDEBUG[m   + sudo -u librechat env PATH=/opt/node_n/n/versions/node/24.21.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COREPACK_ENABLE_DOWNLOAD_PROMPT=0 NPM_CONFIG_UPDATE_NOTIFIER=false npm ci
+56040 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+59578 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+70897 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+71423 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+77040 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+114410 [37m[1mDEBUG[m   
+114410 [37m[1mDEBUG[m   > LibreChat@v0.8.8-rc3 prepare
+114410 [37m[1mDEBUG[m   > node -e "import('husky').then((h) => h.default()).catch(() => {})"
+114410 [37m[1mDEBUG[m   
+114742 [37m[1mDEBUG[m   
+114742 [37m[1mDEBUG[m   added 2992 packages, and audited 2999 packages in 1m
+114742 [37m[1mDEBUG[m   
+114743 [37m[1mDEBUG[m   598 packages are looking for funding
+114743 [37m[1mDEBUG[m     run `npm fund` for details
+114745 [37m[1mDEBUG[m   
+114746 [37m[1mDEBUG[m   6 low severity vulnerabilities
+114746 [37m[1mDEBUG[m   
+114746 [37m[1mDEBUG[m   To address all issues (including breaking changes), run:
+114746 [37m[1mDEBUG[m     npm audit fix --force
+114746 [37m[1mDEBUG[m   
+114746 [37m[1mDEBUG[m   Run `npm audit` for details.
+114747 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+114747 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+114747 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+114747 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+114747 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+114747 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+114748 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+114748 [33m[1mWARNING[m npm warn install-scripts
+114748 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+114819 [37m[1mDEBUG[m   + ynh_exec_as_app npm install --no-save unrun
+114819 [37m[1mDEBUG[m   + sudo -u librechat env PATH=/opt/node_n/n/versions/node/24.21.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COREPACK_ENABLE_DOWNLOAD_PROMPT=0 NPM_CONFIG_UPDATE_NOTIFIER=false npm install --no-save unrun
+118426 [37m[1mDEBUG[m   
+118426 [37m[1mDEBUG[m   added 3 packages, removed 2 packages, changed 2 packages, and audited 3000 packages in 4s
+118426 [37m[1mDEBUG[m   
+118426 [37m[1mDEBUG[m   599 packages are looking for funding
+118426 [37m[1mDEBUG[m     run `npm fund` for details
+118429 [37m[1mDEBUG[m   
+118429 [37m[1mDEBUG[m   6 low severity vulnerabilities
+118429 [37m[1mDEBUG[m   
+118429 [37m[1mDEBUG[m   To address all issues (including breaking changes), run:
+118429 [37m[1mDEBUG[m     npm audit fix --force
+118429 [37m[1mDEBUG[m   
+118429 [37m[1mDEBUG[m   Run `npm audit` for details.
+118430 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+118430 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+118430 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+118431 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+118431 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+118431 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+118431 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+118431 [33m[1mWARNING[m npm warn install-scripts
+118431 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+118452 [37m[1mDEBUG[m   + ynh_exec_as_app npx turbo run build --no-daemon
+118452 [37m[1mDEBUG[m   + sudo -u librechat env PATH=/opt/node_n/n/versions/node/24.21.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin COREPACK_ENABLE_DOWNLOAD_PROMPT=0 NPM_CONFIG_UPDATE_NOTIFIER=false npx turbo run build --no-daemon
+118742 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+118742 [37m[1mDEBUG[m   
+118742 [33m[1mWARNING[m Attention:
+118743 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+118743 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+118743 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+118743 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+118744 [37m[1mDEBUG[m   
+118744 [33m[1mWARNING[m • turbo 2.10.5
+118745 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+118758 [37m[1mDEBUG[m   
+118758 [37m[1mDEBUG[m      • Packages in scope: @librechat/api, @librechat/backend, @librechat/client, @librechat/data-schemas, @librechat/frontend, librechat-data-provider
+118759 [37m[1mDEBUG[m      • Running build in 6 packages
+118759 [37m[1mDEBUG[m      • Remote caching disabled
+118759 [37m[1mDEBUG[m   
+118829 [37m[1mDEBUG[m   librechat-data-provider:build: cache miss, executing 121f48fdc468bb28
+119056 [37m[1mDEBUG[m   librechat-data-provider:build:
+119056 [37m[1mDEBUG[m   librechat-data-provider:build: > librechat-data-provider@0.8.523 build
+119056 [37m[1mDEBUG[m   librechat-data-provider:build: > npm run clean && tsdown && tsc -p tsconfig.build.json
+119056 [37m[1mDEBUG[m   librechat-data-provider:build:
+119172 [37m[1mDEBUG[m   librechat-data-provider:build:
+119172 [37m[1mDEBUG[m   librechat-data-provider:build: > librechat-data-provider@0.8.523 clean
+119173 [37m[1mDEBUG[m   librechat-data-provider:build: > rimraf dist
+119173 [37m[1mDEBUG[m   librechat-data-provider:build:
+119290 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+119332 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ config file: /var/www/librechat/packages/data-provider/tsdown.config.mjs
+119334 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ entry: src/index.ts, src/react-query/index.ts
+119334 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ tsconfig: tsconfig.json
+119335 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ Build start
+119525 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/index.mjs                      311.75 kB │ gzip:  74.07 kB
+119525 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/react-query/index.mjs           12.74 kB │ gzip:   2.19 kB
+119525 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/data-service-BFgkfRUQ.mjs.map  711.87 kB │ gzip: 167.56 kB
+119525 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/index.mjs.map                  518.31 kB │ gzip: 117.01 kB
+119525 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/data-service-BFgkfRUQ.mjs      380.26 kB │ gzip:  98.20 kB
+119526 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] dist/react-query/index.mjs.map       26.50 kB │ gzip:   4.60 kB
+119526 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [ESM] 6 files, total: 1.96 MB
+119526 [37m[1mDEBUG[m   librechat-data-provider:build: ✔ Build complete in 189ms
+119526 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/index.js                      333.66 kB │ gzip:  72.47 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/react-query/index.js           15.48 kB │ gzip:   2.18 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/data-service-C9uSyfOj.js.map  719.87 kB │ gzip: 168.12 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/index.js.map                  521.61 kB │ gzip: 117.60 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/data-service-C9uSyfOj.js      437.31 kB │ gzip: 100.02 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] dist/react-query/index.js.map       26.50 kB │ gzip:   4.46 kB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ℹ [CJS] 6 files, total: 2.05 MB
+119527 [37m[1mDEBUG[m   librechat-data-provider:build: ✔ Build complete in 191ms
+123923 [37m[1mDEBUG[m   librechat-data-provider:build: npm notice
+123923 [37m[1mDEBUG[m   librechat-data-provider:build: npm notice New major version of npm available! 11.19.0 -> 12.0.2
+123923 [37m[1mDEBUG[m   librechat-data-provider:build: npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.0.2
+123923 [37m[1mDEBUG[m   librechat-data-provider:build: npm notice To update run: npm install -g npm@12.0.2
+123923 [37m[1mDEBUG[m   librechat-data-provider:build: npm notice
+123931 [37m[1mDEBUG[m   @librechat/client:build: cache miss, executing 4ef322feb9f24540
+123931 [37m[1mDEBUG[m   @librechat/data-schemas:build: cache miss, executing 5bfcc756e3a62395
+124041 [37m[1mDEBUG[m   @librechat/client:build:
+124041 [37m[1mDEBUG[m   @librechat/client:build: > @librechat/client@0.4.78 build
+124042 [37m[1mDEBUG[m   @librechat/client:build: > npm run clean && tsdown
+124042 [37m[1mDEBUG[m   @librechat/client:build:
+124044 [37m[1mDEBUG[m   @librechat/data-schemas:build:
+124044 [37m[1mDEBUG[m   @librechat/data-schemas:build: > @librechat/data-schemas@0.0.70 build
+124044 [37m[1mDEBUG[m   @librechat/data-schemas:build: > npm run clean && tsdown
+124044 [37m[1mDEBUG[m   @librechat/data-schemas:build:
+124154 [37m[1mDEBUG[m   @librechat/client:build:
+124155 [37m[1mDEBUG[m   @librechat/client:build: > @librechat/client@0.4.78 clean
+124155 [37m[1mDEBUG[m   @librechat/client:build: > rimraf dist
+124155 [37m[1mDEBUG[m   @librechat/client:build:
+124163 [37m[1mDEBUG[m   @librechat/data-schemas:build:
+124163 [37m[1mDEBUG[m   @librechat/data-schemas:build: > @librechat/data-schemas@0.0.70 clean
+124163 [37m[1mDEBUG[m   @librechat/data-schemas:build: > rimraf dist
+124163 [37m[1mDEBUG[m   @librechat/data-schemas:build:
+124279 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+124286 [37m[1mDEBUG[m   @librechat/client:build: ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+124319 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ config file: /var/www/librechat/packages/data-schemas/tsdown.config.mjs
+124323 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ entry: src/index.ts, src/admin/capabilities.ts
+124323 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ tsconfig: tsconfig.json
+124324 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ Build start
+124325 [37m[1mDEBUG[m   @librechat/client:build: ℹ config file: /var/www/librechat/packages/client/tsdown.config.mjs
+124330 [37m[1mDEBUG[m   @librechat/client:build: ℹ entry: src/index.ts
+124330 [37m[1mDEBUG[m   @librechat/client:build: ℹ tsconfig: tsconfig.json
+124330 [37m[1mDEBUG[m   @librechat/client:build: ℹ Build start
+124628 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] dist/index.cjs      445.94 kB │ gzip: 111.51 kB
+124629 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] dist/index.cjs.map  755.22 kB │ gzip: 182.57 kB
+124629 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] dist/style.css        5.88 kB │ gzip:   1.53 kB
+124629 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] 3 files, total: 1.21 MB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] dist/index.mjs        410.10 kB │ gzip: 108.74 kB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] dist/index.mjs.map    730.32 kB │ gzip: 180.20 kB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] dist/index.d.mts.map   48.65 kB │ gzip:   9.24 kB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] dist/style.css          5.88 kB │ gzip:   1.53 kB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] dist/index.d.mts      113.48 kB │ gzip:  25.96 kB
+125216 [37m[1mDEBUG[m   @librechat/client:build: ℹ [ESM] 5 files, total: 1.31 MB
+125282 [37m[1mDEBUG[m   @librechat/client:build: ✔ Build complete in 951ms
+125341 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/index.cjs                    1.69 MB
+125341 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/admin/capabilities.cjs       7.96 kB │ gzip: 2.49 kB
+125341 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/index.cjs.map                3.32 MB
+125341 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/admin/capabilities.cjs.map  13.01 kB │ gzip: 3.64 kB
+125341 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] 4 files, total: 5.04 MB
+125398 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] dist/index.d.cts.map   48.65 kB │ gzip:  9.24 kB
+125399 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] dist/index.d.cts      113.48 kB │ gzip: 25.96 kB
+125399 [37m[1mDEBUG[m   @librechat/client:build: ℹ [CJS] 2 files, total: 162.13 kB
+125399 [37m[1mDEBUG[m   @librechat/client:build: ✔ Build complete in 1068ms
+125429 [37m[1mDEBUG[m   @librechat/frontend:build: cache miss, executing 5cb6cab897075432
+125583 [37m[1mDEBUG[m   @librechat/frontend:build:
+125584 [37m[1mDEBUG[m   @librechat/frontend:build: > @librechat/frontend@v0.8.8-rc3 build
+125584 [37m[1mDEBUG[m   @librechat/frontend:build: > cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 vite build
+125584 [37m[1mDEBUG[m   @librechat/frontend:build:
+125832 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/index.d.cts                  293.27 kB │ gzip: 69.93 kB
+125833 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/capabilities.d.cts             0.76 kB │ gzip:  0.30 kB
+125833 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] dist/capabilities-C1q-Ep3g.d.cts    5.86 kB │ gzip:  2.10 kB
+125833 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [CJS] 3 files, total: 299.88 kB
+125833 [37m[1mDEBUG[m   @librechat/data-schemas:build: ✔ Build complete in 1509ms
+125871 [37m[1mDEBUG[m   @librechat/frontend:build: vite v8.2.2 building client environment for production...
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/index.mjs                      1.67 MB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/admin/capabilities.mjs         7.41 kB │ gzip:  2.39 kB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/index.mjs.map                  3.32 MB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/admin/capabilities.mjs.map    12.94 kB │ gzip:  3.63 kB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/index.d.mts                  293.27 kB │ gzip: 69.93 kB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/capabilities.d.mts             0.76 kB │ gzip:  0.30 kB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] dist/capabilities-C1q-Ep3g.d.mts    5.86 kB │ gzip:  2.10 kB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ℹ [ESM] 7 files, total: 5.31 MB
+125875 [37m[1mDEBUG[m   @librechat/data-schemas:build: ✔ Build complete in 1551ms
+125880 [37m[1mDEBUG[m   @librechat/frontend:build: transforming...
+125933 [37m[1mDEBUG[m   @librechat/api:build: cache miss, executing b3b8e03a9fcc01d5
+126210 [37m[1mDEBUG[m   @librechat/api:build:
+126211 [37m[1mDEBUG[m   @librechat/api:build: > @librechat/api@1.7.48 build
+126211 [37m[1mDEBUG[m   @librechat/api:build: > npm run clean && tsdown
+126211 [37m[1mDEBUG[m   @librechat/api:build:
+126471 [37m[1mDEBUG[m   @librechat/api:build:
+126472 [37m[1mDEBUG[m   @librechat/api:build: > @librechat/api@1.7.48 clean
+126472 [37m[1mDEBUG[m   @librechat/api:build: > rimraf dist
+126472 [37m[1mDEBUG[m   @librechat/api:build:
+126664 [37m[1mDEBUG[m   @librechat/api:build: ℹ tsdown v0.22.2 powered by rolldown v1.1.0
+126713 [37m[1mDEBUG[m   @librechat/api:build: ℹ config file: /var/www/librechat/packages/api/tsdown.config.mjs
+126715 [37m[1mDEBUG[m   @librechat/api:build: ℹ entry: src/index.ts, src/telemetry.ts, src/credentials.ts
+126715 [37m[1mDEBUG[m   @librechat/api:build: ℹ tsconfig: tsconfig.json
+126715 [37m[1mDEBUG[m   @librechat/api:build: ℹ Build start
+128294 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/index.cjs                        5.84 MB
+128294 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/telemetry.cjs                   21.66 kB │ gzip:  6.01 kB
+128294 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/credentials.cjs                  9.83 kB │ gzip:  2.97 kB
+128294 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/index.cjs.map                   11.04 MB
+128295 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/safeException-C0YBKYCP.cjs.map  79.75 kB │ gzip: 19.34 kB
+128295 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/safeException-C0YBKYCP.cjs      48.81 kB │ gzip: 11.31 kB
+128295 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/telemetry.cjs.map               41.16 kB │ gzip: 10.99 kB
+128295 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/credentials.cjs.map             18.05 kB │ gzip:  5.26 kB
+128296 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/chunk-D6vf50IK.cjs               1.09 kB │ gzip:  0.53 kB
+128296 [37m[1mDEBUG[m   @librechat/api:build: ℹ 9 files, total: 17.10 MB
+129713 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/index.d.cts             1.58 MB
+129714 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/telemetry.d.cts         2.13 kB │ gzip:  0.76 kB
+129714 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/credentials.d.cts       1.52 kB │ gzip:  0.54 kB
+129714 [37m[1mDEBUG[m   @librechat/api:build: ℹ dist/index-DX-5srez.d.cts  115.79 kB │ gzip: 34.33 kB
+129714 [37m[1mDEBUG[m   @librechat/api:build: ℹ 4 files, total: 1.70 MB
+129714 [37m[1mDEBUG[m   @librechat/api:build: ✔ Build complete in 2998ms
+129871 [37m[1mDEBUG[m   @librechat/frontend:build:
+129872 [37m[1mDEBUG[m   @librechat/frontend:build: warn - The class `ease-[…]` is ambiguous and matches multiple utilities.
+129872 [37m[1mDEBUG[m   @librechat/frontend:build: warn - If this is content and not a class, replace it with `ease-&lsqb;…&rsqb;` to silence this warning.
+130745 [37m[1mDEBUG[m   @librechat/frontend:build: ✓ 9698 modules transformed.
+131276 [37m[1mDEBUG[m   @librechat/frontend:build: rendering chunks...
+132425 [37m[1mDEBUG[m   @librechat/frontend:build: computing gzip size...
+132491 [37m[1mDEBUG[m   @librechat/frontend:build: dist/registerSW.js                                        0.13 kB
+132492 [37m[1mDEBUG[m   @librechat/frontend:build: dist/manifest.webmanifest                                 0.57 kB
+132492 [37m[1mDEBUG[m   @librechat/frontend:build: dist/sw-heal.js                                           1.78 kB
+132492 [37m[1mDEBUG[m   @librechat/frontend:build: dist/index.html.br                                        3.14 kB
+132492 [37m[1mDEBUG[m   @librechat/frontend:build: dist/index.html.gz                                        3.41 kB
+132492 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size3-Regular.woff                4.42 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hy.CKN4fHX0.js.br                      4.46 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/code-editor.D4qHd5re.js.br                    4.51 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-vtree.BInx5Ne5.js.br                    4.55 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SetKeyDialog.nXMRMCOm.js.br                   4.61 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-vtree.BInx5Ne5.js.gz                    4.74 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/code-editor.D4qHd5re.js.gz                    4.75 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SetKeyDialog.nXMRMCOm.js.gz                   4.82 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size4-Regular.woff2               4.92 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hy.CKN4fHX0.js.gz                      4.98 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size2-Regular.woff2               5.20 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Insights.BWXex5Uz.js.br                       5.32 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size1-Regular.woff2               5.46 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Insights.BWXex5Uz.js.gz                       5.52 kB
+132493 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Projects.DOX27O3q.js.br                       5.63 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Projects.DOX27O3q.js.gz                       5.87 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size4-Regular.woff                5.98 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size2-Regular.woff                6.18 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size1-Regular.woff                6.49 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/MyFilesModal.Bl9sxvev.js.br                   6.58 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-id.CDLAdmEc.js.br                      6.62 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.uZ8_QngQ.css.br                    6.85 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/MyFilesModal.Bl9sxvev.js.gz                   6.85 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Regular.woff2         6.90 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Bold.woff2            6.91 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/date-utils.C_DbPEjY.js.br                     7.01 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-id.CDLAdmEc.js.gz                      7.10 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/date-utils.C_DbPEjY.js.gz                     7.27 kB
+132494 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.uZ8_QngQ.css.gz                    7.38 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size3-Regular.ttf                 7.58 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Regular.woff          7.65 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/security-ui.B17a9jwF.js.br                    7.70 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Bold.woff             7.71 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SubagentThreadPanel.DaKxK0Uo.js.br            7.92 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/security-ui.B17a9jwF.js.gz                    8.02 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SubagentThreadPanel.DaKxK0Uo.js.gz            8.13 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.dI9Ti9PO.js.br                     8.65 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.dI9Ti9PO.js.gz                     8.94 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Artifacts.Bj_30pS7.js.br                      9.33 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.DQMwNapF.js.br                          9.40 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.DQMwNapF.js.gz                          9.62 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Script-Regular.woff2              9.64 kB
+132495 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Artifacts.Bj_30pS7.js.gz                      9.66 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.BLwtPVxR.js.br                          9.80 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-vi.DDZQUJku.js.br                     10.13 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.BLwtPVxR.js.gz                         10.16 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Regular.woff2          10.34 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size4-Regular.ttf                10.36 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Script-Regular.woff              10.58 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-vi.DDZQUJku.js.gz                     10.68 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Regular.woff2            11.31 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Bold.woff2               11.34 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size2-Regular.ttf                11.50 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/index.html                                          11.80 kB │ gzip:   3.42 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Italic.woff2           12.02 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Bold.woff2             12.21 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Size1-Regular.ttf                12.22 kB
+132496 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/validation.Bd3jvxDI.js.br                    12.27 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Regular.woff           12.31 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Regular.ttf          12.34 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Caligraphic-Bold.ttf             12.36 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/roboto-mono-latin-700-normal.woff2     12.74 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/roboto-mono-latin-400-normal.woff2     12.76 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/validation.Bd3jvxDI.js.gz                    12.89 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Regular.woff             13.20 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Bold.woff                13.29 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/ProjectEditDialog.Eow__6n3.js.br             13.31 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Typewriter-Regular.woff2         13.56 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/ProjectEditDialog.Eow__6n3.js.gz             13.76 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/roboto-mono-latin-400-italic.woff2     14.05 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Italic.woff            14.11 kB
+132497 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Bold.woff              14.40 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fi.DAXJRMM8.js.br                     15.08 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Typewriter-Regular.woff          16.02 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-BoldItalic.woff2            16.40 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-Italic.woff2                16.44 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-cs.D2eUe6S8.js.br                     16.45 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Script-Regular.ttf               16.64 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-BoldItalic.woff2            16.78 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/i18n.CenFdT2j.js.br                          16.79 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Italic.woff2                16.98 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/i18n.CenFdT2j.js.gz                          17.12 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fi.DAXJRMM8.js.gz                     17.90 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ar.DstZ83y6.js.br                     17.99 kB
+132498 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/http-client.C5fr6Lnu.js.br                   18.26 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/http-client.C5fr6Lnu.js.gz                   18.63 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-BoldItalic.woff             18.66 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-Italic.woff                 18.74 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-interactions.BEfrmSAG.js.br            19.18 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-BoldItalic.woff             19.41 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Regular.ttf            19.43 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Regular.ttf              19.57 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Fraktur-Bold.ttf                 19.58 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-interactions.BEfrmSAG.js.gz            19.60 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Italic.woff                 19.67 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-cs.D2eUe6S8.js.gz                     19.80 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/query-devtools.DIz6FZCX.js.br                19.93 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hu.BE7fUFgd.js.br                     20.07 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/animations.BHEQrG-H.js.br                    20.57 kB
+132499 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/radix-ui.BGubVf3o.js.br                      20.72 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-da.DxBa0EUG.js.br                     20.77 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-et.cho1o_Z7.js.br                     21.04 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-th.DLMeL8sI.js.br                     21.34 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/query-devtools.DIz6FZCX.js.gz                21.37 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ar.DstZ83y6.js.gz                     21.94 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Italic.ttf             22.36 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-sv.CpcRCCSg.js.br                     22.48 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/radix-ui.BGubVf3o.js.gz                      23.19 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hu.BE7fUFgd.js.gz                     23.95 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/virtualization.tO5YDG7Y.js.br                24.27 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_SansSerif-Bold.ttf               24.50 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-da.DxBa0EUG.js.gz                     24.93 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Bold.woff2                  25.32 kB
+132500 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-th.DLMeL8sI.js.gz                     25.53 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-et.cho1o_Z7.js.gz                     25.56 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/virtualization.tO5YDG7Y.js.gz                25.71 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Regular.woff2               26.27 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-sv.CpcRCCSg.js.gz                     26.54 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/animations.BHEQrG-H.js.gz                    26.92 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/tanstack-vendor.C7oK5bXW.js.br               27.47 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/headlessui.8omgZzEp.js.br                    27.50 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Typewriter-Regular.ttf           27.55 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_AMS-Regular.woff2                28.07 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nl.Geh8TvUr.js.br                     28.41 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/routing.B1O2pwc0.js.br                       28.63 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/headlessui.8omgZzEp.js.gz                    28.69 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/AccountSettings.B1bgorXu.js.br               29.19 kB
+132501 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/routing.B1O2pwc0.js.gz                       29.70 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Bold.woff                   29.91 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/utilities.HUTk6tC6.js.br                     30.04 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-es.BszpR9lU.js.br                     30.43 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Regular.woff                30.77 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nb.L7ZrIYfu.js.br                     30.87 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-BoldItalic.ttf              31.19 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/AccountSettings.B1bgorXu.js.gz               31.26 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Math-Italic.ttf                  31.30 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ko.C1JDhylE.js.br                     31.38 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/utilities.HUTk6tC6.js.gz                     31.77 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-uk.Lu7ehcex.js.br                     32.29 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-BoldItalic.ttf              32.96 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_AMS-Regular.woff                 33.51 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Italic.ttf                  33.58 kB
+132502 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nl.Geh8TvUr.js.gz                     33.61 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hans.w0s52VPI.js.br                33.96 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.ip70R3Sf.css.br                        34.76 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nn.Cy7ykYEl.js.br                     35.41 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/tanstack-vendor.C7oK5bXW.js.gz               35.78 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-es.BszpR9lU.js.gz                     36.11 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ru.DdkjfJA9.js.br                     36.59 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fr.BwtRQqku.js.br                     36.85 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nb.L7ZrIYfu.js.gz                     36.89 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fa.BtDUcUJY.js.br                     37.04 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-uk.Lu7ehcex.js.gz                     38.06 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ko.C1JDhylE.js.gz                     38.60 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/framer-motion.6mTbS3M5.js.br                 39.45 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.ip70R3Sf.css.gz                        39.86 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/framer-motion.6mTbS3M5.js.gz                 40.37 kB
+132503 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ca.BNLL_aVs.js.br                     40.93 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nn.Cy7ykYEl.js.gz                     42.09 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hans.w0s52VPI.js.gz                42.70 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ru.DdkjfJA9.js.gz                     42.75 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fr.BwtRQqku.js.gz                     43.35 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fa.BtDUcUJY.js.gz                     43.67 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-tr.BXRvNJEN.js.br                     44.51 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lt.B1U3jIy5.js.br                     45.08 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-PT.B_wIyumc.js.br                  45.21 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hant.BXc_NFJ2.js.br                45.90 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-is.BLR8Agob.js.br                     47.70 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/eventSelection.CbfsPvMs.js.br                47.74 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ca.BNLL_aVs.js.gz                     48.44 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-BR.B4bMb2_c.js.br                  50.52 kB
+132504 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-he.E9RAU3R-.js.br                     50.58 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pl.sZJxDO19.js.br                     50.62 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lv.CZy6q9In.js.br                     50.67 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/eventSelection.CbfsPvMs.js.gz                50.76 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Bold.ttf                    51.33 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ja.CO0eqrKf.js.br                     51.72 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-tr.BXRvNJEN.js.gz                     52.51 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lt.B1U3jIy5.js.gz                     52.75 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-PT.B_wIyumc.js.gz                  52.95 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-it.D5RjyACt.js.br                     53.45 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_Main-Regular.ttf                 53.58 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-de.BO0KB8Uh.js.br                     55.32 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-is.BLR8Agob.js.gz                     56.14 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hant.BXc_NFJ2.js.gz                56.62 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pl.sZJxDO19.js.gz                     58.78 kB
+132505 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-BR.B4bMb2_c.js.gz                  58.84 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lv.CZy6q9In.js.gz                     59.09 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-he.E9RAU3R-.js.gz                     60.03 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ja.CO0eqrKf.js.gz                     62.15 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-it.D5RjyACt.js.gz                     62.50 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/KaTeX_AMS-Regular.ttf                  63.63 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-de.BO0KB8Uh.js.gz                     64.25 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/sandpack.DhR5I-6S.js.br                      70.31 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/advanced-inputs.0gHsBjsU.js.br               70.48 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/advanced-inputs.0gHsBjsU.js.gz               74.56 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/sandpack.DhR5I-6S.js.gz                      96.36 kB
+132506 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-Regular.woff2                   108.48 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-Bold.woff2                      111.04 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-SemiBold.woff2                  111.58 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-Italic.woff2                    114.57 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-SemiBoldItalic.woff2            118.21 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/fonts/Inter-BoldItalic.woff2                118.39 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/rum.BQl6c9Jp.js.br                          129.41 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/rum.BQl6c9Jp.js.gz                          139.57 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/codemirror-core.r8uhyzQ3.js.br              144.84 kB
+132507 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/codemirror-core.r8uhyzQ3.js.gz              153.47 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/markdown-processing.CjMf2xPH.js.br          165.97 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/markdown-processing.CjMf2xPH.js.gz          181.83 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.hwbuK55D.js.br                        244.72 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.hwbuK55D.js.gz                        274.17 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/vendor.BXOjCMjt.js.br                       360.01 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/hooks.MskRz4jD.js.br                        392.73 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/hooks.MskRz4jD.js.gz                        435.56 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/heic-converter.D068xdPA.js.br               456.11 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/vendor.BXOjCMjt.js.gz                       464.24 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/heic-converter.D068xdPA.js.gz               544.45 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/mermaid.DR3Y61_6.js.br                      690.74 kB
+132508 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/mermaid.DR3Y61_6.js.gz                      826.29 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.uZ8_QngQ.css                      28.23 kB │ gzip:   7.48 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.ip70R3Sf.css                          266.47 kB │ gzip:  40.45 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-bo.JudyEQdb.js                         0.09 kB │ gzip:   0.10 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-bs.JudyEQdb.js                         0.09 kB │ gzip:   0.10 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-sk.JudyEQdb.js                         0.09 kB │ gzip:   0.10 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ug.JudyEQdb.js                         0.09 kB │ gzip:   0.10 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/queries.kpqxryvB.js                           0.35 kB │ gzip:   0.24 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/rolldown-runtime.B0Z9INg1.js                  0.90 kB │ gzip:   0.51 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/heicConverter.9gkLHpPP.js                     1.12 kB │ gzip:   0.65 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SandboxArtifactTabs.wRd0wPxi.js               1.73 kB │ gzip:   0.87 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-sl.BfFk-sYE.js                         2.55 kB │ gzip:   1.01 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SkillsView.BDUrxVj1.js                        2.56 kB │ gzip:   0.88 kB
+132509 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/polyfills.CEDm44Cr.js                         6.78 kB │ gzip:   2.53 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ka.DLGhuzdZ.js                         7.72 kB │ gzip:   2.04 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/avatars.DwBzmTCp.js                           8.16 kB │ gzip:   3.39 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/markdown.BX2jyO1u.js                          9.12 kB │ gzip:   3.35 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-vtree.BInx5Ne5.js                      13.16 kB │ gzip:   4.77 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/code-editor.D4qHd5re.js                      13.99 kB │ gzip:   4.77 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SetKeyDialog.nXMRMCOm.js                     15.51 kB │ gzip:   4.83 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hy.CKN4fHX0.js                        17.80 kB │ gzip:   4.99 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Insights.BWXex5Uz.js                         19.17 kB │ gzip:   5.53 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/security-ui.B17a9jwF.js                      21.62 kB │ gzip:   8.07 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Projects.DOX27O3q.js                         22.10 kB │ gzip:   5.89 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/MyFilesModal.Bl9sxvev.js                     22.47 kB │ gzip:   6.87 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/SubagentThreadPanel.DaKxK0Uo.js              23.15 kB │ gzip:   8.19 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/date-utils.C_DbPEjY.js                       24.50 kB │ gzip:   7.32 kB
+132510 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-id.CDLAdmEc.js                        26.34 kB │ gzip:   7.12 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.DQMwNapF.js                            26.51 kB │ gzip:   9.73 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/Artifacts.Bj_30pS7.js                        26.81 kB │ gzip:   9.71 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/math-katex.dI9Ti9PO.js                       34.93 kB │ gzip:   8.99 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/forms.BLwtPVxR.js                            40.63 kB │ gzip:  10.21 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-vi.DDZQUJku.js                        40.97 kB │ gzip:  10.71 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/ProjectEditDialog.Eow__6n3.js                46.80 kB │ gzip:  13.85 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/http-client.C5fr6Lnu.js                      50.06 kB │ gzip:  18.80 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/i18n.CenFdT2j.js                             54.35 kB │ gzip:  17.28 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/validation.Bd3jvxDI.js                       56.69 kB │ gzip:  13.00 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fi.DAXJRMM8.js                        58.89 kB │ gzip:  18.05 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/query-devtools.DIz6FZCX.js                   59.34 kB │ gzip:  21.50 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-cs.D2eUe6S8.js                        63.10 kB │ gzip:  19.92 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/react-interactions.BEfrmSAG.js               70.12 kB │ gzip:  19.84 kB
+132511 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/animations.BHEQrG-H.js                       72.29 kB │ gzip:  27.19 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ar.DstZ83y6.js                        81.21 kB │ gzip:  21.95 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-hu.BE7fUFgd.js                        81.74 kB │ gzip:  24.10 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-da.DxBa0EUG.js                        85.05 kB │ gzip:  25.12 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-et.cho1o_Z7.js                        86.26 kB │ gzip:  25.78 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/headlessui.8omgZzEp.js                       88.11 kB │ gzip:  28.95 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/radix-ui.BGubVf3o.js                         88.64 kB │ gzip:  23.41 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-sv.CpcRCCSg.js                        89.57 kB │ gzip:  26.75 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/routing.B1O2pwc0.js                          90.98 kB │ gzip:  30.05 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/utilities.HUTk6tC6.js                        92.81 kB │ gzip:  32.13 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/virtualization.tO5YDG7Y.js                  113.48 kB │ gzip:  26.00 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nl.Geh8TvUr.js                       116.30 kB │ gzip:  33.85 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-th.DLMeL8sI.js                       119.38 kB │ gzip:  25.56 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/framer-motion.6mTbS3M5.js                   125.09 kB │ gzip:  40.81 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/AccountSettings.B1bgorXu.js                 129.08 kB │ gzip:  31.55 kB
+132512 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-es.BszpR9lU.js                       129.27 kB │ gzip:  36.36 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nb.L7ZrIYfu.js                       129.78 kB │ gzip:  37.09 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ko.C1JDhylE.js                       137.71 kB │ gzip:  38.65 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hans.w0s52VPI.js                  138.83 kB │ gzip:  42.84 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/tanstack-vendor.C7oK5bXW.js                 146.23 kB │ gzip:  36.24 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-nn.Cy7ykYEl.js                       149.93 kB │ gzip:  42.36 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-uk.Lu7ehcex.js                       153.21 kB │ gzip:  38.00 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fr.BwtRQqku.js                       158.67 kB │ gzip:  43.52 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ru.DdkjfJA9.js                       170.51 kB │ gzip:  42.69 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-fa.BtDUcUJY.js                       174.97 kB │ gzip:  43.53 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ca.BNLL_aVs.js                       176.88 kB │ gzip:  48.72 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/eventSelection.CbfsPvMs.js                  178.92 kB │ gzip:  51.30 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lt.B1U3jIy5.js                       191.54 kB │ gzip:  53.12 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-tr.BXRvNJEN.js                       192.18 kB │ gzip:  52.87 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-zh-Hant.BXc_NFJ2.js                  193.53 kB │ gzip:  56.80 kB
+132513 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-PT.B_wIyumc.js                    193.63 kB │ gzip:  53.32 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-is.BLR8Agob.js                       202.77 kB │ gzip:  56.45 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pl.sZJxDO19.js                       212.11 kB │ gzip:  59.13 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-lv.CZy6q9In.js                       215.09 kB │ gzip:  59.41 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-pt-BR.B4bMb2_c.js                    216.80 kB │ gzip:  59.29 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-he.E9RAU3R-.js                       231.43 kB │ gzip:  59.70 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-it.D5RjyACt.js                       232.23 kB │ gzip:  62.93 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/advanced-inputs.0gHsBjsU.js                 232.39 kB │ gzip:  75.54 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-de.BO0KB8Uh.js                       236.95 kB │ gzip:  64.65 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/locale-ja.CO0eqrKf.js                       239.67 kB │ gzip:  62.31 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/codemirror-core.r8uhyzQ3.js                 448.21 kB │ gzip: 155.47 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/sandpack.DhR5I-6S.js                        458.33 kB │ gzip:  98.41 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/rum.BQl6c9Jp.js                             467.32 kB │ gzip: 140.98 kB
+132514 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/markdown-processing.CjMf2xPH.js             614.63 kB │ gzip: 184.06 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/index.hwbuK55D.js                         1,032.30 kB │ gzip: 276.45 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/hooks.MskRz4jD.js                         1,494.37 kB │ gzip: 440.19 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/vendor.BXOjCMjt.js                        1,617.80 kB │ gzip: 469.81 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/heic-converter.D068xdPA.js                2,186.25 kB │ gzip: 559.04 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: dist/assets/mermaid.DR3Y61_6.js                       3,120.91 kB │ gzip: 840.01 kB
+132515 [37m[1mDEBUG[m   @librechat/frontend:build:
+132515 [37m[1mDEBUG[m   @librechat/frontend:build: [33m[EVAL] [0mUse of direct `eval` function is strongly discouraged as it poses security risks and may cause issues with minification.
+132515 [37m[1mDEBUG[m   @librechat/frontend:build:      [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m ../node_modules/vm-browserify/index.js:110:12 [38;5;246m][0m
+132515 [37m[1mDEBUG[m   @librechat/frontend:build:      [38;5;246m│[0m
+132515 [37m[1mDEBUG[m   @librechat/frontend:build:  [38;5;246m110 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mn[0m[38;5;249m [0meval[38;5;249m([0m[38;5;249mt[0m[38;5;249mh[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249m.[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249md[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m[38;5;249m [0m[38;5;249m/[0m[38;5;249m/[0m[38;5;249m [0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249my[0m[38;5;249mb[0m[38;5;249me[0m[38;5;249m.[0m[38;5;249m.[0m[38;5;249m.[0m
+132516 [37m[1mDEBUG[m   @librechat/frontend:build:  [38;5;240m    │[0m            ──┬─
+132516 [37m[1mDEBUG[m   @librechat/frontend:build:  [38;5;240m    │[0m              ╰─── Use of direct `eval` here.
+132516 [37m[1mDEBUG[m   @librechat/frontend:build:  [38;5;240m    │[0m
+132516 [37m[1mDEBUG[m   @librechat/frontend:build:  [38;5;240m    │[0m [38;5;115mHelp[0m: Consider using indirect eval. For more information, check the documentation: https://rolldown.rs/guide/troubleshooting#avoiding-direct-eval
+132516 [37m[1mDEBUG[m   @librechat/frontend:build: [38;5;246m─────╯[0m
+132516 [37m[1mDEBUG[m   @librechat/frontend:build:
+132516 [37m[1mDEBUG[m   @librechat/frontend:build: [plugin builtin:vite-reporter]
+132516 [37m[1mDEBUG[m   @librechat/frontend:build: (!) Some chunks are larger than 1500 kB after minification. Consider:
+132516 [37m[1mDEBUG[m   @librechat/frontend:build: - Using dynamic import() to code-split the application
+132517 [37m[1mDEBUG[m   @librechat/frontend:build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+132517 [37m[1mDEBUG[m   @librechat/frontend:build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+133910 [37m[1mDEBUG[m   @librechat/frontend:build:
+133910 [37m[1mDEBUG[m   @librechat/frontend:build: PWA v1.3.0
+133910 [37m[1mDEBUG[m   @librechat/frontend:build: mode      generateSW
+133910 [37m[1mDEBUG[m   @librechat/frontend:build: precache  54 entries (13001.69 KiB)
+133910 [37m[1mDEBUG[m   @librechat/frontend:build: files generated
+133910 [37m[1mDEBUG[m   @librechat/frontend:build:   dist/sw.js
+133911 [37m[1mDEBUG[m   @librechat/frontend:build:   dist/workbox-1b73dcc2.js
+133911 [37m[1mDEBUG[m   @librechat/frontend:build: ✓ built in 6.62s
+133911 [37m[1mDEBUG[m   @librechat/frontend:build:
+134019 [37m[1mDEBUG[m   
+134019 [37m[1mDEBUG[m    Tasks:    5 successful, 5 total
+134019 [37m[1mDEBUG[m   Cached:    0 cached, 5 total
+134019 [37m[1mDEBUG[m     Time:    15.273s
+134019 [37m[1mDEBUG[m   
+134175 [37m[1mDEBUG[m   + rm -rf /var/www/librechat/.npm
+134698 [37m[1mDEBUG[m   + popd
+134698 [37m[1mDEBUG[m   /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/scripts
+134698 [37m[1mDEBUG[m   + ynh_script_progression 'Adding configuration files...'
+134698 [37m[1mDEBUG[m   + set +o xtrace
+134701 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+134702 [37m[1mDEBUG[m   + librechat_env=/var/www/librechat/librechat.env
+134702 [37m[1mDEBUG[m   + ynh_config_add --template=librechat.env --destination=/var/www/librechat/librechat.env
+134702 [37m[1mDEBUG[m   + args_array=(['t']='template=' ['d']='destination=' ['j']='jinja')
+134702 [37m[1mDEBUG[m   + local -A args_array
+134702 [37m[1mDEBUG[m   + local template
+134702 [37m[1mDEBUG[m   + local destination
+134702 [37m[1mDEBUG[m   + local jinja
+134703 [37m[1mDEBUG[m   + ynh_handle_getopts_args --template=librechat.env --destination=/var/www/librechat/librechat.env
+134703 [37m[1mDEBUG[m   ++ set +o
+134703 [37m[1mDEBUG[m   ++ grep xtrace
+134703 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+134703 [37m[1mDEBUG[m   + set +o xtrace
+134737 [37m[1mDEBUG[m   + jinja=0
+134737 [37m[1mDEBUG[m   + local template_path
+134737 [37m[1mDEBUG[m   + '[' -f /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/conf/librechat.env ']'
+134737 [37m[1mDEBUG[m   + template_path=/var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/conf/librechat.env
+134737 [37m[1mDEBUG[m   + ynh_backup_if_checksum_is_different /var/www/librechat/librechat.env
+134737 [37m[1mDEBUG[m   + set +o xtrace
+134798 [37m[1mDEBUG[m   + touch /var/www/librechat/librechat.env
+134799 [37m[1mDEBUG[m   + chmod 640 /var/www/librechat/librechat.env
+134800 [37m[1mDEBUG[m   + _ynh_apply_default_permissions /var/www/librechat/librechat.env
+134801 [37m[1mDEBUG[m   + local target=/var/www/librechat/librechat.env
+134801 [37m[1mDEBUG[m   + ynh_system_user_exists --username=librechat
+134801 [37m[1mDEBUG[m   + args_array=(['u']='username=')
+134801 [37m[1mDEBUG[m   + local -A args_array
+134801 [37m[1mDEBUG[m   + local username
+134801 [37m[1mDEBUG[m   + ynh_handle_getopts_args --username=librechat
+134801 [37m[1mDEBUG[m   ++ set +o
+134801 [37m[1mDEBUG[m   ++ grep xtrace
+134803 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
+134803 [37m[1mDEBUG[m   + set +o xtrace
+134810 [37m[1mDEBUG[m   + getent passwd librechat
+134811 [37m[1mDEBUG[m   + '[' -f /var/www/librechat/librechat.env ']'
+134812 [37m[1mDEBUG[m   + is_in_dir /var/www/librechat/librechat.env /var/www/librechat
+134812 [37m[1mDEBUG[m   + '[' -n /var/www/librechat ']'
+134812 [37m[1mDEBUG[m   ++ realpath /var/www/librechat/librechat.env
+134814 [37m[1mDEBUG[m   + local child=/var/www/librechat/librechat.env
+134814 [37m[1mDEBUG[m   ++ realpath /var/www/librechat
+134816 [37m[1mDEBUG[m   + local parent=/var/www/librechat
+134816 [37m[1mDEBUG[m   + [[ /var/www/librechat/librechat.env =~ ^/var/www/librechat ]]
+134816 [37m[1mDEBUG[m   + chmod 600 /var/www/librechat/librechat.env
+134817 [37m[1mDEBUG[m   + chown librechat:librechat /var/www/librechat/librechat.env
+134819 [37m[1mDEBUG[m   + return
+134819 [37m[1mDEBUG[m   + [[ 0 == 1 ]]
+134819 [37m[1mDEBUG[m   + cp -f /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/conf/librechat.env /var/www/librechat/librechat.env
+134822 [37m[1mDEBUG[m   + _ynh_replace_vars /var/www/librechat/librechat.env
+134823 [37m[1mDEBUG[m   + local file=/var/www/librechat/librechat.env
+134823 [37m[1mDEBUG[m   + local -a uniques_vars
+134823 [37m[1mDEBUG[m   + mapfile -t uniques_vars
+134823 [37m[1mDEBUG[m   ++ grep -oP '__[A-Z0-9]+?[A-Z0-9_]*?[A-Z0-9]*?__' /var/www/librechat/librechat.env
+134823 [37m[1mDEBUG[m   ++ sort --unique
+134824 [37m[1mDEBUG[m   ++ sed 's@__\([^.]*\)__@\L\1@g'
+134825 [37m[1mDEBUG[m   + set +o xtrace
+134850 [33m[1mWARNING[m Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135452 [31m[1mERROR[m   Unable to install librechat: An error occurred inside the app installation script : Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135452 [36m[1mINFO[m    The operation 'Install the 'librechat' app' could not be completed. Please share the full log of this operation using the command 'yunohost log share 20260920-195706-app_install-librechat' to get help
+135475 [33m[1mWARNING[m Here's an extract of the logs before the crash. It might help debugging the error:
+135475 [36m[1mINFO[m    DEBUG - + '[' -n /var/www/librechat ']'
+135475 [36m[1mINFO[m    DEBUG - ++ realpath /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + local child=/var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - ++ realpath /var/www/librechat
+135475 [36m[1mINFO[m    DEBUG - + local parent=/var/www/librechat
+135475 [36m[1mINFO[m    DEBUG - + [[ /var/www/librechat/librechat.env =~ ^/var/www/librechat ]]
+135475 [36m[1mINFO[m    DEBUG - + chmod 600 /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + chown librechat:librechat /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + return
+135475 [36m[1mINFO[m    DEBUG - + [[ 0 == 1 ]]
+135475 [36m[1mINFO[m    DEBUG - + cp -f /var/cache/yunohost/app_tmp_work_dirs/app_557mmdz2/conf/librechat.env /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + _ynh_replace_vars /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + local file=/var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - + local -a uniques_vars
+135475 [36m[1mINFO[m    DEBUG - + mapfile -t uniques_vars
+135475 [36m[1mINFO[m    DEBUG - ++ grep -oP '__[A-Z0-9]+?[A-Z0-9_]*?[A-Z0-9]*?__' /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    DEBUG - ++ sort --unique
+135475 [36m[1mINFO[m    DEBUG - ++ sed 's@__\([^.]*\)__@\L\1@g'
+135475 [36m[1mINFO[m    WARNING - Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135475 [36m[1mINFO[m    ERROR - Unable to install librechat: An error occurred inside the app installation script : Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135498 [37m[1mDEBUG[m   action executed in 135.420s
+135498 [37m[1mDEBUG[m   lock has been released
+135498 [31m[1mERROR[m   The installation of librechat failed, but was not cleaned up as requested by --no-remove-on-failure.
+Return code: 1
+Working time: 2 minutes, 15 seconds (19:59:20 UTC)
+[1m[31mError: Installation failed.[0m
+Return code: 1
+Working time: 0s (19:59:27 UTC)
+Peak RAM usage during this test: 2535MB
+RAM usage diff after test: 90MB
+Disk usage diff after test: 4455.1MB
+
+[1m[31m--- FAIL ---[0m
+
+[1m[31mError: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+Working time for this test: 3 minutes, 11 seconds (19:59:32 UTC)
+[1m
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Working time for this test: 0s (19:59:34 UTC)
+[1m
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Working time for this test: 0s (19:59:34 UTC)
+[1m
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Working time for this test: 0s (19:59:35 UTC)
+[1m
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Working time for this test: 0s (19:59:35 UTC)
+[1m
+ ============================================
+ Tests summary
+ ============================================
+[0m
+Global working time for all tests: 4 minutes, 5 seconds (19:59:35 UTC)

@@ -1,0 +1,210 @@
+================================================================================
+Test_results.log — Phase 5 (05-03) package_check findings run
+================================================================================
+Provenance: `package_check` (upstream) does NOT emit a file named
+`Test_results.log`. It writes `full_log_0.log` + `results_0.json` (+ `summary_0.png`)
+in the clone root, and prints the terminal summary to stdout. This file is the
+de-ANSI'd stdout capture of the run (`~/pc_run.log`, tee'd by `~/pc_launch.sh`),
+which is the human-readable "test results" log referenced by `doc/PACKAGE_CHECK.md`.
+The raw capture is archived verbatim as `package_check-full.log`.
+
+Run: 2026-09-20T19:55:38Z .. 2026-09-20T19:59:35Z (Global 4 minutes, 5 seconds)
+Host: alex@192.168.1.83 (Hyper-V Debian 12 bookworm VM, 4 vCPU / 7.8 GiB RAM / 40 GB btrfs + 30 GB OS)
+Package under test: /home/alex/librechat_ynh (tests.toml md5 4cdd83e3b8e13b08c3aac8e5e79ab07d)
+Exit: PACKAGE_CHECK_EXIT: 0  (completed cleanly; no `Critical:` abort, no crash, no timeout)
+
+Result: 6/6 test types resolved. 1 SUCCESS, 5 FAIL.
+  [Test 1/6] Package linter ............ SUCCESS  (catalog-metadata critical/error reported but not fatal)
+  [Test 2/6] Install on root .......... FAIL     (PACKAGE BUG: uninitialized $admin_panel_session_secret)
+  [Test 3/6] Backup/Restore ........... FAIL     (blocked: "All installs failed")
+  [Test 4/6] Upgrade same version ..... FAIL     (blocked: "All installs failed")
+  [Test 5/6] Upgrade from 0.8.8-rc3~ynh2 FAIL    (blocked: "All installs failed")
+  [Test 6/6] Change URL ............... FAIL     (blocked: "All installs failed"; also no scripts/change_url)
+
+NOTE: `analyze_test_results.py` (the renderer that would print the pass/fail
+table and write results_0.json) aborted with `ModuleNotFoundError: No module
+named 'imgkit'` — see 05-FINDINGS.md "Environment deviations". The terminal
+summary above was reconstructed from the per-test verdict banners emitted by
+`package_check.sh` itself (`--- SUCCESS ---` / `--- FAIL ---`) and the linter's
+result JSON in `full_log_0.log`.
+================================================================================
+
+Testing package /home/alex/librechat_ynh
+Error: Remote yunohost already exists
+Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+
+ > YunoHost versions
+
+yunohost: 
+  repo: stable
+  version: 12.1.41.2
+yunohost-admin: 
+  repo: stable
+  version: 12.1.15
+yunohost-portal: 
+  repo: stable
+  version: 12.1.2
+moulinette: 
+  repo: stable
+  version: 12.1.4
+ssowat: 
+  repo: stable
+  version: 12.1.1
+
+ ============================================
+ Package linter
+ ============================================
+
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.TgiLAK/app_folder...
+? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. 
+
+ ✔ manifest
+ ✔ scripts/_common.sh
+ ✔ scripts/install
+ ✔ scripts/remove
+ ✔ scripts/upgrade
+ ✔ scripts/backup
+ ✔ scripts/restore
+ ⓘ General stuff, misc helper usage
+
+    - Consider adding a change_url script to support changing where the app can be reached
+
+ ! Configuration files
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.
+    ! In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass: Upgrade 
+    - In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass. But in some specific case it would be useful to override the default value, if this is the case you can safely ignore this message: Connection
+
+ ! Catalog infos
+
+    ✘✘✘ This app is not in YunoHost's application catalog
+    ✘ The application is not flagged as working in YunoHost's apps catalog
+    ! The application has no associated category in YunoHost's apps catalog 
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily
+
+ ✔ Issues
+ =======
+ There are some critical issues in this app :(
+
+ ============================================
+ Basic bash syntax checks
+ ============================================
+
+
+--- SUCCESS ---
+
+
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+
+{"success": [], "info": ["App.change_url_script", "Configurations.systemd_config_harden_security", "Configurations.systemd_config_harden_security", "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency", "AppCatalog.is_in_github_org"], "warning": ["Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency", "AppCatalog.has_category"], "error": ["AppCatalog.state_is_working"], "critical": ["AppCatalog.is_in_catalog"]}
+
+--- SUCCESS ---
+
+Working time for this test: 3 seconds (19:56:19 UTC)
+
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+
+(Creating snapshot snap-preinstalled-default ...)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+2011 INFO    Installing librechat…
+2026 INFO    Provisioning sources...
+16440 INFO    Provisioning apt...
+19425 INFO    Provisioning ports...
+19444 INFO    Provisioning system_user...
+19864 INFO    Provisioning install_dir...
+19868 INFO    Provisioning data_dir...
+19869 INFO    Provisioning permissions...
+19925 INFO    Provisioning nodejs...
+23287 INFO    [+...................] > Installing dependencies...
+23288 INFO    Installing MongoDB Community Edition ...
+43088 INFO    The service mongod has correctly executed the action restart.
+43314 INFO    [#++.................] > Setting up source files...
+46745 INFO    [###++...............] > Creating MongoDB database...
+48367 INFO    [#####+..............] > Generating secrets...
+48796 INFO    [######++............] > Building LibreChat (this can take several minutes)...
+134701 INFO    [########++..........] > Adding configuration files...
+134850 WARNING Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135452 ERROR   Unable to install librechat: An error occurred inside the app installation script : Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135475 INFO    WARNING - Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env
+135498 ERROR   The installation of librechat failed, but was not cleaned up as requested by --no-remove-on-failure.
+Error: Installation failed.
+Peak RAM usage during this test: 2535MB
+RAM usage diff after test: 90MB
+Disk usage diff after test: 4455.1MB
+
+--- FAIL ---
+
+Error: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...!
+Working time for this test: 3 minutes, 11 seconds (19:59:32 UTC)
+
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+
+Error: All installs failed, therefore the following tests cannot be performed...
+
+--- FAIL ---
+
+Error: Instance is not running
+Working time for this test: 0s (19:59:34 UTC)
+
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+
+Error: All installs failed, therefore the following tests cannot be performed...
+
+--- FAIL ---
+
+Error: Instance is not running
+Working time for this test: 0s (19:59:34 UTC)
+
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+
+Error: All installs failed, therefore the following tests cannot be performed...
+
+--- FAIL ---
+
+Error: Instance is not running
+Working time for this test: 0s (19:59:35 UTC)
+
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+
+Error: All installs failed, therefore the following tests cannot be performed...
+
+--- FAIL ---
+
+Error: Instance is not running
+Working time for this test: 0s (19:59:35 UTC)
+
+ ============================================
+ Tests summary
+ ============================================
+
+Global working time for all tests: 4 minutes, 5 seconds (19:59:35 UTC)
+You can find the complete log of these tests in /home/alex/package_check/full_log_0.log
+PACKAGE_CHECK_EXIT: 0
