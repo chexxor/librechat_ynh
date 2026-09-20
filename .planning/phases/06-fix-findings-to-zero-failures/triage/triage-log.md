@@ -53,6 +53,25 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 - **Flake-vs-regression:** no external cause for the install failure — REGRESSION (now fixed in Plan 06-01).
 
+## Cycle 1 — 2026-09-20
+
+- **Run:** `cd ~/package_check && ./package_check.sh ~/librechat_ynh` (VM `alex@192.168.1.83`), duration **4m10s**, exit 0, Global summary printed.
+- **Code state (git rev):** `629f7bb` (14 commits after the Phase 5 baseline; includes the Wave-1 headline fix + xtrace guards).
+- **Test verdicts:** `install.root=FAIL`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `Variable $var wasn't initialized when trying to replace __VAR__ in /var/www/librechat/librechat.env` | install.root | Package bug | `cycles/cycle-1/package_check-full.log:150-151`, `full_log_0.log` | FIX — the env header comment contained a literal `__VAR__`, which `_ynh_replace_vars` parsed as a placeholder token |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "Instance is not running" | Re-triage after install.root passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+  | `AppCatalog.is_in_catalog` / `state_is_working` | package_linter | Exempt | Catalog metadata (linter SUCCESS) | Document |
+  | `imgkit` summary renderer (`results_0.json` = traceback) | harness | Environment | `results_0.json` 182 bytes | Document; verdicts read from the run log |
+
+- **Progress vs Cycle 0:** the original `__ADMIN_PANEL_SESSION_SECRET__` error is GONE — the headline fix worked. A NEW token bug surfaced: the literal `__VAR__` in the `conf/librechat.env` header comment.
+- **Flake-vs-regression:** the `__VAR__` failure has no external cause — REGRESSION. Fixed in the same cycle turn.
+- **Fix applied:** rewrote the `conf/librechat.env` header comment to avoid any literal `__TOKEN__`-shaped text. Full-suite re-run required (cycle 2).
+
 ---
 
 *Phase: 06-fix-findings-to-zero-failures*

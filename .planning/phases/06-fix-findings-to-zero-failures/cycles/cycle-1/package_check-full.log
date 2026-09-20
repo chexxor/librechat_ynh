@@ -1,0 +1,235 @@
+Testing package /home/alex/librechat_ynh
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not a git repository (or any of the parent directories): .git
+Error: Remote yunohost already exists
+Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+
+[1m > YunoHost versions[0m
+
+[35m[1myunohost[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.41.2
+[35m[1myunohost-admin[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.15
+[35m[1myunohost-portal[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.2
+[35m[1mmoulinette[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.4
+[35m[1mssowat[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.1
+[1m
+ ============================================
+ Package linter
+ ============================================
+[0m
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.GpBg2N/app_folder...
+[96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
+
+ [1m[92m✔ [94mmanifest[0m
+ [1m[92m✔ [94mscripts/_common.sh[0m
+ [1m[92m✔ [94mscripts/install[0m
+ [1m[92m✔ [94mscripts/remove[0m
+ [1m[92m✔ [94mscripts/upgrade[0m
+ [1m[92m✔ [94mscripts/backup[0m
+ [1m[92m✔ [94mscripts/restore[0m
+ [1mⓘ [94mGeneral stuff, misc helper usage[0m
+
+    - Consider adding a change_url script to support changing where the app can be reached[0m
+
+ [1m[93m! [94mConfiguration files[0m
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+   [93m ! In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass: Upgrade [0m
+    - In the nginx conf, manually defining a value for these reverse proxy params should not be necessary as they are already defined in the proxy_params_no/with_auth or fastcgi_params_no/with_auth that should be included when using proxy_pass or fastcgi_pass. But in some specific case it would be useful to override the default value, if this is the case you can safely ignore this message: Connection[0m
+
+ [1m[93m! [94mCatalog infos[0m
+
+   [91m ✘✘✘ This app is not in YunoHost's application catalog[0m
+   [91m ✘ The application is not flagged as working in YunoHost's apps catalog[0m
+   [93m ! The application has no associated category in YunoHost's apps catalog [0m
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily[0m
+
+ [1m[92m✔ [94mIssues[0m
+ =======
+ There are some critical issues in this app :(
+[1m
+ ============================================
+ Basic bash syntax checks
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+[0m
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+[1m
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 0s (22:12:59 UTC)
+[1m
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+[0m
+(Creating snapshot snap-preinstalled-default ...)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+2093 [36m[1mINFO[m    Installing librechat…
+2111 [36m[1mINFO[m    Provisioning sources...
+16424 [36m[1mINFO[m    Provisioning apt...
+19528 [36m[1mINFO[m    Provisioning ports...
+19546 [36m[1mINFO[m    Provisioning system_user...
+20065 [36m[1mINFO[m    Provisioning install_dir...
+20069 [36m[1mINFO[m    Provisioning data_dir...
+20071 [36m[1mINFO[m    Provisioning permissions...
+20138 [36m[1mINFO[m    Provisioning nodejs...
+23347 [36m[1mINFO[m    [+...................] > Installing dependencies...
+23348 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+44375 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+44610 [36m[1mINFO[m    [#++.................] > Setting up source files...
+48170 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+49694 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+50132 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+50243 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+50244 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+50244 [33m[1mWARNING[m npm warn config omitting invalid config values
+58101 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+62611 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+74585 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+78707 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+80247 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+120068 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+120068 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+120069 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+120069 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+120069 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+120069 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+120070 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+120070 [33m[1mWARNING[m npm warn install-scripts
+120070 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+124450 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+124450 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+124451 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+124451 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+124451 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+124451 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+124451 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+124452 [33m[1mWARNING[m npm warn install-scripts
+124452 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+124806 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+124806 [33m[1mWARNING[m Attention:
+124806 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+124806 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+124807 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+124807 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+124807 [33m[1mWARNING[m • turbo 2.10.5
+124807 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+145044 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+145225 [33m[1mWARNING[m Variable $var wasn't initialized when trying to replace __VAR__ in /var/www/librechat/librechat.env
+145827 [31m[1mERROR[m   Unable to install librechat: An error occurred inside the app installation script : Variable $var wasn't initialized when trying to replace __VAR__ in /var/www/librechat/librechat.env
+145828 [36m[1mINFO[m    The operation 'Install the 'librechat' app' could not be completed. Please share the full log of this operation using the command 'yunohost log share 20260920-221339-app_install-librechat' to get help
+145850 [33m[1mWARNING[m Here's an extract of the logs before the crash. It might help debugging the error:
+145850 [36m[1mINFO[m    DEBUG - + '[' -n /var/www/librechat ']'
+145850 [36m[1mINFO[m    DEBUG - ++ realpath /var/www/librechat/librechat.env
+145850 [36m[1mINFO[m    DEBUG - + local child=/var/www/librechat/librechat.env
+145850 [36m[1mINFO[m    DEBUG - ++ realpath /var/www/librechat
+145850 [36m[1mINFO[m    DEBUG - + local parent=/var/www/librechat
+145850 [36m[1mINFO[m    DEBUG - + [[ /var/www/librechat/librechat.env =~ ^/var/www/librechat ]]
+145850 [36m[1mINFO[m    DEBUG - + chmod 600 /var/www/librechat/librechat.env
+145850 [36m[1mINFO[m    DEBUG - + chown librechat:librechat /var/www/librechat/librechat.env
+145850 [36m[1mINFO[m    DEBUG - + return
+145851 [36m[1mINFO[m    DEBUG - + [[ 0 == 1 ]]
+145851 [36m[1mINFO[m    DEBUG - + cp -f /var/cache/yunohost/app_tmp_work_dirs/app__pjlb8uy/conf/librechat.env /var/www/librechat/librechat.env
+145851 [36m[1mINFO[m    DEBUG - + _ynh_replace_vars /var/www/librechat/librechat.env
+145851 [36m[1mINFO[m    DEBUG - + local file=/var/www/librechat/librechat.env
+145851 [36m[1mINFO[m    DEBUG - + local -a uniques_vars
+145851 [36m[1mINFO[m    DEBUG - + mapfile -t uniques_vars
+145851 [36m[1mINFO[m    DEBUG - ++ grep -oP '__[A-Z0-9]+?[A-Z0-9_]*?[A-Z0-9]*?__' /var/www/librechat/librechat.env
+145851 [36m[1mINFO[m    DEBUG - ++ sort --unique
+145851 [36m[1mINFO[m    DEBUG - ++ sed 's@__\([^.]*\)__@\L\1@g'
+145851 [36m[1mINFO[m    WARNING - Variable $var wasn't initialized when trying to replace __VAR__ in /var/www/librechat/librechat.env
+145851 [36m[1mINFO[m    ERROR - Unable to install librechat: An error occurred inside the app installation script : Variable $var wasn't initialized when trying to replace __VAR__ in /var/www/librechat/librechat.env
+145863 [31m[1mERROR[m   The installation of librechat failed, but was not cleaned up as requested by --no-remove-on-failure.
+[1m[31mError: Installation failed.[0m
+Peak RAM usage during this test: 2412MB
+RAM usage diff after test: 91MB
+Disk usage diff after test: 4399.6MB
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/hodibucaqo
+[1m[31mError: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+Working time for this test: 3 minutes, 14 seconds (22:16:15 UTC)
+[1m
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (22:16:18 UTC)
+[1m
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (22:16:18 UTC)
+[1m
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (22:16:18 UTC)
+[1m
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+[0m
+[1m[31mError: All installs failed, therefore the following tests cannot be performed...[0m
+
+[1m[31m--- FAIL ---[0m
+
+Error: Instance is not running
+Working time for this test: 0s (22:16:19 UTC)
+[1m
+ ============================================
+ Tests summary
+ ============================================
+[0m
+Global working time for all tests: 4 minutes, 10 seconds (22:16:19 UTC)
+You can find the complete log of these tests in /home/alex/package_check/full_log_0.log
