@@ -10,14 +10,7 @@ please report them on https://github.com/YunoHost/package_linter/issues
   Analyzing app /mnt/c/Users/Alex/Projects/librechat_ynh...
 [96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
 
- [1m[93m! [94mmanifest[0m
-
-   [93m ! You should add a 'init_main_permission' question, or define `allowed` for main permission to have the app ready to be accessed right after installation. [0m
-    - Error validating manifest using schema: in key install > admin_email
-       Additional properties are not allowed ('pattern_regexp' was unexpected)[0m
-    - Error validating manifest using schema: in key resources > sources > meilisearch > format
-       'script' is not one of ['tar.bz2', 'tar.gz', 'tar.xz', 'tar.zst', 'xz', 'zip', 'zst', 'docker', 'whatever'][0m
-
+ [1m[92m✔ [94mmanifest[0m
  [1m[92m✔ [94mscripts/_common.sh[0m
  [1m[92m✔ [94mscripts/install[0m
  [1m[92m✔ [94mscripts/remove[0m

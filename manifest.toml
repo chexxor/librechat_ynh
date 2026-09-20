@@ -6,7 +6,7 @@ description.en = "Multi-provider LLM chat UI (OpenAI, Anthropic, Ollama, OpenRou
 
 version = "0.8.8-rc3~ynh2"
 
-maintainers = ["your-username"]
+maintainers = ["alex-the-user"]  # TODO: set to the real GitHub username before catalog submission
 
 [upstream]
 license = "MIT"
@@ -30,11 +30,16 @@ ram.runtime = "500M"
     [install.domain]
     type = "domain"
 
+    [install.init_main_permission]
+    type = "group"
+    default = "all_users"
+
     [install.admin_email]
     type = "text"
     ask.en = "Enter the admin email address for notifications"
     example = "admin@example.com"
-    pattern_regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+        [install.admin_email.pattern]
+        regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
 
 [resources]
     [resources.sources.main]
@@ -48,7 +53,7 @@ ram.runtime = "500M"
     amd64.sha256 = "6c00019a887813ccbce54eec52718c9343bf4234383871146c67c76b1d2646cd"
     arm64.url = "https://github.com/meilisearch/meilisearch/releases/download/v1.53.2/meilisearch-linux-aarch64"
     arm64.sha256 = "12a38c387953e61807a5a0deb64e4bf52def38e49872c7963949a7d4d41a2117"
-    format = "script"    # Binary, not an archive — no extraction
+    format = "whatever"    # Binary, not an archive — no extraction
     extract = false
     rename = "meilisearch"
     autoupdate.strategy = "latest_github_release"
