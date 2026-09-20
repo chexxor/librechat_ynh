@@ -100,8 +100,14 @@ librechat_create_admin_user() {
     local admin_email="$1"
     local admin_password="$2"
 
+    # create-user.js → api/db/connect.js calls dotenv.config(), which loads a
+    # file literally named .env — but our managed env file is librechat.env, so
+    # MONGO_URI would be unset and the process throws. Source librechat.env into
+    # the environment (via `set -a`) before invoking node. Run it as $app in the
+    # install_dir so the app-owned, chmod-600 env file is readable.
     pushd "$install_dir"
-    ynh_exec_as_app node config/create-user.js "$admin_email" "Admin" "admin" "$admin_password" --email-verified=true
+    ynh_exec_as_app bash -c 'set -a; . ./librechat.env; set +a; exec node config/create-user.js "$@"' _ \
+        "$admin_email" "Admin" "admin" "$admin_password" --email-verified=true
     popd
 }
 

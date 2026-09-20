@@ -91,7 +91,27 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 - **Progress vs Cycle 1:** the `__VAR__` token error is GONE. New bug: nginx duplicate directive. Install now reaches nginx configuration (much further than before).
 - **Flake-vs-regression:** the duplicate directive is deterministic — REGRESSION. Fixed in the same cycle turn.
 - **Fix applied:** `conf/nginx.conf` — removed `proxy_http_version 1.1;`, `proxy_set_header Upgrade ...`, `proxy_set_header Connection ...` (all supplied by `include proxy_params_no_auth`). Kept `proxy_buffering off` / `proxy_cache off` (SSE, not in the include).
-- **Note (supersedes Phase 4):** 04-SCOPE-EXEMPTIONS.md exempted the `Upgrade`/`Connection` linter warning on the condition that `proxy_params_no_auth` be "proven to supply WS headers". The live run now proves it: the include supplies `proxy_http_version 1.1` + `Upgrade` + `Connection`. The Phase 4 exemption is therefore resolved — the directives are removed, removing the warning AND the fatal duplication. Phase 4's historical record is left as-is; this triage log is the authoritative supersession.
+- **Note (supersedes Phase 4):** 04-SCOPE-EXEMPTIONS.md exempted the `Upgrade`/`Connection` linter warning on the condition that `proxy_params_no_auth` be "proven to supply WS headers". The live run now proves it (the include supplies `proxy_http_version 1.1` + `Upgrade` + `Connection`). Removing the duplicates resolves the warning AND the fatal duplication. Phase 4's historical record is left as-is; this triage log is the authoritative supersession.
+
+---
+
+## Cycle 3 — 2026-09-20
+
+- **Run:** VM full suite, duration **4m29s**, exit 0, Global summary printed.
+- **Code state (git rev):** `f1242c9` (includes the cycle-2 nginx fix).
+- **Test verdicts:** `install.root=FAIL`, `backup_restore=FAIL (cascade)`, `upgrade=FAIL (cascade)`, `upgrade.05e3d5b=FAIL (cascade)`, `package_linter=SUCCESS`, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `Error: Please define the MONGO_URI environment variable` (thrown in `/var/www/librechat/api/db/connect.js:11`) during **Step 10 — Creating admin user** | install.root | Package bug | `cycles/cycle-3/package_check-full.log:155,167,176` | FIX — `librechat_create_admin_user` must load `librechat.env` before running `create-user.js` |
+  | Cascaded install failure | backup_restore / upgrade / upgrade.05e3d5b | Package bug (cascade) | "All installs failed…" | Re-triage after install.root passes |
+  | No `scripts/change_url` | change_url | Exempt | Definitional | Document (POLS-02) |
+  | `imgkit` summary renderer | harness | Environment | `results_0.json` | Document |
+
+- **Progress vs Cycle 2:** nginx duplicate-directive error GONE (install now configures nginx, starts services, and reaches admin-user creation). Root cause of the new failure: `config/create-user.js` → `api/db/connect.js` calls `require('dotenv').config()`, which loads a file literally named `.env`; our managed file is `librechat.env`, so `MONGO_URI` is unset and connect.js throws.
+- **Flake-vs-regression:** deterministic — REGRESSION. Fixed in the same cycle turn.
+- **Fix applied:** `librechat_create_admin_user` now runs `bash -c 'set -a; . ./librechat.env; set +a; exec node config/create-user.js "$@"'` as `$app` in `$install_dir`, so the app-owned env file (chmod 600) is sourced into node's environment.
 
 ---
 
