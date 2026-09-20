@@ -10,7 +10,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Local CI
 
 - [ ] **CI-01**: `tests.toml` test suite exists with `test_format = 1.0`, supplies install args (e.g. `args.admin_email`), and follows documented syntax (no `exclude` misuse)
-- [ ] **CI-02**: User can run `package_check` locally from a dedicated Hyper-V Debian 12 VM + Incus + btrfs environment (setup documented and reproducible)
+- [x] **CI-02**: User can run `package_check` locally from a dedicated Hyper-V Debian 12 VM + Incus + btrfs environment (setup documented and reproducible)
 - [ ] **POLS-01**: `package_check` full suite runs to completion with **zero failures**; all findings fixed (install root/subpath/private/reinstall/backup-restore/upgrade)
 
 ### Static Linting
@@ -52,7 +52,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | LINT-01 | Phase 4 | Complete |
 | CI-01 | Phase 5 | Pending |
-| CI-02 | Phase 5 | Pending |
+| CI-02 | Phase 5 | Complete |
 | POLS-01 | Phase 6 | Pending |
 | GHCI-01 | Phase 7 | Pending |
 
