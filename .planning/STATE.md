@@ -11,12 +11,12 @@ See: .planning/PROJECT.md (updated 2026-09-19)
 
 Milestone: v1.1 CI Validation (phases 4-7)
 Phase: 5 of 7 (tests.toml + Local package_check Environment)
-**Current Plan:** Not started
-**Total Plans in Phase:** 0
-**Status:** Ready to plan
-Last activity: 2026-09-20 — Completed 04-04-PLAN.md (Phase 4 lint baseline complete; LINT-01 closed)
+**Current Plan:** 05-02 (05-01 complete)
+**Total Plans in Phase:** 3
+**Status:** In progress
+Last activity: 2026-09-19 — Completed 05-01-PLAN.md (tests.toml authored and parser/dry-run validated; CI-01 closed)
 
-**Progress:** [███░░░░░░░] 25%
+**Progress:** [████░░░░░░] 40%
 
 ## Performance Metrics
 
@@ -47,6 +47,8 @@ Decisions logged in PROJECT.md Key Decisions table. Recent for v1.1:
 - [Phase 04]: README must contain readme_generator marker + dash.yunohost.org/integration/{id}.svg (literal linter greps), not arbitrary shields.io badges
 - [Phase 04]: Canonical lint-baseline record is the lint-before-fix.*/lint-after-fix.* pair (text + JSON each); runner scratch lint-baseline.* left on disk but non-canonical
 - [Phase 04]: Scope-adjusted zero-error accepted: post-fix JSON retains exactly 1 critical + 2 errors + 2 warnings, all documented exemptions in 04-SCOPE-EXEMPTIONS.md; LINT-01 closed
+- [Phase 05]: tests.toml uses test_upgrade_from.05e3d5b (0.8.8-rc3~ynh2) not 116691c — the latter is manifest-only with no scripts/ and not installable
+- [Phase 05]: args.admin_email supplied in [default]; no exclude block and no only=[...] on [default] — change_url expected to fail and is a Phase 6 finding (POLS-02 deferred)
 
 ### Pending Todos
 
