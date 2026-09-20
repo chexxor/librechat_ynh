@@ -1,0 +1,21 @@
+{
+    "success": [],
+    "info": [
+        "App.change_url_script",
+        "Configurations.systemd_config_harden_security",
+        "Configurations.systemd_config_harden_security",
+        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
+        "AppCatalog.is_in_github_org"
+    ],
+    "warning": [
+        "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
+        "AppCatalog.has_category"
+    ],
+    "error": [
+        "Configurations.tests_toml",
+        "AppCatalog.state_is_working"
+    ],
+    "critical": [
+        "AppCatalog.is_in_catalog"
+    ]
+}

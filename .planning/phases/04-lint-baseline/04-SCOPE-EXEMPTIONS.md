@@ -1,7 +1,7 @@
 # Phase 4 — Scope Exemptions (Out-of-Scope Findings)
 
 **Created:** 2026-09-19 (Plan 04-01, Wave 0)
-**Status:** Initial record — updated by Plan 04 after the final clean run if needed.
+**Status:** Reconciled by Plan 04-04 against the actual post-fix run (`lint-after-fix.json`).
 
 ## Purpose
 
@@ -59,9 +59,9 @@ here so the full accounting is visible:
 
 **Locally-fixable-and-fixed count: 2 schema violations + 8 warnings.**
 
-## Baseline Totals (before any fix)
+## Baseline Totals
 
-Captured by `scripts/run_lint.sh` in `lint-baseline.json`:
+### Before any fix (Plan 04-01, archived as `lint-before-fix.json`)
 
 | Bucket | Count |
 |---|---|
@@ -73,10 +73,26 @@ Captured by `scripts/run_lint.sh` in `lint-baseline.json`:
 **Exempted count: 1 critical, 2 errors, 1 warning.**
 **Locally-fixable-and-fixed count: 2 schema violations + 8 warnings.**
 
-After Plans 02–04, the expected post-fix JSON is:
+### After all fixes (Plan 04-04, archived as `lint-after-fix.json`)
+
+| Bucket | Count | Delta |
+|---|---|---|
+| critical | 1 | 0 (the catalog exemption) |
+| error | 2 | 0 (catalog + tests.toml exemptions) |
+| warning | 2 | −7 (8 warnings fixed; 1 dropped from the before-fix info bucket) |
+| info | 5 | −2 (both manifest schema violations resolved) |
+
+Post-fix findings (actual, reconciled):
 `critical = ["AppCatalog.is_in_catalog"]`,
 `error = ["Configurations.tests_toml", "AppCatalog.state_is_working"]`,
 `warning = ["AppCatalog.has_category",
-"Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency"]`
-(plus any `App.badges_in_readme` residual if README regeneration is deferred).
-Every remaining entry must appear in the Exempted table above.
+"Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency"]`.
+
+Every remaining critical/error/warning appears in the Exempted table above — no
+orphan exemptions, no unexplained findings. `App.badges_in_readme` did not
+reappear (README regeneration in Plan 03 cleared it). `Configurations.tests_toml`
+and `AppCatalog.state_is_working` remain as documented (`error` bucket), and
+`AppCatalog.is_in_catalog` remains as documented (`critical` bucket).
+
+The locally-fixable invariant `(critical ∪ error) \ exempted == ∅` holds — see
+the `LOCALLY-FIXABLE-ERRORS-ZERO` assertion in the Plan 04-04 automated verify.
