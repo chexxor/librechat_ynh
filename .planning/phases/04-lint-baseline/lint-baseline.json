@@ -8,7 +8,6 @@
         "AppCatalog.is_in_github_org"
     ],
     "warning": [
-        "App.badges_in_readme",
         "Configurations.tests_nginx_reverse_proxy_params_and_sso_consistency",
         "AppCatalog.has_category"
     ],
