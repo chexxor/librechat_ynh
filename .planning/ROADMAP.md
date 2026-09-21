@@ -22,7 +22,7 @@ Phases 1-3 delivered the complete lifecycle package: install, remove, backup/res
 
 - [ ] **Phase 4: Lint Baseline** - package_linter runs clean on the Windows dev box; establishes the cheapest source of findings before any infra work
 - [x] **Phase 5: tests.toml + Local package_check Environment** - Schema-valid tests.toml exists and a reproducible Hyper-V Debian 12 VM + Incus + btrfs Linux environment runs the full package_check suite (completed 2026-09-20)
-- [ ] **Phase 6: Fix Findings to Zero Failures** - Iterative fixes until the full package_check suite completes with zero failures; clean run archived as POLS-01 verification
+- [x] **Phase 6: Fix Findings to Zero Failures** - Iterative fixes until the full package_check suite completes with zero failures; clean run archived as POLS-01 verification (completed 2026-09-20)
 - [ ] **Phase 7: GitHub Actions Lint Workflow** - Lint-only workflow on hosted runners, added last so it starts green
 
 ## Phase Details
@@ -81,7 +81,10 @@ Plans:
   1. A pull request or push to the repo shows the lint workflow running and passing (green check) on `ubuntu-latest`
   2. The workflow completes in minutes (~10 min or less) with an explicit job timeout, running only lint-only jobs: package_linter, shellcheck on `scripts/*`, TOML/schema validation
   3. Nothing in the workflow attempts a container build or package_check run (hosted-runner anti-feature respected); safe `pull_request`-style triggers only (no `pull_request_target` surprise surface)
-**Plans**: TBD
+**Plans**: 1 plan (executed as a 13-cycle fix→run→triage loop + final archive)
+Plans:
+- [x] 06-01..06-04 — Wave 1 fixes + iterative fix→run→triage loop (13 cycles): headline secret-token fix, nginx directives, MONGO_URI loading, `db_pwd` key, meilisearch `dumps/` CWD, restore mongo user
+- [x] 06-05 — Final clean run + redacted POLS-01 archive + project records
 
 ## Progress
 
@@ -94,7 +97,7 @@ Plans:
 | 3. Lifecycle & Polish | v1.0 | 2/2 | Complete | 2026-09-19 |
 | 4. Lint Baseline | 2/4 | In Progress|  | - |
 | 5. tests.toml + PC Environment | 3/3 | Complete    | 2026-09-20 | - |
-| 6. Fix Findings to Zero | v1.1 | 2/5 | In Progress | - |
+| 6. Fix Findings to Zero | v1.1 | 1/1 | Complete | 2026-09-20 |
 | 7. GH Actions Lint Workflow | v1.1 | 0/? | Not started | - |
 
 *Note: v1.0 plan counts approximate the shipped milestone summary (3 phases, 7 plans).*

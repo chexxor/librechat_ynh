@@ -5,18 +5,18 @@
 See: .planning/PROJECT.md (updated 2026-09-20)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Phase 6 - Fix Findings to Zero Failures (v1.1 CI Validation)
+**Current focus:** Phase 7 - GitHub Actions Lint Workflow (v1.1 CI Validation)
 
 ## Current Position
 
 Milestone: v1.1 CI Validation (phases 4-7)
-Phase: 6 of 7 (Fix Findings to Zero Failures)
-**Current Plan:** Not started
-**Total Plans in Phase:** 0
-**Status:** Ready to plan
-Last activity: 2026-09-20 - Phase 5 complete (3/3 plans; verification passed 3/3). Full package_check suite ran end-to-end (Global 4m5s, exit 0, no crashes); findings handed to Phase 6.
+Phase: 6 of 7 (Fix Findings to Zero Failures) — COMPLETE
+**Current Plan:** Complete
+**Total Plans in Phase:** 1 (executed as fix→run→triage loop + final archive)
+**Status:** Phase 6 complete
+Last activity: 2026-09-20 - Phase 6 complete. POLS-01 live-verified: single clean full-suite `package_check` run (exit 0, 20m45s, rev `1be66f5`) with all 4 in-scope tests SUCCESS (package_linter, install.root, backup_restore, upgrade). `change_url` + `upgrade.05e3d5b` exempt out-of-scope-by-design. Redacted evidence archived in `pols-01-evidence/`.
 
-**Progress:** [#######░░░] 71%
+**Progress:** [########░] 85%
 
 ## Performance Metrics
 
@@ -66,14 +66,13 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioned in 05-03; setup script + walkthrough delivered. IP is DHCP on the host External switch (.85 -> .83); eth0-watchdog.service mitigates NIC link flaps.
-- [Phase 6]: package_check is stricter than the live v1.0 install (subpath, private, reinstall, upgrade-from-commit paths never exercised) - expect unknown-scope findings.
-- [Phase 6 - 2026-09-20, NEW]: install.root FAILS on a genuine package bug - `Variable $admin_panel_session_secret wasn't initialized when trying to replace __ADMIN_PANEL_SESSION_SECRET__ in /var/www/librechat/librechat.env`. scripts/_common.sh generates/persists `admin_panel_secret` while conf/librechat.env substitutes `__ADMIN_PANEL_SESSION_SECRET__`. Blocking prerequisite for POLS-01.
-- [Phase 6 - 2026-09-20, NEW]: install.subdir/install.private/install.multi did not run (no [install.path] question, parser never auto-generates private, multi_instance=false) - add explicitly if POLS-01 requires that coverage.
-- [Phase 5/6 - 2026-09-20, NEW]: 8 reproducibility gaps recorded in 05-FINDINGS.md section 5 (python3-toml, linter Python deps, tmux, ethtool, image-alias workaround, eth0 watchdog, DHCP instability, imgkit) - fold into doc/PACKAGE_CHECK.md and scripts/setup_pc_env.sh.
+- [Phase 5]: Host decided = dedicated Hyper-V Debian 12 VM + Incus + btrfs (WSL2 ruled out). VM provisioned in 05-03; setup script + walkthrough delivered. IP is DHCP on the host External switch (.83/.85 flipping); eth0-watchdog.service mitigates NIC link flaps.
+- [Phase 6 - RESOLVED 2026-09-20]: All install-blocking bugs fixed across 13 fix→run→triage cycles. Headline: admin_panel_secret/__ADMIN_PANEL_SESSION_SECRET__ mismatch; plus env header `__VAR__` token, nginx duplicate directives, MONGO_URI env loading, `db_pwd` setting key, meilisearch `dumps/` CWD, and restore missing mongo user. POLS-01 live-verified.
+- [Phase 6 - EXEMPT]: `change_url` (POLS-02, v2) and `upgrade.05e3d5b` (v1.0 artifact predates Phase 4 manifest fix, uninstallable on modern YunoHost) are documented out-of-scope-by-design in `06-SCOPE-EXEMPTIONS.md`.
+- [Phase 5/6 - reproducibility]: 8 gaps from `05-FINDINGS.md` §5 folded into `doc/PACKAGE_CHECK.md` / `scripts/setup_pc_env.sh` (commit `0f1db78`).
 
 ## Session Continuity
 
-**Last session:** 2026-09-20T21:38:30.992Z
-**Stopped at:** Phase 6 context gathered
+**Last session:** 2026-09-20
+**Stopped at:** Phase 6 complete, ready to plan Phase 7
 **Resume file:** .planning/phases/06-fix-findings-to-zero-failures/06-CONTEXT.md

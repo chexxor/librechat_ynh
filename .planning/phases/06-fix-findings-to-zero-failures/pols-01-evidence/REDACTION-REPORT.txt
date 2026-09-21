@@ -1,0 +1,4 @@
+REDACTION OK: 0 residual secret matches
+redact rc=0
+REDACTION OK: 0 residual secret matches
+assert rc=0

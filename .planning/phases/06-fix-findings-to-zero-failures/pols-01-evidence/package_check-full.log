@@ -1,0 +1,560 @@
+Testing package /home/alex/librechat_ynh
+Error: Remote yunohost already exists
+Launching new LXC ynh-appci-bookworm-amd64-stable-test-0 ...
+
+[1m > YunoHost versions[0m
+
+[35m[1myunohost[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.41.2
+[35m[1myunohost-admin[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.15
+[35m[1myunohost-portal[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.2
+[35m[1mmoulinette[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.4
+[35m[1mssowat[m: 
+  [35m[1mrepo[m: stable
+  [35m[1mversion[m: 12.1.1
+[1m
+ ============================================
+ Package linter
+ ============================================
+[0m
+    [YunoHost App Package Linter]
+
+App packaging documentation - https://yunohost.org/packaging_apps
+App package example         - https://github.com/YunoHost/example_ynh
+Official helpers            - https://yunohost.org/packaging_apps_helpers
+
+If you believe this linter returns false negative (warnings/errors which shouldn't happen),
+please report them on https://github.com/YunoHost/package_linter/issues
+
+  Analyzing app /tmp/package_check.UoaKIf/app_folder...
+[96m? Can't check if there are any blocking issues pending, can only do this for apps hosted on github for now. [0m
+
+ [1m[92m✔ [94mmanifest[0m
+ [1m[92m✔ [94mscripts/_common.sh[0m
+ [1m[92m✔ [94mscripts/install[0m
+ [1m[92m✔ [94mscripts/remove[0m
+ [1m[92m✔ [94mscripts/upgrade[0m
+ [1m[92m✔ [94mscripts/backup[0m
+ [1m[92m✔ [94mscripts/restore[0m
+ [1mⓘ [94mGeneral stuff, misc helper usage[0m
+
+    - Consider adding a change_url script to support changing where the app can be reached[0m
+
+ [1mⓘ [94mConfiguration files[0m
+
+    - You are encouraged to harden the security of the systemd configuration librechat.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+    - You are encouraged to harden the security of the systemd configuration meilisearch.service. You can have a look at https://github.com/YunoHost/example_ynh/blob/main/conf/systemd.service#L14-L46 for a baseline.[0m
+
+ [1m[93m! [94mCatalog infos[0m
+
+   [91m ✘✘✘ This app is not in YunoHost's application catalog[0m
+   [91m ✘ The application is not flagged as working in YunoHost's apps catalog[0m
+   [93m ! The application has no associated category in YunoHost's apps catalog [0m
+    - Consider adding your app to the YunoHost-Apps organization to allow the community to contribute more easily[0m
+
+ [1m[92m✔ [94mIssues[0m
+ =======
+ There are some critical issues in this app :(
+[1m
+ ============================================
+ Basic bash syntax checks
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m
+ ============================================
+ Preinstalling apt dependencies before creating the initial snapshot...
+ ============================================
+[0m
+Creating initial snapshot ynh-appci-bookworm-amd64-stable-test-0 ...
+[1m
+ ============================================
+  [Test 1/6] Package linter
+ ============================================
+[0m
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 2 seconds (01:37:46 UTC)
+[1m
+ ============================================
+  [Test 2/6] Installation on the root
+ ============================================
+[0m
+(Creating snapshot snap-preinstalled-default ...)
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+2110 [36m[1mINFO[m    Installing librechat…
+2129 [36m[1mINFO[m    Provisioning sources...
+16384 [36m[1mINFO[m    Provisioning apt...
+19699 [36m[1mINFO[m    Provisioning ports...
+19712 [36m[1mINFO[m    Provisioning system_user...
+20184 [36m[1mINFO[m    Provisioning install_dir...
+20187 [36m[1mINFO[m    Provisioning data_dir...
+20189 [36m[1mINFO[m    Provisioning permissions...
+20258 [36m[1mINFO[m    Provisioning nodejs...
+23486 [36m[1mINFO[m    [+...................] > Installing dependencies...
+23486 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+45483 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+45718 [36m[1mINFO[m    [#++.................] > Setting up source files...
+49232 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+50718 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+51151 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+51253 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+51253 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+51254 [33m[1mWARNING[m npm warn config omitting invalid config values
+59506 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+63838 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+76249 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+81616 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+82347 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+124800 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+124801 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+124802 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+124802 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+124802 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+124802 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+124802 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+124803 [33m[1mWARNING[m npm warn install-scripts
+124803 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129360 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+129360 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+129360 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+129360 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+129361 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+129361 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+129361 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+129361 [33m[1mWARNING[m npm warn install-scripts
+129361 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+129733 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+129733 [33m[1mWARNING[m Attention:
+129733 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+129734 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+129734 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+129734 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+129734 [33m[1mWARNING[m • turbo 2.10.5
+129734 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+150461 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+150918 [36m[1mINFO[m    [##########+.........] > Configuring nginx...
+151463 [36m[1mINFO[m    [###########++.......] > Configuring systemd services...
+153153 [36m[1mINFO[m    [#############++.....] > Starting services...
+153402 [36m[1mINFO[m    [###############+....] > Creating admin user...
+157480 [36m[1mINFO[m    [################++..] > Sending admin email...
+157536 [36m[1mINFO[m    Admin password: ***REDACTED***
+157538 [36m[1mINFO[m    [####################] > Installation of librechat completed
+158171 [32m[1mSUCCESS[m Installation completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 2286MB
+RAM usage diff after test: 662MB
+Disk usage diff after test: 4479.9MB
+(Creating snapshot snap_rootinstall ...)
+
+[1m > Removing the app...[0m
+
+1113 [36m[1mINFO[m    Removing librechat…
+1220 [36m[1mINFO[m    [++++................] > Stopping services...
+2089 [36m[1mINFO[m    [####++++............] > Removing systemd services...
+2605 [36m[1mINFO[m    [########++++........] > Removing nginx configuration...
+2812 [36m[1mINFO[m    [############++++....] > Removing MongoDB database librechat (namespaced only)...
+4525 [36m[1mINFO[m    [####################] > Removal of librechat completed
+4635 [36m[1mINFO[m    Deprovisioning nodejs...
+5088 [36m[1mINFO[m    Deprovisioning permissions...
+5585 [36m[1mINFO[m    Deprovisioning data_dir...
+5587 [36m[1mINFO[m    Deprovisioning install_dir...
+14002 [36m[1mINFO[m    Deprovisioning system_user...
+14165 [36m[1mINFO[m    Deprovisioning ports...
+14168 [36m[1mINFO[m    Deprovisioning apt...
+16088 [36m[1mINFO[m    Deprovisioning sources...
+16089 [32m[1mSUCCESS[m librechat uninstalled
+
+[1m > Reinstalling after removal.[0m
+
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+1918 [36m[1mINFO[m    Installing librechat…
+1927 [36m[1mINFO[m    Provisioning sources...
+15274 [36m[1mINFO[m    Provisioning apt...
+19608 [36m[1mINFO[m    Provisioning ports...
+19626 [36m[1mINFO[m    Provisioning system_user...
+20085 [36m[1mINFO[m    Provisioning install_dir...
+20088 [36m[1mINFO[m    Provisioning data_dir...
+20089 [36m[1mINFO[m    Provisioning permissions...
+20154 [36m[1mINFO[m    Provisioning nodejs...
+23473 [36m[1mINFO[m    [+...................] > Installing dependencies...
+23474 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+39204 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+39440 [36m[1mINFO[m    [#++.................] > Setting up source files...
+42996 [36m[1mINFO[m    [###++...............] > Creating MongoDB database...
+44584 [36m[1mINFO[m    [#####+..............] > Generating secrets...
+45022 [36m[1mINFO[m    [######++............] > Building LibreChat (this can take several minutes)...
+45131 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+45131 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+45131 [33m[1mWARNING[m npm warn config omitting invalid config values
+53210 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+57583 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+69719 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+75241 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+75368 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+132512 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+132512 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+132512 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+132512 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+132513 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+132513 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+132513 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+132513 [33m[1mWARNING[m npm warn install-scripts
+132513 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+136893 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+136893 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+136893 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+136893 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+136894 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+136894 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+136894 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+136894 [33m[1mWARNING[m npm warn install-scripts
+136894 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+137257 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+137257 [33m[1mWARNING[m Attention:
+137258 [33m[1mWARNING[m Turborepo now collects completely anonymous telemetry regarding usage.
+137258 [33m[1mWARNING[m This information is used to shape the Turborepo roadmap and prioritize features.
+137258 [33m[1mWARNING[m You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+137258 [33m[1mWARNING[m https://turborepo.dev/docs/telemetry
+137259 [33m[1mWARNING[m • turbo 2.10.5
+137259 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+157533 [36m[1mINFO[m    [########++..........] > Adding configuration files...
+157945 [36m[1mINFO[m    [##########+.........] > Configuring nginx...
+158545 [36m[1mINFO[m    [###########++.......] > Configuring systemd services...
+160129 [36m[1mINFO[m    [#############++.....] > Starting services...
+160376 [36m[1mINFO[m    [###############+....] > Creating admin user...
+164438 [36m[1mINFO[m    [################++..] > Sending admin email...
+164493 [36m[1mINFO[m    Admin password: ***REDACTED***
+164495 [36m[1mINFO[m    [####################] > Installation of librechat completed
+165066 [32m[1mSUCCESS[m Installation completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+
+[1m[32m--- SUCCESS ---[0m
+
+[1m[31mError: There's quite a lot of warnings in the output ! If those warnings are coming from some app build step and ain't actual warnings, please redirect them to the standard output instead of the error output ...![0m
+Working time for this test: 7 minutes, 32 seconds (01:45:20 UTC)
+[1m
+ ============================================
+  [Test 3/6] Backup/Restore
+ ============================================
+[0m
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Backup of the application...[0m
+
+1168 [36m[1mINFO[m    Collecting files to be backed up for librechat…
+1236 [36m[1mINFO[m    Backing up LibreChat...
+1465 [36m[1mINFO[m    Stopping services...
+1847 [36m[1mINFO[m    Restarting services...
+2086 [36m[1mINFO[m    Backup of librechat completed
+5274 [36m[1mINFO[m    Creating a backup archive from the collected files…
+5275 [36m[1mINFO[m    The archive will contain about 2.0GB of data.
+94700 [32m[1mSUCCESS[m Backup created: Backup_test
+Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 116.23MB (116.22MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 233.24MB (116.61MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 349.04MB (116.33MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 464.62MB (116.14MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 572.65MB (114.52MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 677.94MB (112.97MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 781.88MB (111.68MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 888.14MB (111.00MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 994.28MB (110.46MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.10GB (110.29MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.21GB (109.72MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.32GB (109.73MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.42GB (109.36MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.53GB (109.08MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.64GB (109.14MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.74GB (108.65MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.84GB (108.49MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 1.95GB (108.41MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 2.06GB (108.60MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 2.18GB (108.98MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 2.30GB (109.29MB/s)                                                                                                                                                  Pulling /home/yunohost.backup/archives/Backup_test.tar from /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar: 2.41GB (109.53MB/s)                                                                                                                                                  
+[1m > Removing the app...[0m
+
+1149 [36m[1mINFO[m    Removing librechat…
+1301 [36m[1mINFO[m    [++++................] > Stopping services...
+2315 [36m[1mINFO[m    [####++++............] > Removing systemd services...
+2787 [36m[1mINFO[m    [########++++........] > Removing nginx configuration...
+3041 [36m[1mINFO[m    [############++++....] > Removing MongoDB database librechat (namespaced only)...
+4966 [36m[1mINFO[m    [####################] > Removal of librechat completed
+5072 [36m[1mINFO[m    Deprovisioning nodejs...
+5532 [36m[1mINFO[m    Deprovisioning permissions...
+6049 [36m[1mINFO[m    Deprovisioning data_dir...
+6050 [36m[1mINFO[m    Deprovisioning install_dir...
+15621 [36m[1mINFO[m    Deprovisioning system_user...
+15792 [36m[1mINFO[m    Deprovisioning ports...
+15796 [36m[1mINFO[m    Deprovisioning apt...
+17841 [36m[1mINFO[m    Deprovisioning sources...
+17842 [32m[1mSUCCESS[m librechat uninstalled
+
+[1m > Restore after removing the application...[0m
+
+69   [36m[1mINFO[m    Preparing archive for restoration…
+69576 [36m[1mINFO[m    Restoring librechat…
+69665 [36m[1mINFO[m    Provisioning sources...
+69666 [36m[1mINFO[m    Provisioning apt...
+73072 [36m[1mINFO[m    Provisioning ports...
+73075 [36m[1mINFO[m    Provisioning system_user...
+73568 [36m[1mINFO[m    Provisioning install_dir...
+73573 [36m[1mINFO[m    Provisioning data_dir...
+73577 [36m[1mINFO[m    Provisioning permissions...
+73626 [36m[1mINFO[m    Provisioning nodejs...
+77156 [36m[1mINFO[m    [++..................] > Restoring LibreChat...
+77256 [36m[1mINFO[m    [##++................] > Ensuring MongoDB is installed...
+77257 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+94367 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+94625 [36m[1mINFO[m    [####++..............] > Restoring files...
+99275 [36m[1mINFO[m    [######++............] > Restoring MongoDB database...
+105017 [36m[1mINFO[m    [########+++.........] > Ensuring Node.js is installed...
+105017 [36m[1mINFO[m    Node.js provided by the nodejs resource (v24)
+105018 [36m[1mINFO[m    [###########++.......] > Setting up Meilisearch binary...
+118153 [36m[1mINFO[m    [#############++.....] > Configuring services...
+119764 [36m[1mINFO[m    [###############++...] > Starting services...
+120201 [36m[1mINFO[m    [####################] > Restoration of librechat completed
+120346 [32m[1mSUCCESS[m Restoration completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 461MB
+RAM usage diff after test: 469MB
+Disk usage diff after test: 3895.0MB
+Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.info.json to /home/yunohost.backup/archives/Backup_test.info.json: 100% (349B/s)                                                                                                                                                    Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 1% (308.47MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 2% (310.82MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 3% (294.90MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 4% (287.72MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 5% (281.22MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 6% (277.70MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 7% (281.31MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 8% (285.68MB/s)                                                                                                                                          Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 9% (287.37MB/s)Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 10% (288.09MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 10% (288.76MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 11% (291.56MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 12% (292.17MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 13% (289.33MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 14% (288.19MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 15% (288.14MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 16% (288.16MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 17% (286.41MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 18% (288.15MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 19% (289.57MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 19% (288.02MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 20% (288.58MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 21% (289.12MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 22% (288.61MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 23% (289.90MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 24% (289.24MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 25% (288.27MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 26% (287.93MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 27% (286.60MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 28% (284.63MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 29% (285.51MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 29% (285.83MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 30% (286.08MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 31% (286.09MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 32% (284.38MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 33% (221.88MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 34% (213.70MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 35% (206.72MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 36% (207.96MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 37% (209.14MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 38% (210.46MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 38% (211.75MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 39% (212.83MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 40% (213.91MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 41% (214.75MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 42% (215.90MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 43% (217.08MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 44% (217.98MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 45% (218.07MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 46% (218.79MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 47% (219.32MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 47% (220.01MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 48% (220.29MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 49% (221.22MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 50% (221.81MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 51% (222.41MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 52% (223.26MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 53% (223.96MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 54% (224.88MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 55% (225.04MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 56% (225.67MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 57% (225.84MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 57% (226.26MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 58% (226.16MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 59% (226.02MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 60% (226.64MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 61% (226.94MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 62% (226.89MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 63% (227.07MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 64% (226.85MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 65% (226.90MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 66% (227.65MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 66% (226.91MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 67% (226.65MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 68% (226.63MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 69% (226.82MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 70% (226.99MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 71% (227.26MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 72% (228.00MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 73% (228.45MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 74% (228.81MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 75% (228.82MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 76% (229.00MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 76% (228.76MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 77% (229.00MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 78% (229.50MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 79% (229.50MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 80% (227.48MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 81% (226.36MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 82% (227.06MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 83% (227.35MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 84% (228.17MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 85% (229.15MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 85% (230.17MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 86% (231.11MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 87% (232.10MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 88% (233.02MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 89% (233.98MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 90% (234.94MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 91% (235.80MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 92% (236.68MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 93% (237.59MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 94% (238.48MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 94% (239.32MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 95% (240.17MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 96% (241.06MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 97% (241.89MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 98% (242.75MB/s)                                                                                                                                           Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 99% (243.58MB/s)Pushing /tmp/package_check.UoaKIf/ynh_backups/archives/Backup_test.tar to /home/yunohost.backup/archives/Backup_test.tar: 100% (244.38MB/s)                                                                                                                                            
+[1m > Restore on a fresh YunoHost system...[0m
+
+92   [36m[1mINFO[m    Preparing archive for restoration…
+68083 [36m[1mINFO[m    Restoring librechat…
+68188 [36m[1mINFO[m    Provisioning sources...
+68188 [36m[1mINFO[m    Provisioning apt...
+72227 [36m[1mINFO[m    Provisioning ports...
+72235 [36m[1mINFO[m    Provisioning system_user...
+72752 [36m[1mINFO[m    Provisioning install_dir...
+72759 [36m[1mINFO[m    Provisioning data_dir...
+72763 [36m[1mINFO[m    Provisioning permissions...
+72821 [36m[1mINFO[m    Provisioning nodejs...
+76742 [36m[1mINFO[m    [++..................] > Restoring LibreChat...
+76846 [36m[1mINFO[m    [##++................] > Ensuring MongoDB is installed...
+76847 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+99219 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+99488 [36m[1mINFO[m    [####++..............] > Restoring files...
+103654 [36m[1mINFO[m    [######++............] > Restoring MongoDB database...
+109197 [36m[1mINFO[m    [########+++.........] > Ensuring Node.js is installed...
+109198 [36m[1mINFO[m    Node.js provided by the nodejs resource (v24)
+109200 [36m[1mINFO[m    [###########++.......] > Setting up Meilisearch binary...
+122179 [36m[1mINFO[m    [#############++.....] > Configuring services...
+123914 [36m[1mINFO[m    [###############++...] > Starting services...
+124462 [36m[1mINFO[m    [####################] > Restoration of librechat completed
+124640 [32m[1mSUCCESS[m Restoration completed
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 566MB
+RAM usage diff after test: 572MB
+Disk usage diff after test: 4143.2MB
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 7 minutes, 47 seconds (01:53:09 UTC)
+[1m
+ ============================================
+  [Test 4/6] Upgrade from the same version
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Upgrade...[0m
+
+191  [36m[1mINFO[m    Now upgrading librechat…
+191  [33m[1mWARNING[m Skipping the creation of a backup prior to the upgrade.
+1722 [36m[1mINFO[m    Updating sources...
+16397 [36m[1mINFO[m    Updating apt...
+19522 [36m[1mINFO[m    Updating ports...
+19529 [36m[1mINFO[m    Updating system_user...
+19942 [36m[1mINFO[m    Updating install_dir...
+19947 [36m[1mINFO[m    Updating data_dir...
+19952 [36m[1mINFO[m    Updating permissions...
+20459 [36m[1mINFO[m    Updating nodejs...
+21489 [36m[1mINFO[m    [++..................] > Ensuring dependencies are up to date...
+21489 [36m[1mINFO[m    Installing MongoDB Community Edition ...
+31316 [36m[1mINFO[m    The service mongod has correctly executed the action restart.
+34162 [36m[1mINFO[m    [##+++...............] > Replacing LibreChat source with the new version...
+43032 [36m[1mINFO[m    [#####++.............] > Verifying MongoDB database...
+44692 [36m[1mINFO[m    [#######+++..........] > Building LibreChat (this can take several minutes)...
+44803 [33m[1mWARNING[m npm warn invalid config allow-remote="true" set in /root/.npmrc
+44804 [33m[1mWARNING[m npm warn invalid config Must be one of: all, none, root
+44804 [33m[1mWARNING[m npm warn config omitting invalid config values
+62060 [33m[1mWARNING[m npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+66298 [33m[1mWARNING[m npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+79205 [33m[1mWARNING[m npm warn deprecated source-map@0.8.0-beta.0: The work that was done in this beta branch won't be included in future versions
+83340 [33m[1mWARNING[m npm warn deprecated ldapjs@2.3.3: This package has been decomissioned. See https://github.com/ldapjs/node-ldapjs/blob/8ffd0bc9c149088a10ec4c1ec6a18450f76ad05d/README.md
+84912 [33m[1mWARNING[m npm warn deprecated glob@11.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+126532 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+126532 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+126533 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+126533 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+126533 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+126533 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+126534 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+126534 [33m[1mWARNING[m npm warn install-scripts
+126534 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+130980 [33m[1mWARNING[m npm warn install-scripts 6 packages have install scripts not yet covered by allowScripts:
+130980 [33m[1mWARNING[m npm warn install-scripts   @google/genai@2.13.0 (preinstall: echo 'preinstall: no-op')
+130980 [33m[1mWARNING[m npm warn install-scripts   es5-ext@0.10.64 (postinstall:  node -e "try{require('./_postinstall')}catch(e){}" || exit 0)
+130981 [33m[1mWARNING[m npm warn install-scripts   mongodb-memory-server@11.0.1 (postinstall: node ./postinstall.js)
+130981 [33m[1mWARNING[m npm warn install-scripts   protobufjs@7.6.5 (postinstall: node scripts/postinstall)
+130981 [33m[1mWARNING[m npm warn install-scripts   reova@0.4.1 (postinstall: node index.js)
+130982 [33m[1mWARNING[m npm warn install-scripts   unrs-resolver@1.11.1 (postinstall: napi-postinstall unrs-resolver 1.11.1 check)
+130982 [33m[1mWARNING[m npm warn install-scripts
+130982 [33m[1mWARNING[m npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+131362 [33m[1mWARNING[m  WARNING  --no-daemon is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+131362 [33m[1mWARNING[m • turbo 2.10.5
+131363 [33m[1mWARNING[m  WARNING  the `daemon` configuration option is deprecated and will be removed in version 3.0. The daemon is no longer used for `turbo run`.
+132310 [36m[1mINFO[m    [##########++........] > Regenerating and merging configuration files...
+132814 [36m[1mINFO[m    librechat.yaml exists — preserving user configuration verbatim
+133034 [36m[1mINFO[m    librechat.yaml: appended commented template sections for missing keys only
+133034 [36m[1mINFO[m    Config regeneration/merge complete (managed env keys fresh; user keys preserved)
+133035 [36m[1mINFO[m    [############+++.....] > Reconfiguring nginx and systemd services...
+135120 [36m[1mINFO[m    [###############++...] > Restarting services...
+135381 [36m[1mINFO[m    [####################] > Upgrade of librechat completed
+135970 [32m[1mSUCCESS[m librechat upgraded
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/
+Title   : LibreChat
+Content extract:
+
+Assets  :
+  - https://sub.domain.tld/assets/math-katex.uZ8_QngQ.css
+  - https://sub.domain.tld/assets/index.hwbuK55D.js
+[1m[92mOK[0m
+========
+Peak RAM usage during this test: 1133MB
+RAM usage diff after test: 87MB
+Disk usage diff after test: 2972.6MB
+
+[1m[32m--- SUCCESS ---[0m
+
+Working time for this test: 3 minutes, 0s (01:56:12 UTC)
+[1m
+ ============================================
+  [Test 5/6] Upgrade from v1.0 (0.8.8-rc3~ynh2)
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+/tmp/package_check.UoaKIf/app_folder ~/package_check
+~/package_check
+Running: yunohost app install --no-remove-on-failure --force /app_folder -a "&domain=sub.domain.tld&init_main_permission=visitors&admin_email=package_checker@example.com&is_public=1&path=/&"
+1077 [31m[1mERROR[m   While parsing manifest: 1 validation error for OptionsModel
+options -> 1 -> TextOption -> pattern_regexp
+  extra fields not permitted (type=value_error.extra)
+[1m[31mError: Installation failed.[0m
+
+[1m > Validating that the app librechat can/can't be accessed with its URL...[0m
+
+URL     : https://sub.domain.tld/    (redirected to: https://domain.tld/yunohost/sso/?r=aHR0cHM6Ly9zdWIuZG9tYWluLnRsZC8=)
+Content extract:
+Loading
+Assets  :
+  - [1m[91mFAIL[0m (code 404) https://domain.tld/yunohost/sso/customassets/custom.css
+  - https://domain.tld/yunohost/sso/assets/BQcoiuAR.js
+Errors  :
+    - The request was redirected to yunohost's portal (https://domain.tld/yunohost/sso/?r=aHR0cHM6Ly9zdWIuZG9tYWluLnRsZC8=)
+    - Asset https://domain.tld/yunohost/sso/customassets/custom.css (automatically derived from the page's html) answered with code 404, expected 200? Effective url: https://domain.tld/yunohost/sso/customassets/custom.css
+[1m[91mFAIL[0m
+========
+==> /var/log/nginx/sub.domain.tld-access.log <==
+10.244.67.1 - - [21/Sep/2026:01:57:02 +0000] "GET / HTTP/2.0" 302 138 "-" "PycURL/7.45.2 libcurl/7.88.1 GnuTLS/3.7.9 zlib/1.2.13 brotli/1.0.9 zstd/1.5.4 libidn2/2.3.3 libpsl/0.21.2 (+libidn2/2.3.3) libssh2/1.10.0 nghttp2/1.52.0 librtmp/2.3 OpenLDAP/2.5.13"
+10.244.67.1 - - [21/Sep/2026:01:57:02 +0000] "GET / HTTP/2.0" 302 138 "-" "PycURL/7.45.2 libcurl/7.88.1 GnuTLS/3.7.9 zlib/1.2.13 brotli/1.0.9 zstd/1.5.4 libidn2/2.3.3 libpsl/0.21.2 (+libidn2/2.3.3) libssh2/1.10.0 nghttp2/1.52.0 librtmp/2.3 OpenLDAP/2.5.13"
+
+==> /var/log/nginx/sub.domain.tld-error.log <==
+[1m[31mError: Initial install failed... upgrade test ignore[0m
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/fojelupono
+Working time for this test: 56 seconds (01:57:10 UTC)
+[1m
+ ============================================
+  [Test 6/6] Change URL
+ ============================================
+[0m
+
+[1m > Preliminary install...[0m
+
+(Reusing existing snapshot snap_rootinstall)
+
+[1m > Changing the URL from sub.domain.tld/ to domain.tld/...[0m
+
+500  [31m[1mERROR[m   The app 'librechat' doesn't support URL modification yet. Maybe you should upgrade it.
+
+[1m[31m--- FAIL ---[0m
+
+SUCCESS This log is now available via https://paste.yunohost.org/raw/ubahorabez
+Working time for this test: 27 seconds (01:57:39 UTC)
+[1m
+ ============================================
+ Tests summary
+ ============================================
+[0m
+
+Package linter:                [1m[92mOK[0m  ([93m1 warnings[0m, 3 possible improvements)
+Install (root):                [1m[92mOK[0m
+Backup/restore:                [1m[92mOK[0m
+Upgrade:                       [1m[92mOK[0m
+Upgrade (05e3d5b):            [91mfail[0m
+Change url:                   [91mfail[0m
+
+Level results
+=============
+Level 1 (Installable in at least one scenario)   
+Level 2 (Installable in all scenarios)            ok 
+Level 3 (Can be upgraded)                         ok 
+Level 4 (Can be backup/restored)                  ok 
+Level 5 (No linter errors)                       
+Level 6 (App is in a community-operated git org)  ok 
+Level 7 (Pass all tests + no linter warnings)    
+Level 8 (Maintained and long-term good quality)  
+
+[1mGlobal level for this application: 0 (Broken)[0m
+
+(Protip™ for CI admin: you should 'apt install wkhtmltopdf optipng --no-install-recommends' to enable result summary export to .png)
+Global working time for all tests: 20 minutes, 45 seconds (01:57:41 UTC)
+You can find the complete log of these tests in /home/alex/package_check/full_log_0.log
+PACKAGE_CHECK_EXIT:0

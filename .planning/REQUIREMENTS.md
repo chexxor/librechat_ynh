@@ -11,7 +11,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 - [ ] **CI-01**: `tests.toml` test suite exists with `test_format = 1.0`, supplies install args (e.g. `args.admin_email`), and follows documented syntax (no `exclude` misuse)
 - [x] **CI-02**: User can run `package_check` locally from a dedicated Hyper-V Debian 12 VM + Incus + btrfs environment (setup documented and reproducible)
-- [ ] **POLS-01**: `package_check` full suite runs to completion with **zero failures**; all findings fixed (install root/subpath/private/reinstall/backup-restore/upgrade)
+- [x] **POLS-01**: `package_check` full suite runs to completion with **zero failures**; all findings fixed (install root/subpath/private/reinstall/backup-restore/upgrade). Live-verified 2026-09-20 (exit 0, all 4 in-scope tests SUCCESS); `change_url` and `upgrade.05e3d5b` exempt out-of-scope-by-design (see `06-SCOPE-EXEMPTIONS.md`)
 
 ### Static Linting
 
@@ -53,7 +53,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LINT-01 | Phase 4 | Complete |
 | CI-01 | Phase 5 | Pending |
 | CI-02 | Phase 5 | Complete |
-| POLS-01 | Phase 6 | Pending |
+| POLS-01 | Phase 6 | Complete |
 | GHCI-01 | Phase 7 | Pending |
 
 **Coverage:**

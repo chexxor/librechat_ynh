@@ -1430,25 +1430,25 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 55854 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
 55854 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
 55854 [37m[1mDEBUG[m   ++ head -c 24
-55855 [37m[1mDEBUG[m   + local new_db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
-55855 [37m[1mDEBUG[m   + db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
-55856 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng --db_name=librechat
+55855 [37m[1mDEBUG[m   + local new_db_pwd=***REDACTED***
+55855 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
+55856 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 55856 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
 55856 [37m[1mDEBUG[m   + local -A args_array
 55856 [37m[1mDEBUG[m   + local db_user
 55856 [37m[1mDEBUG[m   + local db_name
 55856 [37m[1mDEBUG[m   + local db_pwd
-55856 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng --db_name=librechat
+55856 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 55857 [37m[1mDEBUG[m   ++ grep xtrace
 55857 [37m[1mDEBUG[m   ++ set +o
 55858 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 55858 [37m[1mDEBUG[m   + set +o xtrace
-55917 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "xzxur0yQpHNIUU7qr1gvm8Ng", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+55917 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 55917 [37m[1mDEBUG[m   + args_array=(['d']='database=' ['c']='command=')
 55918 [37m[1mDEBUG[m   + local -A args_array
 55918 [37m[1mDEBUG[m   + local database
 55918 [37m[1mDEBUG[m   + local command
-55918 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "xzxur0yQpHNIUU7qr1gvm8Ng", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+55918 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 55918 [37m[1mDEBUG[m   ++ set +o
 55918 [37m[1mDEBUG[m   ++ grep xtrace
 55920 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -1473,20 +1473,20 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 56831 [37m[1mDEBUG[m   + mongosh --quiet
 57306 [37m[1mDEBUG[m   test> switched to db librechat
 57433 [37m[1mDEBUG[m   librechat> { ok: 1 }
-57515 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=xzxur0yQpHNIUU7qr1gvm8Ng
+57515 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=***REDACTED***
 57515 [37m[1mDEBUG[m   + local _globalapp=librechat
 57515 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
 57515 [37m[1mDEBUG[m   + local -A args_array
 57516 [37m[1mDEBUG[m   + local app
 57516 [37m[1mDEBUG[m   + local key
 57516 [37m[1mDEBUG[m   + local value
-57516 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=xzxur0yQpHNIUU7qr1gvm8Ng
+57516 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=***REDACTED***
 57516 [37m[1mDEBUG[m   ++ set +o
 57516 [37m[1mDEBUG[m   ++ grep xtrace
 57518 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 57518 [37m[1mDEBUG[m   + set +o xtrace
 57555 [37m[1mDEBUG[m   + app=librechat
-57555 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd xzxur0yQpHNIUU7qr1gvm8Ng
+57555 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd ***REDACTED***
 57556 [37m[1mDEBUG[m   ++ set +o
 57556 [37m[1mDEBUG[m   ++ grep xtrace
 57558 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -1508,7 +1508,7 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 57614 [37m[1mDEBUG[m   +++ grep xtrace
 57616 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
 57616 [37m[1mDEBUG[m   ++ set +o xtrace
-57659 [37m[1mDEBUG[m   + db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
+57659 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
 57660 [37m[1mDEBUG[m   + ynh_script_progression 'Generating secrets...'
 57660 [37m[1mDEBUG[m   + set +o xtrace
 57661 [36m[1mINFO[m    [#####+..............] > Generating secrets...
@@ -2625,11 +2625,11 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 191716 [37m[1mDEBUG[m   + set +o xtrace
 191719 [36m[1mINFO[m    [################++..] > Sending admin email...
 191719 [37m[1mDEBUG[m   + mail -s 'LibreChat installed — admin password' package_checker@example.com
-191798 [37m[1mDEBUG[m   + ynh_print_info 'Admin password: JEG9V1mR4D9IiqTkrACs2fxj'
-191798 [37m[1mDEBUG[m   + echo 'Admin password: JEG9V1mR4D9IiqTkrACs2fxj'
+191798 [37m[1mDEBUG[m   + ynh_print_info 'Admin password: ***REDACTED***'
+191798 [37m[1mDEBUG[m   + echo 'Admin password: ***REDACTED***'
 191799 [37m[1mDEBUG[m   + ynh_script_progression 'Installation of librechat completed'
 191799 [37m[1mDEBUG[m   + set +o xtrace
-191799 [36m[1mINFO[m    Admin password: JEG9V1mR4D9IiqTkrACs2fxj
+191799 [36m[1mINFO[m    Admin password: ***REDACTED***
 191800 [36m[1mINFO[m    [####################] > Installation of librechat completed
 191801 [37m[1mDEBUG[m   + ynh_exit_properly
 191801 [37m[1mDEBUG[m   + local exit_code=0
@@ -3961,25 +3961,25 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 47859 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
 47859 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
 47859 [37m[1mDEBUG[m   ++ head -c 24
-47860 [37m[1mDEBUG[m   + local new_db_pwd=gpX8QqiByAThbn9dphUZi7Qv
-47860 [37m[1mDEBUG[m   + db_pwd=gpX8QqiByAThbn9dphUZi7Qv
-47861 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=gpX8QqiByAThbn9dphUZi7Qv --db_name=librechat
+47860 [37m[1mDEBUG[m   + local new_db_pwd=***REDACTED***
+47860 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
+47861 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 47861 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
 47861 [37m[1mDEBUG[m   + local -A args_array
 47861 [37m[1mDEBUG[m   + local db_user
 47862 [37m[1mDEBUG[m   + local db_name
 47862 [37m[1mDEBUG[m   + local db_pwd
-47862 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=gpX8QqiByAThbn9dphUZi7Qv --db_name=librechat
+47862 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 47862 [37m[1mDEBUG[m   ++ set +o
 47862 [37m[1mDEBUG[m   ++ grep xtrace
 47863 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 47863 [37m[1mDEBUG[m   + set +o xtrace
-47914 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "gpX8QqiByAThbn9dphUZi7Qv", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+47914 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 47915 [37m[1mDEBUG[m   + args_array=(['d']='database=' ['c']='command=')
 47915 [37m[1mDEBUG[m   + local -A args_array
 47915 [37m[1mDEBUG[m   + local database
 47915 [37m[1mDEBUG[m   + local command
-47915 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "gpX8QqiByAThbn9dphUZi7Qv", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+47915 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 47915 [37m[1mDEBUG[m   ++ set +o
 47916 [37m[1mDEBUG[m   ++ grep xtrace
 47917 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -4004,20 +4004,20 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 48717 [37m[1mDEBUG[m   + mongosh --quiet
 49124 [37m[1mDEBUG[m   test> switched to db librechat
 49233 [37m[1mDEBUG[m   librechat> { ok: 1 }
-49304 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=gpX8QqiByAThbn9dphUZi7Qv
+49304 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=***REDACTED***
 49304 [37m[1mDEBUG[m   + local _globalapp=librechat
 49304 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
 49304 [37m[1mDEBUG[m   + local -A args_array
 49304 [37m[1mDEBUG[m   + local app
 49305 [37m[1mDEBUG[m   + local key
 49305 [37m[1mDEBUG[m   + local value
-49305 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=gpX8QqiByAThbn9dphUZi7Qv
+49305 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=***REDACTED***
 49305 [37m[1mDEBUG[m   ++ grep xtrace
 49306 [37m[1mDEBUG[m   ++ set +o
 49306 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 49306 [37m[1mDEBUG[m   + set +o xtrace
 49343 [37m[1mDEBUG[m   + app=librechat
-49343 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd gpX8QqiByAThbn9dphUZi7Qv
+49343 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd ***REDACTED***
 49343 [37m[1mDEBUG[m   ++ grep xtrace
 49344 [37m[1mDEBUG[m   ++ set +o
 49345 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -4039,7 +4039,7 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 49404 [37m[1mDEBUG[m   +++ grep xtrace
 49405 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
 49405 [37m[1mDEBUG[m   ++ set +o xtrace
-49438 [37m[1mDEBUG[m   + db_pwd=gpX8QqiByAThbn9dphUZi7Qv
+49438 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
 49439 [37m[1mDEBUG[m   + ynh_script_progression 'Generating secrets...'
 49439 [37m[1mDEBUG[m   + set +o xtrace
 49440 [36m[1mINFO[m    [#####+..............] > Generating secrets...
@@ -5156,9 +5156,9 @@ Running yunohost app install --no-remove-on-failure --force /app_folder -a "&dom
 167164 [37m[1mDEBUG[m   + set +o xtrace
 167167 [36m[1mINFO[m    [################++..] > Sending admin email...
 167168 [37m[1mDEBUG[m   + mail -s 'LibreChat installed — admin password' package_checker@example.com
-167234 [37m[1mDEBUG[m   + ynh_print_info 'Admin password: UWEr571eKdtjgq39Yytda5Qy'
-167234 [37m[1mDEBUG[m   + echo 'Admin password: UWEr571eKdtjgq39Yytda5Qy'
-167235 [36m[1mINFO[m    Admin password: UWEr571eKdtjgq39Yytda5Qy
+167234 [37m[1mDEBUG[m   + ynh_print_info 'Admin password: ***REDACTED***'
+167234 [37m[1mDEBUG[m   + echo 'Admin password: ***REDACTED***'
+167235 [36m[1mINFO[m    Admin password: ***REDACTED***
 167235 [37m[1mDEBUG[m   + ynh_script_progression 'Installation of librechat completed'
 167235 [37m[1mDEBUG[m   + set +o xtrace
 167237 [36m[1mINFO[m    [####################] > Installation of librechat completed
@@ -6463,14 +6463,14 @@ Running yunohost app upgrade librechat --file /app_folder --no-safety-backup --f
 43069 [37m[1mDEBUG[m   +++ grep xtrace
 43071 [37m[1mDEBUG[m   ++ local 'xtrace_enable=set -o xtrace'
 43071 [37m[1mDEBUG[m   ++ set +o xtrace
-43104 [37m[1mDEBUG[m   + db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
-43104 [37m[1mDEBUG[m   + ynh_mongo_setup_db --db_user=librechat --db_name=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
+43104 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
+43104 [37m[1mDEBUG[m   + ynh_mongo_setup_db --db_user=librechat --db_name=librechat --db_pwd=***REDACTED***
 43104 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
 43104 [37m[1mDEBUG[m   + local -A args_array
 43105 [37m[1mDEBUG[m   + local db_user
 43105 [37m[1mDEBUG[m   + local db_name
 43105 [37m[1mDEBUG[m   + db_pwd=
-43105 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_name=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
+43105 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_name=librechat --db_pwd=***REDACTED***
 43105 [37m[1mDEBUG[m   ++ set +o
 43105 [37m[1mDEBUG[m   ++ grep xtrace
 43106 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -6490,25 +6490,25 @@ Running yunohost app upgrade librechat --file /app_folder --no-safety-backup --f
 43161 [37m[1mDEBUG[m   ++ filter=A-Za-z0-9
 43161 [37m[1mDEBUG[m   ++ head -c 24
 43162 [37m[1mDEBUG[m   ++ tr --complement --delete A-Za-z0-9
-43164 [37m[1mDEBUG[m   + local new_db_pwd=rFdVO77y2GFbENDvmIrJcEMK
-43164 [37m[1mDEBUG[m   + db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng
-43164 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng --db_name=librechat
+43164 [37m[1mDEBUG[m   + local new_db_pwd=***REDACTED***
+43164 [37m[1mDEBUG[m   + db_pwd=***REDACTED***
+43164 [37m[1mDEBUG[m   + ynh_mongo_create_user --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 43164 [37m[1mDEBUG[m   + args_array=(['u']='db_user=' ['n']='db_name=' ['p']='db_pwd=')
 43164 [37m[1mDEBUG[m   + local -A args_array
 43164 [37m[1mDEBUG[m   + local db_user
 43164 [37m[1mDEBUG[m   + local db_name
 43165 [37m[1mDEBUG[m   + local db_pwd
-43165 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=xzxur0yQpHNIUU7qr1gvm8Ng --db_name=librechat
+43165 [37m[1mDEBUG[m   + ynh_handle_getopts_args --db_user=librechat --db_pwd=***REDACTED*** --db_name=librechat
 43165 [37m[1mDEBUG[m   ++ set +o
 43165 [37m[1mDEBUG[m   ++ grep xtrace
 43166 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 43166 [37m[1mDEBUG[m   + set +o xtrace
-43217 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "xzxur0yQpHNIUU7qr1gvm8Ng", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+43217 [37m[1mDEBUG[m   + ynh_mongo_exec --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 43217 [37m[1mDEBUG[m   + args_array=(['d']='database=' ['c']='command=')
 43217 [37m[1mDEBUG[m   + local -A args_array
 43218 [37m[1mDEBUG[m   + local database
 43218 [37m[1mDEBUG[m   + local command
-43218 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "xzxur0yQpHNIUU7qr1gvm8Ng", roles: [ { role: "readWrite", db: "librechat" } ] } );'
+43218 [37m[1mDEBUG[m   + ynh_handle_getopts_args --database=librechat '--command=db.createUser( { user: "librechat", pwd: "***REDACTED***", roles: [ { role: "readWrite", db: "librechat" } ] } );'
 43218 [37m[1mDEBUG[m   ++ set +o
 43218 [37m[1mDEBUG[m   ++ grep xtrace
 43219 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
@@ -6533,20 +6533,20 @@ Running yunohost app upgrade librechat --file /app_folder --no-safety-backup --f
 44140 [37m[1mDEBUG[m   + mongosh --quiet
 44524 [37m[1mDEBUG[m   test> switched to db librechat
 44634 [37m[1mDEBUG[m   librechat> { ok: 1 }
-44710 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=xzxur0yQpHNIUU7qr1gvm8Ng
+44710 [37m[1mDEBUG[m   librechat> + ynh_app_setting_set --key=db_pwd --value=***REDACTED***
 44710 [37m[1mDEBUG[m   + local _globalapp=librechat
 44710 [37m[1mDEBUG[m   + args_array=(['a']='app=' ['k']='key=' ['v']='value=')
 44711 [37m[1mDEBUG[m   + local -A args_array
 44711 [37m[1mDEBUG[m   + local app
 44711 [37m[1mDEBUG[m   + local key
 44711 [37m[1mDEBUG[m   + local value
-44711 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=xzxur0yQpHNIUU7qr1gvm8Ng
+44711 [37m[1mDEBUG[m   + ynh_handle_getopts_args --key=db_pwd --value=***REDACTED***
 44711 [37m[1mDEBUG[m   ++ grep xtrace
 44712 [37m[1mDEBUG[m   ++ set +o
 44713 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
 44713 [37m[1mDEBUG[m   + set +o xtrace
 44749 [37m[1mDEBUG[m   + app=librechat
-44749 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd xzxur0yQpHNIUU7qr1gvm8Ng
+44749 [37m[1mDEBUG[m   + ynh_app_setting set librechat db_pwd ***REDACTED***
 44749 [37m[1mDEBUG[m   ++ set +o
 44750 [37m[1mDEBUG[m   ++ grep xtrace
 44752 [37m[1mDEBUG[m   + local 'xtrace_enable=set -o xtrace'
