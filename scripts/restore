@@ -31,6 +31,13 @@ if [ -z "$db_name" ]; then
 fi
 db_user=$db_name
 
+# db_pwd is the setting key used by ynh_mongo_setup_db (helpers v2.1). YunoHost
+# core restores settings.json from the archive, so the ORIGINAL password is
+# available here. It MUST be reused: mongodump --db does NOT dump the database
+# users, so after restoring onto a fresh MongoDB the app user does not exist and
+# LibreChat fails with "Authentication failed".
+db_pwd=$(ynh_app_setting_get --key=db_pwd)
+
 #=================================================
 # Step 2 — Re-provision MongoDB server if absent (idempotent)
 #  (uses $mongo_version="7.0" global from _common.sh)
@@ -53,6 +60,16 @@ ynh_restore_everything
 #=================================================
 
 ynh_script_progression "Restoring MongoDB database..."
+
+# Ensure the database user exists with the ORIGINAL password before restoring.
+# mongodump --db does not include users, so on a fresh MongoDB (the restore
+# target) the user is absent. Create it idempotently with the persisted db_pwd
+# so LibreChat's restored MONGO_URI credentials remain valid.
+if [ -z "$db_pwd" ]; then
+    ynh_die "db_pwd setting is empty — cannot restore MongoDB credentials."
+fi
+ynh_mongo_setup_db --db_user=$db_user --db_name=$db_name --db_pwd="$db_pwd"
+
 ynh_mongo_restore_db --database=$db_name < ./dump.bson
 
 #=================================================
