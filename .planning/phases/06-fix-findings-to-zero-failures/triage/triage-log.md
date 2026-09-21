@@ -245,4 +245,20 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## CHECKPOINT RESOLVED — 2026-09-20 (user decision)
+
+**Decision (Option A):** `upgrade.05e3d5b` is **out-of-scope-by-design**. The v1.0 release artifact
+(commit `05e3d5b` / `0.8.8-rc3~ynh2`) predates the Phase 4 manifest schema fix (`48a3614`) and cannot
+install on YunoHost >= 12.1.40 (`pattern_regexp extra fields not permitted`); no genuine released
+artifact predating the fix is installable. Upgrade-from coverage is deferred until a post-fix release
+is tagged. `tests.toml` stays frozen.
+
+**Revised zero-failure bar:** 4 in-scope tests — `package_linter`, `install.root`, `backup_restore`,
+`upgrade` (same version). Exempt: `change_url` (POLS-02) and `upgrade.05e3d5b` (uninstallable ancestor).
+
+Recorded in `06-SCOPE-EXEMPTIONS.md` and `06-CONTEXT.md` (resolved note). Continue cycles until the 4
+in-scope tests are all SUCCESS in a single clean full-suite run.
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*

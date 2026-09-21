@@ -15,15 +15,22 @@ This mirrors the Phase 4 precedent (`.planning/phases/04-lint-baseline/04-SCOPE-
 ## Zero-Failure Invariant
 
 ```
-in_scope_tests = { install.root, backup_restore, upgrade, upgrade.05e3d5b, package_linter }
+in_scope_tests = { package_linter, install.root, backup_restore, upgrade }
 zero_failures_assertion =
     (every test in in_scope_tests shows SUCCESS in the suite's per-test verdict banners)
     AND (package_check exit code == 0)
     AND (the run completed with a Global summary — no Critical abort, crash, or timeout)
 ```
 
-`change_url` is **excluded from the in-scope set by policy** — its FAIL does not violate the
-invariant. Catalog-metadata linter items do not fail `package_linter` and are likewise excluded.
+`change_url` and `upgrade.05e3d5b` are **excluded from the in-scope set by policy**
+(see the Exempted Findings table below). Their FAILs do not violate the invariant.
+Catalog-metadata linter items do not fail `package_linter` and are likewise excluded.
+
+> **Note (resolved during execution, 2026-09-20):** The bar was originally set to 5 in-scope
+> tests including `upgrade.05e3d5b`. Live execution proved that target uninstallable on modern
+> YunoHost (its release predates the Phase 4 manifest fix). Per the user's decision at the
+> Phase 6 execution checkpoint, `upgrade.05e3d5b` is exempted out-of-scope-by-design and the
+> bar is **4 in-scope tests**. `tests.toml` is unchanged.
 
 ## Exempted Findings
 
@@ -33,11 +40,12 @@ invariant. Catalog-metadata linter items do not fail `package_linter` and are li
 | `AppCatalog.is_in_catalog` | linter critical | Catalog submission PR is explicitly out of scope (REQUIREMENTS.md Out of Scope). Linter treats an uncatalogued app as `invalid`. | A future catalog submission PR (post-milestone) |
 | `AppCatalog.state_is_working` | linter error | Same root cause as `is_in_catalog` — sentinel `state="notworking"` for uncatalogued apps. | Same catalog PR |
 | `AppCatalog.has_category` | linter warning | Same root cause — no catalog category without catalog membership. | Same catalog PR |
+| `upgrade.05e3d5b` FAIL | test (exempt) | The v1.0 release artifact (commit `05e3d5b` / `0.8.8-rc3~ynh2`) predates the Phase 4 manifest schema fix (`48a3614`) and cannot install on YunoHost >= 12.1.40 (`pattern_regexp extra fields not permitted`). No genuine released artifact predating the fix is installable. Upgrade-from coverage is deferred until a post-fix release is tagged. `tests.toml` stays frozen. | Tagging a post-manifest-fix release and re-targeting `test_upgrade_from` (future phase) |
 | Uncovered `install.subdir` | coverage | LibreChat has no `[install.path]` question; package_check treats it as a full-domain/domain-root app and does not generate `install.subdir`. | Adding `[install.path]` (future phase; suite frozen for Phase 6) |
 | Uncovered `install.private` | coverage | The parser never auto-generates a private-install suite. | An explicit extra suite (future phase; suite frozen for Phase 6) |
 | Skipped `install.multi` | coverage | `multi_instance = false` in `manifest.toml` (single-instance Meilisearch wiring). | POLS-03 (multi-instance support) |
 
-**Exempted: 1 test (`change_url`), 1 critical + 1 error + 1 warning (catalog metadata), 3 uncovered test types.**
+**Exempted: 2 tests (`change_url`, `upgrade.05e3d5b`), 1 critical + 1 error + 1 warning (catalog metadata), 3 uncovered test types.**
 
 ## Not Exempted — Fixed in This Phase
 

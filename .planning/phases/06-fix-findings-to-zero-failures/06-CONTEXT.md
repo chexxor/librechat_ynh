@@ -20,6 +20,16 @@ Fix package bugs until the full local `package_check` suite shows **zero failure
 - **Mechanical determination of "zero failures":** trust the suite's own per-test verdict banners **and** a package_check exit code of `0`. Zero in-scope test shows `FAIL`/`ERROR`; `change_url` may show FAIL and is excluded by policy.
 - **The bar applies to the current 6-test deduced suite exactly as-is.** Broadening coverage is not part of this phase.
 
+> **Resolved during execution (2026-09-20):** The zero-failure bar is **4 in-scope tests** —
+> `package_linter`, `install.root`, `backup_restore`, and `upgrade` (same version). Two tests are
+> exempt: `change_url` (POLS-02, no script) and `upgrade.05e3d5b`. The latter was originally
+> in-scope, but live execution proved its target (commit `05e3d5b` / `0.8.8-rc3~ynh2`) predates the
+> Phase 4 manifest schema fix and cannot install on YunoHost >= 12.1.40
+> (`pattern_regexp extra fields not permitted`); no genuine released artifact predating the fix is
+> installable, so upgrade-from coverage is deferred until a post-fix release is tagged. This
+> resolution was approved at the Phase 6 execution checkpoint. `tests.toml` remains frozen and
+> unchanged. See `06-SCOPE-EXEMPTIONS.md` for the full record.
+
 ### change_url & coverage additions
 - `change_url`: **leave it FAILing and document the deferral** (POLS-02, v2). Do **not** add exclusion to `tests.toml` — no "fake green", consistent with Phase 5's no-`exclude` stance.
 - Subpath/private/multi coverage: **leave as-is.** No `[install.path]` question, no manifest change, no explicit extra suite. `install.subdir` / `install.private` stay uncovered by design; `install.multi` stays skipped (`multi_instance = false`).
