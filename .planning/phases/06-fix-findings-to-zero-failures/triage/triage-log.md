@@ -261,4 +261,57 @@ in-scope tests are all SUCCESS in a single clean full-suite run.
 
 ---
 
+## Cycle 10 — 2026-09-20
+
+- **Run:** VM full suite, duration **15m14s**, exit 0, Global summary printed.
+- **Code state (git rev):** `d9c7537` (cycle-9 data-dir pre-create included; ProtectHome fix NOT yet applied).
+- **Test verdicts:** `install.root=SUCCESS` ✓, `backup_restore=FAIL`, `upgrade=SUCCESS` ✓, `upgrade.05e3d5b=FAIL (exempt)`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `meilisearch: error=Permission denied (os error 13)` at service start → `Failed to collect files to be backed up` | backup_restore | Package bug | `cycles/cycle-10/package_check-full.log:364-385` | FIX — candidate: remove `ProtectHome=yes` from the unit (hides `/home`) |
+  | `pattern_regexp extra fields not permitted` on the old commit | upgrade.05e3d5b | Exempt | `cycles/cycle-10/package_check-full.log:493-496` | Document (see CHECKPOINT RESOLVED) |
+  | `The app 'librechat' doesn't support URL modification yet` | change_url | Exempt | `cycles/cycle-10/package_check-full.log:534` | Document (POLS-02) |
+
+- **Progress:** 3/4 in-scope green after this cycle (`backup_restore` is the last blocker).
+- **Flake-vs-regression:** deterministic — REGRESSION.
+- **Fix applied:** removed `ProtectHome=yes` from `conf/meilisearch.service` (commit `a05ca07`).
+
+## Cycle 11 — 2026-09-20
+
+- **Run:** VM full suite, duration **14m50s**, exit 0, Global summary printed.
+- **Code state (git rev):** `a05ca07` (ProtectHome removal included).
+- **Test verdicts:** `install.root=SUCCESS` ✓, `backup_restore=FAIL`, `upgrade=SUCCESS` ✓, `upgrade.05e3d5b=FAIL (exempt)`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `meilisearch: error=Permission denied (os error 13)` STILL occurs at service start | backup_restore | Package bug | `cycles/cycle-11/package_check-full.log` | ProtHome was NOT the cause. Root-caused by an isolated in-container reproduction (below). |
+  | `pattern_regexp extra fields not permitted` | upgrade.05e3d5b | Exempt | full_log | Document |
+  | URL modification unsupported | change_url | Exempt | full_log | Document |
+
+- **Root cause (proven by controlled repro, `meilitest2` container):** Meilisearch v1.53.2 creates its `dumps/` directory **relative to the process CWD**. The unit set no `WorkingDirectory`, so CWD = `/` — unwritable by the `librechat` user → `EACCES` → service dies. `strace` showed `mkdir("dumps/", 0777) = -1 EACCES` and `openat("./config.toml") = -1 EACCES`. Running as **root** (writable `/`) worked; running as `librechat` failed on **every** db-path (`/home/yunohost.app/...`, `/var/lib/...`), proving the data dir was never the problem. Adding `WorkingDirectory=<writable dir>` made the hardened unit (`ProtectSystem=full` + `ReadWritePaths`) start `active`.
+- **Flake-vs-regression:** deterministic — REGRESSION.
+- **Fix applied:** `conf/meilisearch.service` — added `WorkingDirectory=__DATA_DIR__` (commit `fe84e10`). Also keeps the earlier `ProtectHome` removal (harmless, correct).
+
+## Cycle 12 — 2026-09-20
+
+- **Run:** VM full suite, duration **14m50s**, exit 0, Global summary printed. (VM NIC flapped `.83`→`.85` mid-run; `eth0-watchdog` restored it; run completed. Environmental, no code change.)
+- **Code state (git rev):** `fe84e10` (WorkingDirectory fix included).
+- **Test verdicts:** `install.root=SUCCESS` ✓, `backup_restore=FAIL`, `upgrade=SUCCESS` ✓, `upgrade.05e3d5b=FAIL (exempt)`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `Failed to start server: Authentication failed.` after restore (LibreChat → Mongo) | backup_restore | Package bug | `cycles/cycle-12/package_check-full.log:355,369,428,442` | FIX — restore must recreate the mongo user |
+  | URL modification unsupported | change_url | Exempt | full_log | Document |
+
+- **Progress:** the meilisearch `Permission denied` error is **GONE** (0 occurrences) — WorkingDirectory fix worked. Backup now completes; the remaining failure is post-restore LibreChat Mongo auth.
+- **Root cause:** `mongodump --db` (via `ynh_mongo_dump_db`) does **not** dump database users. On restore to a fresh MongoDB the app user is absent, so the restored `librechat.env` credentials are rejected. (Same class as the cycle-7 upgrade password bug.)
+- **Flake-vs-regression:** deterministic — REGRESSION.
+- **Fix applied:** `scripts/restore` — read the persisted `db_pwd` setting and call `ynh_mongo_setup_db --db_pwd="$db_pwd"` (idempotent) before `ynh_mongo_restore_db` (commit `1be66f5`).
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*
