@@ -6,6 +6,9 @@ After=network.target
 Type=simple
 User=__APP__
 Group=__APP__
+# Meilisearch creates its `dumps/` directory relative to the process CWD.
+# Without a writable CWD (default is /) it fails with "Permission denied (os error 13)".
+WorkingDirectory=__DATA_DIR__
 ExecStart=/usr/bin/meilisearch --http-addr 127.0.0.1:7700 --master-key __MEILI_MASTER_KEY__ --db-path __DATA_DIR__/meilisearch --no-analytics
 Restart=on-failure
 
