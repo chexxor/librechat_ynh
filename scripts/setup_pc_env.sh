@@ -33,7 +33,24 @@ echo "==> Provisioning package_check host for user '${TARGET_USER}' (btrfs disk 
 #    and pip3; btrfs-progs is required to create the btrfs pool below.
 # ---------------------------------------------------------------------------
 apt-get update
-apt-get install -y curl ca-certificates lynx jq python3 python3-pip git btrfs-progs
+apt-get install -y curl ca-certificates lynx jq python3 python3-pip git btrfs-progs ethtool tmux
+
+# ---------------------------------------------------------------------------
+# 1b. package_check's Python requirements.
+#     package_check ships requirements.txt (toml, pycurl, beautifulsoup4, lxml,
+#     imgkit). Without them the suite crashes mid-run: parse_tests_toml.py needs
+#     `toml`; curl_tests.py needs `bs4`/`lxml`; and the results-summary renderer
+#     needs `imgkit`. The package_linter additionally needs jsonschema/packaging/
+#     pyparsing/six. Install them host-side so a fresh VM reproduces the run.
+# ---------------------------------------------------------------------------
+apt-get install -y python3-toml python3-jsonschema python3-packaging python3-pyparsing python3-six
+# beautifulsoup4/lxml/imgkit are pip-installed (Debian packages are older/missing).
+if ! python3 -c 'import bs4' >/dev/null 2>&1; then
+    pip3 install --break-system-packages beautifulsoup4 lxml imgkit
+fi
+# imgkit renders PNG summaries via wkhtmltopdf; optional for verdicts but needed
+# for results_0.json/summary rendering.
+apt-get install -y wkhtmltopdf optipng || true
 
 # ---------------------------------------------------------------------------
 # 2. Incus via the Zabbly APT repository.
@@ -103,6 +120,21 @@ if incus remote list -f json | jq -e '.yunohost' >/dev/null 2>&1; then
     echo "==> Incus remote 'yunohost' already configured, skipping"
 else
     incus remote add yunohost https://repo.yunohost.org/incus --protocol simplestreams --public
+fi
+
+# ---------------------------------------------------------------------------
+# 5b. Pin the YunoHost container image to a local alias.
+#     The upstream simplestreams alias `yunohost:bookworm-stable-appci` does not
+#     resolve consistently; copying the pinned fingerprint to a local alias makes
+#     package_check's container launch deterministic. Idempotent.
+# ---------------------------------------------------------------------------
+if ! incus image list local: --format csv 2>/dev/null | grep -q 'yunohost-bookworm-stable-appci'; then
+    echo "==> Pinning container image alias yunohost-bookworm-stable-appci"
+    sudo -u "${TARGET_USER}" incus image copy yunohost:91abc4fc4c43 local: \
+        --alias yunohost-bookworm-stable-appci || \
+        echo "==> NOTE: image copy failed (upstream fingerprint may have moved); package_check may still resolve the upstream alias"
+else
+    echo "==> Local image alias yunohost-bookworm-stable-appci already present, skipping"
 fi
 
 # ---------------------------------------------------------------------------

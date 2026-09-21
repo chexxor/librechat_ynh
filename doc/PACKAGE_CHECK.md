@@ -80,6 +80,12 @@ BTRFS_DISK=/dev/sdc sudo -E bash scripts/setup_pc_env.sh <user>
 
 The script is **idempotent** — re-running it is a safe no-op/repair.
 
+It also installs package_check's Python requirements host-side (`python3-toml`,
+`beautifulsoup4`, `lxml`, `imgkit`, plus the linter's `jsonschema`/`packaging`/`pyparsing`/`six`).
+Without these the suite crashes mid-run: the tests.toml parser needs `toml`, `curl_tests.py`
+needs `bs4`/`lxml`, and the summary renderer needs `imgkit` (+ `wkhtmltopdf`). It also pins
+the `yunohost-bookworm-stable-appci` container image to a local alias for deterministic starts.
+
 **Initialize Incus.** `incus admin init` is interactive; run it and accept the
 **managed bridge** so `incusbr0` exists. If you initialized non-interactively,
 the script still fixes the storage situation, because it creates/repoints the
@@ -110,13 +116,24 @@ incus remote list          # must include the "yunohost" remote
 
 ## 4. Running the suite (SSH-driven from Windows)
 
-Sync the package to the VM and point `package_check` at it:
+Sync the package to the VM **as a git repository** and point `package_check` at it:
+
+> **IMPORTANT:** the suite uses `test_upgrade_from.05e3d5b`, which makes package_check run
+> `git checkout 05e3d5b` inside the app folder. The folder MUST therefore be a real git
+> repository that contains that commit. Copying loose files with `scp -r` (without `.git`)
+> makes the upgrade-from test fail with `fatal: not a git repository`. Use one of the
+> methods below to transfer a full clone.
 
 ```powershell
 $vm = "<user>@<static-ip>"
-ssh -i $env:USERPROFILE\.ssh\id_rsa $vm "rm -rf ~/librechat_ynh && mkdir -p ~/librechat_ynh"
-scp -r -i $env:USERPROFILE\.ssh\id_rsa .\* "${vm}:~/librechat_ynh/"
+
+# Preferred: transfer a git bundle of the whole repo, then clone it on the VM.
+git bundle create "$env:TEMP\librechat.bundle" --all
+scp -i $env:USERPROFILE\.ssh\id_rsa "$env:TEMP\librechat.bundle" "${vm}:~/librechat.bundle"
+ssh -i $env:USERPROFILE\.ssh\id_rsa $vm "rm -rf ~/librechat_ynh && git clone -b main ~/librechat.bundle ~/librechat_ynh"
 ```
+
+(Alternative: `git clone` the repo directly on the VM from your git remote.)
 
 ```bash
 # On the VM, from the package_check clone root:
@@ -124,11 +141,11 @@ cd ~/package_check
 ./package_check.sh ~/librechat_ynh
 ```
 
-**This run is long.** Expect **1–3 hours**: every install test performs a full
-LibreChat install (MongoDB apt repo + `npm ci` + `turbo build`), and there are
-multiple install tests. **`package_check` has no timeout knob of its own** —
-duration is bounded only by YunoHost's own operation timeouts, the network, and
-your SSH session. Therefore:
+**This run is long.** Expect **10–15+ minutes** once all lifecycle tests execute: every
+install test performs a full LibreChat install (MongoDB apt repo + `npm ci` + `turbo build`),
+and there are multiple install tests. **`package_check` has no timeout knob of its own** —
+duration is bounded only by YunoHost's own operation timeouts, the network, and your SSH
+session. Therefore:
 
 - Run it under **`tmux`/`nohup`**, or use **`ssh -o ServerAliveInterval=30`** so
   the session does not drop mid-run.
@@ -197,6 +214,8 @@ For Phase 5 you need the former (findings inside the summary are fine).
 | Symptom | Cause | Fix |
 |---------|-------|-----|
 | `Missing install arg admin_email ?` on every install test | `admin_email` has no manifest default | It must be supplied in `tests.toml` (`args.admin_email`) |
+| `ModuleNotFoundError: No module named 'bs4'` / `'toml'` / `'imgkit'` | package_check's Python requirements not installed | `sudo bash scripts/setup_pc_env.sh <user>` now installs them; or `pip3 install --break-system-packages beautifulsoup4 lxml imgkit` + `apt install python3-toml python3-jsonschema python3-packaging python3-pyparsing python3-six` |
+| `fatal: not a git repository` / `Failed to checkout commit …` | App folder synced without `.git` | Transfer a git bundle and `git clone` it on the VM (see §4) |
 | `E: Unable to locate package incus` | Debian 12 has no native `incus` | Use the Zabbly repo (handled by `scripts/setup_pc_env.sh`) |
 | Containers get no DNS / bridge missing | Something else already owns port 53 | Check `ss -lunp \| grep :53`; keep Docker/libvirt out of the VM; run `incus admin init` to create `incusbr0` |
 | Snapshots are extremely slow; `incus storage list` shows `dir` | Initialized with a non-interactive dir-backed pool | Create/repoint the pool at `btrfs_pool` (the setup script does this) |
