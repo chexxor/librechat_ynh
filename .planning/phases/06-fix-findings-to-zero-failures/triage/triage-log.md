@@ -226,4 +226,23 @@ Environment/harness tweaks (DHCP pinning, watchdog) are permissible between runs
 
 ---
 
+## Cycle 9 — 2026-09-20
+
+- **Run:** VM full suite (git clone at `e336a6d`), duration **14m11s**, exit 0, Global summary printed. (VM NIC flapped again mid-run `.85`→`.83`; watchdog restored it; run completed — environmental, no code change.)
+- **Code state (git rev):** `e336a6d` (includes the cycle-8 meilisearch flag fix) + real git clone on the VM.
+- **Test verdicts:** `install.root=`**`SUCCESS`** ✓, `backup_restore=FAIL`, `upgrade=`**`SUCCESS`** ✓, `upgrade.05e3d5b=FAIL`, `package_linter=SUCCESS` ✓, `change_url=FAIL (exempt)`.
+- **Findings table:**
+
+  | Finding | Test | Bucket | Evidence | Action |
+  |---|---|---|---|---|
+  | `meilisearch: error=Permission denied (os error 13)` — service fails to start on backup restart → `Failed to collect files` | backup_restore | Package bug | `cycles/cycle-9/package_check-full.log:288-350` | FIX — install must pre-create `$data_dir/meilisearch` (owned by `$app`); otherwise `ReadWritePaths` cannot grant write access under `ProtectSystem=full` |
+  | `While parsing manifest: pattern_regexp extra fields not permitted` on the OLD commit | upgrade.05e3d5b | **BLOCKER — conflicts with frozen tests.toml** | `cycles/cycle-9/package_check-full.log:518` | The `test_upgrade_from.05e3d5b` target's manifest predates Phase 4's schema fix; it is not installable on modern YunoHost. Escalated (see checkpoint). |
+  | `The app 'librechat' doesn't support URL modification yet` | change_url | Exempt | `cycles/cycle-9/package_check-full.log:536` | Document (POLS-02) |
+
+- **Progress vs Cycle 8:** the `--no-analytics=true` error is GONE (meilisearch flag fix worked). The git-checkout error is GONE (real clone). New meilisearch failure is a data-dir permission issue. `upgrade` (same-version) passes again.
+- **Flake-vs-regression:** the meilisearch permission error is deterministic — REGRESSION. The `05e3d5b` manifest parse error is deterministic and definitionally about the old commit's content (not our current package).
+- **Fixes applied:** `scripts/install` pre-creates `$data_dir/meilisearch` owned by `$app` (mirrors the existing `$install_dir/logs` pattern).
+
+---
+
 *Phase: 06-fix-findings-to-zero-failures*

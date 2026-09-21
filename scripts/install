@@ -83,6 +83,13 @@ chmod 600 "$librechat_env"
 mkdir -p "$install_dir/logs"
 chown "$app:$app" "$install_dir/logs"
 
+# Pre-create the Meilisearch data dir: meilisearch.service runs with
+# ProtectSystem=full and ReadWritePaths=__DATA_DIR__/meilisearch. If that path
+# does not exist, systemd cannot grant write access and meilisearch fails with
+# "Permission denied (os error 13)". Create it owned by the app user.
+mkdir -p "$data_dir/meilisearch"
+chown "$app:$app" "$data_dir/meilisearch"
+
 #=================================================
 # Step 7 — Configure nginx
 #=================================================
