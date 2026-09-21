@@ -20,6 +20,14 @@ Fix package bugs until the full local `package_check` suite shows **zero failure
 - **Mechanical determination of "zero failures":** trust the suite's own per-test verdict banners **and** a package_check exit code of `0`. Zero in-scope test shows `FAIL`/`ERROR`; `change_url` may show FAIL and is excluded by policy.
 - **The bar applies to the current 6-test deduced suite exactly as-is.** Broadening coverage is not part of this phase.
 
+> **RESOLVED DURING EXECUTION (2026-09-20, user decision at checkpoint):** The bar was revised to
+> **4 in-scope tests** — `package_linter`, `install.root`, `backup_restore`, `upgrade`. `upgrade.05e3d5b`
+> was **also exempted out-of-scope-by-design**: the v1.0 release artifact (commit `05e3d5b`) predates the
+> Phase 4 manifest schema fix and cannot install on YunoHost ≥ 12.1.40 (`pattern_regexp extra fields not
+> permitted`); no genuine released artifact predating the fix is installable, and `tests.toml` stays frozen.
+> Exempt: `change_url` (POLS-02) and `upgrade.05e3d5b` (uninstallable ancestor). Final clean run archived
+> in `pols-01-evidence/` (exit 0, all 4 in-scope tests SUCCESS). See `06-SCOPE-EXEMPTIONS.md`.
+
 > **Resolved during execution (2026-09-20):** The zero-failure bar is **4 in-scope tests** —
 > `package_linter`, `install.root`, `backup_restore`, and `upgrade` (same version). Two tests are
 > exempt: `change_url` (POLS-02, no script) and `upgrade.05e3d5b`. The latter was originally
