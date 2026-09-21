@@ -13,7 +13,10 @@ Restart=on-failure
 NoNewPrivileges=yes
 PrivateTmp=yes
 ProtectSystem=full
-ProtectHome=yes
+# NOTE: ProtectHome is deliberately NOT set. YunoHost's data_dir lives under
+# /home/yunohost.app/<app>; ProtectHome=yes makes /home inaccessible, which
+# breaks Meilisearch's --db-path with "Permission denied (os error 13)" even
+# though ReadWritePaths grants the subtree (the path is hidden, not read-only).
 # Allow Meili to write its index under the read-only /var (ProtectSystem=full)
 ReadWritePaths=__DATA_DIR__/meilisearch
 
