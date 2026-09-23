@@ -1,0 +1,82 @@
+name: Lint
+
+on:
+  push:
+  pull_request:
+
+# Least privilege: the lint workflow never modifies the repo or uses secrets.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1: YunoHost package_linter (static manifest + script linting)
+  # ---------------------------------------------------------------------------
+  package-linter:
+    name: package_linter
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Clone package_linter
+        run: git clone --depth 1 https://github.com/YunoHost/package_linter /tmp/pl
+
+      - name: Install linter deps
+        run: pip install -r /tmp/pl/requirements.txt
+
+      # Run with text-mode exit code as the pass gate. (--json always exits 0,
+      # so it is never used as the assertion; see scripts/run_lint.sh.)
+      - name: Run package_linter
+        working-directory: /tmp/pl
+        run: python package_linter.py "$GITHUB_WORKSPACE"
+
+  # ---------------------------------------------------------------------------
+  # Job 2: shellcheck on all package scripts
+  # ---------------------------------------------------------------------------
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      # Ignore set lives in scripts/.shellcheckrc (YNH-framework globals).
+      - name: Run shellcheck
+        run: shellcheck scripts/_common.sh scripts/install scripts/remove scripts/upgrade scripts/backup scripts/restore scripts/run_lint.sh scripts/setup_pc_env.sh scripts/redact_pc_logs.sh
+
+  # ---------------------------------------------------------------------------
+  # Job 3: TOML syntax + tests.toml schema validation
+  # ---------------------------------------------------------------------------
+  toml-schema:
+    name: TOML / schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation deps
+        run: pip install jsonschema
+
+      - name: Validate manifest.toml and tests.toml
+        run: python scripts/lint_toml.py

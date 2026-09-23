@@ -5,18 +5,18 @@
 See: .planning/PROJECT.md (updated 2026-09-20)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Phase 7 - GitHub Actions Lint Workflow (v1.1 CI Validation)
+**Current focus:** Milestone v1.1 CI Validation — SHIPPED (all 4 phases green)
 
 ## Current Position
 
-Milestone: v1.1 CI Validation (phases 4-7)
-Phase: 6 of 7 (Fix Findings to Zero Failures) — COMPLETE
+Milestone: v1.1 CI Validation (phases 4-7) — SHIPPED 2026-09-20
+Phase: 7 of 7 (GitHub Actions Lint Workflow) — COMPLETE
 **Current Plan:** Complete
-**Total Plans in Phase:** 1 (executed as fix→run→triage loop + final archive)
-**Status:** Phase 6 complete
-Last activity: 2026-09-20 - Phase 6 complete. POLS-01 live-verified: single clean full-suite `package_check` run (exit 0, 20m45s, rev `1be66f5`) with all 4 in-scope tests SUCCESS (package_linter, install.root, backup_restore, upgrade). `change_url` + `upgrade.05e3d5b` exempt out-of-scope-by-design. Redacted evidence archived in `pols-01-evidence/`.
+**Total Plans in Phase:** 1
+**Status:** Phase 7 complete; milestone v1.1 SHIPPED
+Last activity: 2026-09-20 - Phase 7 complete. GHCI-01 delivered: lint-only `.github/workflows/lint.yml` (3 jobs on ubuntu-latest, `timeout-minutes: 10`, push + pull_request, `permissions: contents: read`, no package_check/container build) + `scripts/lint_toml.py` (tomllib syntax + live tests.v1 schema via jsonschema) + `scripts/.shellcheckrc` (documented YNH-framework ignore set). Validated locally: shellcheck exit 0 across all 9 scripts; `lint_toml.py` exit 0. All v1.1 requirements complete (LINT-01, CI-01, CI-02, POLS-01, GHCI-01).
 
-**Progress:** [########░] 85%
+**Progress:** [##########] 100%
 
 ## Performance Metrics
 

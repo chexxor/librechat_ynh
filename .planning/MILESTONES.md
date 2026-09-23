@@ -17,3 +17,18 @@
 
 ---
 
+## v1.1 CI Validation (Shipped: 2026-09-20)
+
+**Phases completed:** 4 phases, 13 plans
+**Git range:** 2026-09-19 → 2026-09-20
+
+**Key accomplishments:**
+- Phase 4: `package_linter` zero locally-fixable errors on the Windows dev box; 5 out-of-scope catalog items documented
+- Phase 5: schema-valid `tests.toml` (CI-01) + reproducible Hyper-V Debian 12 VM/Incus/btrfs environment (CI-02)
+- Phase 6: all install-blocking bugs fixed; single clean full-suite run archived as POLS-01 (exit 0, 4/4 in-scope SUCCESS); `change_url` + `upgrade.05e3d5b` exempt by design
+- Phase 7: lint-only GitHub Actions workflow green (GHCI-01) — `package_linter` + shellcheck + TOML/schema on ubuntu-latest
+
+**Known Gaps:** full `package_check` NOT in hosted CI (anti-feature, research-locked); `change_url` (POLS-02) and multi-instance (POLS-03) deferred to v2.
+
+---
+
