@@ -28,13 +28,18 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 - ✓ Initial admin user created at install — v1.0
 - ✓ Schema-valid `tests.toml` supplies install args and drives a full `package_check` suite — v1.1 (CI-01, Phase 5)
 - ✓ Reproducible local `package_check` environment (Hyper-V Debian 12 VM + Incus + btrfs) runs the full suite end-to-end — v1.1 (CI-02, Phase 5)
+- ✓ `package_linter` reports zero locally-fixable errors (WSL2 + uv Python 3.12) — v1.1 (LINT-01, Phase 4)
+- ✓ Full local `package_check` suite passes with zero in-scope failures; single clean run archived as POLS-01 live verification — v1.1 (POLS-01, Phase 6); `change_url` + `upgrade.05e3d5b` exempt by design
+- ✓ Lint-only GitHub Actions workflow green on push/PR (`package_linter` + shellcheck + TOML/schema on ubuntu-latest) — v1.1 (GHCI-01, Phase 7)
 
 ### Active
 
-- [ ] Package passes YunoHost app CI (`package_check`) with zero failures — v2 (POLS-01)
 - [ ] `change_url` script — v2 (POLS-02)
 - [ ] Multi-instance support — v2 (POLS-03, requires per-app Meilisearch wiring)
 - [ ] ARM64 support — v2 (POLS-04)
+- [ ] Install question for admin credentials instead of random generation — v2 (POLS-05)
+- [ ] Catalog submission PR (resolves `AppCatalog.*` lint exemptions) — v2
+- [ ] Optional self-hosted-runner `package_check` on GitHub — v2 (GHCI-02, only if lint-only proves insufficient)
 
 ### Out of Scope
 
@@ -45,25 +50,21 @@ Target user: self-hosters running YunoHost who want a one-command `yunohost app 
 - **Database management UI** — User can install mongo-express separately
 - **Redis integration** — Not required for default single-server mode
 
-## Current Milestone: v1.1 CI Validation
+## Current Milestone: (none — v1.1 shipped)
 
-**Goal:** Package passes YunoHost `package_check` with zero failures and all identified findings fixed.
-
-**Target features:**
-- Run `package_check` against the package and fix all failures
-- Archive clean CI result as live verification of POLS-01
+**Next milestone:** to be defined via `/gsd-new-milestone`.
 
 ## Current State
 
 **Shipped: v1.0** (2026-09-19) — complete lifecycle package: install, remove, backup/restore, and config-preserving upgrade, all live-verified on a real YunoHost server. 34/34 v1 requirements met; 47 files, ~5,700 lines added. LibreChat pinned to v0.8.8-rc3 (sha256), Node 24, MongoDB 7.0.
 
-**v1.1 progress:** Phase 4 (Lint Baseline) complete — `package_linter` runs deterministically from the Windows dev box via WSL2 (`scripts/run_lint.sh`), locally-fixable errors reduced to zero, 8 of 9 warnings fixed, before/after baseline archived with 5 documented scope exemptions. **Phase 5 (tests.toml + Local package_check Environment) complete** — schema-valid `tests.toml` authored and parser/dry-run validated; idempotent host setup script + Hyper-V/Incus/btrfs walkthrough delivered; full `package_check` suite ran end-to-end on the Hyper-V Debian 12 VM (Global 4m5s, exit 0, no crashes) with findings archived. Next: Phase 6 (Fix Findings to Zero Failures).
+**Shipped: v1.1 CI Validation** (2026-09-20) — 4 phases, 13 plans. `package_linter` runs deterministically via WSL2 (`scripts/run_lint.sh`) with zero locally-fixable errors (5 catalog items exempt); schema-valid `tests.toml` + reproducible Hyper-V Debian 12 VM/Incus/btrfs environment; all install-blocking bugs fixed and a single clean full-suite `package_check` run archived as POLS-01 (exit 0, 4/4 in-scope SUCCESS, `change_url`/`upgrade.05e3d5b` exempt by design); lint-only GitHub Actions workflow green. See `.planning/MILESTONES.md` and `.planning/milestones/v1.1-*.md`.
 
-**Known debt for next milestone:** `package_check` suite completes but not yet at zero failures — Phase 6 fixes the findings (headline: `admin_panel_session_secret` bug). Multi-instance blocked by single-instance Meilisearch wiring; future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump). 8 reproducibility gaps recorded in `05-FINDINGS.md` §5 should be folded into `doc/PACKAGE_CHECK.md` / `scripts/setup_pc_env.sh`.
+**Known debt for next milestone:** full `package_check` is deliberately NOT in hosted CI (research-locked anti-feature — privileged LXC/Incus/btrfs conflicts with Docker; frontend build OOMs on 7GB runners). Multi-instance blocked by single-instance Meilisearch wiring. Future upstream releases require the established bump flow (tag → sha256 pin → `~ynhN` bump). Reproducibility gaps recorded in `05-FINDINGS.md` §5 should be folded into `doc/PACKAGE_CHECK.md` / `scripts/setup_pc_env.sh`.
 
 ## Next Milestone Goals
 
-To be defined via `/gsd-new-milestone`. Deferred: `change_url` (POLS-02), multi-instance (POLS-03), ARM64 (POLS-04), admin-credential install question.
+To be defined via `/gsd-new-milestone`. Deferred: `change_url` (POLS-02), multi-instance (POLS-03), ARM64 (POLS-04), admin-credential install question (POLS-05), catalog submission PR, optional GHCI-02.
 
 <details>
 <summary>v1.0 pre-release planning context (original project framing)</summary>
@@ -113,6 +114,13 @@ This package wraps a real application with multiple backing services:
 | nginx WS headers retained over `proxy_params_no_auth` alone | LibreChat WebSockets/SSE require `proxy_http_version 1.1` + `Upgrade` + `Connection` | ✓ Good — permanent design exception |
 | `tests.toml` upgrade-from pinned to commit `05e3d5b` (0.8.8-rc3~ynh2) not `116691c` | `116691c` is a manifest-only skeleton with no `scripts/` and is not installable | ✓ Good — suite parses and upgrade target is installable |
 | package_check host = dedicated Hyper-V Debian 12 VM + Incus (Zabbly lts-7.0) + btrfs pool on a second disk | WSL2 ruled out (no nested Incus/btrfs); Incus has no native bookworm package; btrfs enables fast CoW snapshots | ✓ Good — full suite ran end-to-end on this host |
+| Zero-failure bar scoped to 4 in-scope tests; `change_url` + `upgrade.05e3d5b` exempt by design | `05e3d5b` (v1.0 artifact) predates the Phase 4 manifest schema fix and cannot install on YNH ≥12.1.40; `change_url` is POLS-02 | ✓ Good — documented in 06-SCOPE-EXEMPTIONS.md |
+| POLS-01 evidence = one clean full-suite run (cycle 13), not a retry composite; logs redacted | Honest live-verification claim; secrets must not be committed | ✓ Good — 20m45s run, exit 0, 0 residual secret matches |
+| Mongo password read from setting key `db_pwd` (not `mongopwd`) | YNH helpers v2.1 `ynh_mongo_setup_db` stores it as `db_pwd`; `mongopwd` never set | ✓ Good — fixed install/upgrade/_common |
+| `HOST=127.0.0.1` (not `localhost`) in `librechat.env` | Container resolves `localhost`→`::1` first; node binds IPv6 while nginx proxies IPv4 → 502 | ✓ Good — install.root passes |
+| Meilisearch unit sets `WorkingDirectory=__DATA_DIR__` | v1.53.2 creates `dumps/` relative to CWD; with no CWD (=`/`) `librechat` user gets EACCES | ✓ Good — proven by controlled in-container repro |
+| Restore recreates the Mongo user (`ynh_mongo_setup_db --db_pwd` before restore) | `mongodump --db` doesn't dump DB users; fresh Mongo rejects restored credentials | ✓ Good — backup_restore passes |
+| CI workflow inline-provisions `package_linter` pinned to a commit SHA (Python 3.12 via setup-python) | Workflow must start/stay green; `run_lint.sh` is WSL2-specific; floating `main` could redden with no repo change | ✓ Good — GHCI-01 green |
 
 ---
-*Last updated: 2026-09-20 after Phase 5 (tests.toml + Local package_check Environment) transition*
+*Last updated: 2026-09-23 after v1.1 CI Validation milestone*

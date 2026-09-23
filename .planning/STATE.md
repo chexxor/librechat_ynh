@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-09-20)
+See: .planning/PROJECT.md (updated 2026-09-23)
 
 **Core value:** One command installs a working LibreChat (API + MongoDB + Meilisearch) natively on YunoHost with a valid nginx proxy, a functioning systemd service, and reliable backup/restore.
-**Current focus:** Milestone v1.1 CI Validation — SHIPPED (all 4 phases green)
+**Current focus:** Planning next milestone (v1.1 CI Validation SHIPPED)
 
 ## Current Position
 
-Milestone: v1.1 CI Validation (phases 4-7) — SHIPPED 2026-09-20
+Milestone: v1.1 CI Validation (phases 4-7) — SHIPPED 2026-09-20, archived 2026-09-23
 Phase: 7 of 7 (GitHub Actions Lint Workflow) — COMPLETE
 **Current Plan:** Complete
 **Total Plans in Phase:** 1
-**Status:** Phase 7 complete; milestone v1.1 SHIPPED
-Last activity: 2026-09-20 - Phase 7 complete. GHCI-01 delivered: lint-only `.github/workflows/lint.yml` (3 jobs on ubuntu-latest, `timeout-minutes: 10`, push + pull_request, `permissions: contents: read`, no package_check/container build) + `scripts/lint_toml.py` (tomllib syntax + live tests.v1 schema via jsonschema) + `scripts/.shellcheckrc` (documented YNH-framework ignore set). Validated locally: shellcheck exit 0 across all 9 scripts; `lint_toml.py` exit 0. All v1.1 requirements complete (LINT-01, CI-01, CI-02, POLS-01, GHCI-01).
+**Status:** v1.1 milestone complete and archived
+Last activity: 2026-09-23 - Completed and archived milestone v1.1 CI Validation. Created `.planning/milestones/v1.1-ROADMAP.md` + `v1.1-REQUIREMENTS.md`; backfilled the missing `06-03-SUMMARY.md`; reorganized ROADMAP.md; updated PROJECT.md evolution review; deleted the milestone REQUIREMENTS.md. All v1.1 requirements complete (LINT-01, CI-01, CI-02, POLS-01, GHCI-01).
 
 **Progress:** [##########] 100%
 
@@ -32,6 +32,8 @@ Last activity: 2026-09-20 - Phase 7 complete. GHCI-01 delivered: lint-only `.git
 | v1.0 (1-3) | 7 | 7 | - |
 | v1.1 Phase 04 | 4 | 4 | ~2.3min |
 | v1.1 Phase 05 | 3 | 3 | ~12min |
+| v1.1 Phase 06 | 5 | 5 | ~4-21min (13 fix cycles) |
+| v1.1 Phase 07 | 1 | 1 | ~15min |
 
 ## Accumulated Context
 
@@ -73,6 +75,6 @@ None yet.
 
 ## Session Continuity
 
-**Last session:** 2026-09-20
-**Stopped at:** Phase 6 complete, ready to plan Phase 7
-**Resume file:** .planning/phases/06-fix-findings-to-zero-failures/06-CONTEXT.md
+**Last session:** 2026-09-23
+**Stopped at:** v1.1 CI Validation milestone complete and archived
+**Resume file:** .planning/MILESTONES.md
